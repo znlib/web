@@ -26,4 +26,13 @@ class ErrorHelper
         }
     }
 
+    public static function addErrorsFromException(UnprocessibleEntityException $e, Model $form) {
+        $errors = $e->getErrorCollection();
+        if($errors instanceof Model) {
+            $errors = $errors->getErrors();
+        }
+        foreach($errors as $errorEntity) {
+            $form->addError($errorEntity->getField(), $errorEntity->getMessage());
+        }
+    }
 }

@@ -1,0 +1,5 @@
+{% for script in resourceList('script') %}
+    <script src="{{ asset(script.path) }}"></script>
+{% endfor %}
+
+{% block javascripts %}{% endblock %}

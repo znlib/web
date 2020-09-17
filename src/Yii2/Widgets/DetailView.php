@@ -8,7 +8,7 @@ use ZnLib\Web\Yii2\Widgets\detailViewFormats\BooleanFormat;
 use ZnLib\Web\Yii2\Widgets\detailViewFormats\LinkFormat;
 use ZnLib\Web\Yii2\Widgets\detailViewFormats\ListFormat;
 use yii2rails\extension\common\helpers\ClassHelper;
-use ZnSandbox\Sandbox\Lang\Yii2\Helpers\LangHelper;
+use ZnBundle\Language\Yii2\Helpers\LangHelper;
 
 class DetailView extends \yii\widgets\DetailView {
 	

@@ -2,12 +2,11 @@
 
 namespace ZnLib\Web\Symfony4\MicroApp;
 
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use ZnCore\Base\Helpers\LoadHelper;
 use ZnLib\Rest\Web\Controller\BaseCrudWebController;
 
-abstract class BaseWebController extends AbstractController
+abstract class BaseWebController
 {
 
     protected $layout = __DIR__ . '/layouts/main.php';

@@ -10,7 +10,7 @@
 
     <title>Hello, world!</title>
 </head>
-<body style="margin-top: 20px">
+<body style="margin-top: 20px; margin-bottom: 20px;">
 
 <div class="container">
     <div class="row">

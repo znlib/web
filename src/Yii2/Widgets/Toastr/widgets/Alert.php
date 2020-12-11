@@ -83,6 +83,7 @@ class Alert extends Widget
 	private function generateHtml($collection) {
 		foreach($collection as $entity) {
 		    $type = str_replace('alert-', '', $entity->type);
+//		    dd("toastr.{$type}('{$entity->content}'); \n");
             $this->view->registerJs("toastr.{$type}('{$entity->content}'); \n");
 		}
 	}

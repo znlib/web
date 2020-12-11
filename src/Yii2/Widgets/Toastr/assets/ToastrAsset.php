@@ -7,12 +7,12 @@ use yii\web\AssetBundle;
 class ToastrAsset extends AssetBundle
 {
 
-    public $baseUrl = '//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest';
+    public $baseUrl = 'https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4';
     public $css = [
-        'css/toastr.css',
+        'toastr.min.css',
     ];
     public $js = [
-        'js/toastr.min.js',
+        'toastr.min.js',
     ];
     public $depends = [
     ];

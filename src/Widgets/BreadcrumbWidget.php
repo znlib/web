@@ -12,9 +12,21 @@ class BreadcrumbWidget extends MenuWidget
     public $wrapTemplate = '<ol class="breadcrumb">{items}</ol>';
     public $encodeLabels = false;
 
-    public function __construct(array $items)
+    public function __construct(array $items = [])
     {
         $this->items = $items;
     }
 
+    public function add(string $label, string $url)
+    {
+        $this->items[] = [
+            'label' => $label,
+            'url' => $url,
+        ];
+    }
+
+    public function addItem(array $item)
+    {
+        $this->items[] = $item;
+    }
 }

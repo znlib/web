@@ -23,6 +23,10 @@ class ToastrAsset extends AssetBundle
     }
 }
 
+/**
+ * @example https://codeseven.github.io/toastr/demo.html
+ */
+
 /*
 // options
 toastr.options = {"positionClass": "toast-top-center"}
@@ -32,3 +36,4 @@ $('button').on('click',function () {
   toastr.success('Work saved! Sike...')
 })
 */
+

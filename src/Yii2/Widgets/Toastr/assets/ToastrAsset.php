@@ -3,11 +3,13 @@
 namespace ZnLib\Web\Yii2\Widgets\Toastr\assets;
 
 use yii\web\AssetBundle;
+use yii\web\JqueryAsset;
+use ZnYii\Base\Web\Assets\BaseAsset;
 
-class ToastrAsset extends AssetBundle
+class ToastrAsset extends BaseAsset
 {
 
-    public $baseUrl = 'https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4';
+    public $sourcePath = __DIR__ . '/dist';
     public $css = [
         'toastr.min.css',
     ];
@@ -15,12 +17,8 @@ class ToastrAsset extends AssetBundle
         'toastr.min.js',
     ];
     public $depends = [
+        JqueryAsset::class,
     ];
-
-    public function init()
-    {
-        parent::init();
-    }
 }
 
 /**

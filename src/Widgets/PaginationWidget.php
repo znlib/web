@@ -13,8 +13,9 @@ class PaginationWidget extends BaseWidget
     private $request;
     private $perPageOptions = [10, 20, 50];
 
-    public function __construct(DataProviderEntity $dataProviderEntity, Request $request)
+    public function __construct(DataProviderEntity $dataProviderEntity, Request $request = null)
     {
+        $request = $request ?: Request::createFromGlobals();
         $this->dataProviderEntity = $dataProviderEntity;
         $this->request = $request;
     }

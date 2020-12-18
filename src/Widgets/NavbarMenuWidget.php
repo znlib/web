@@ -20,9 +20,8 @@ class NavbarMenuWidget extends MenuWidget
     public $activateParents = true;
     public $treeViewIcon = '<i class="right fas fa-angle-left"></i>';
 
-    public function __construct()
+    public function __construct(array $items)
     {
-        $this->items = include(__DIR__ . '/../../../../../config/extra/menu/web.php');
+        $this->items = $items;
     }
-
 }

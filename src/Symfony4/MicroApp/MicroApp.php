@@ -22,10 +22,17 @@ class MicroApp
      */
     private $container;
 
-    public function __construct(ContainerInterface $container, RouteCollection $routes = null)
+    public function __construct(ContainerInterface $container = null, RouteCollection $routes = null)
+    {
+        if($container) {
+            $this->container = $container;
+        }
+        $this->routes = $this->routes ?: $this->container->get(RouteCollection::class);
+    }
+
+    public function setContainer(ContainerInterface $container)
     {
         $this->container = $container;
-        $this->routes = $this->routes ?: $this->container->get(RouteCollection::class);
     }
 
     public function setErrorLevel(int $level = null)
@@ -36,6 +43,14 @@ class MicroApp
         } else {
             error_reporting($level);
             ini_set('display_errors', '1');
+        }
+    }
+
+    public function addModules(array $modulesConfig)
+    {
+        foreach ($modulesConfig as $moduleClass) {
+            $moduleInstance = $this->container->get($moduleClass);
+            $this->addModule($moduleInstance);
         }
     }
 

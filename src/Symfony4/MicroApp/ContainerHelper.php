@@ -8,6 +8,27 @@ use Psr\Container\ContainerInterface;
 class ContainerHelper
 {
 
+    private static $container;
+
+    public static function setContainer(object $container)
+    {
+        self::$container = $container;
+    }
+
+    /**
+     * @return ContainerInterface|null
+     */
+    public static function getContainer(): ?object
+    {
+        if(isset(self::$container)) {
+            return self::$container;
+        }
+        if(class_exists(Container::class)) {
+            return Container::getInstance();
+        }
+        return null;
+    }
+
     public static function configureContainer(ContainerInterface $container, array $containerConfig)
     {
         $container->singleton(ContainerInterface::class, Container::class);

@@ -35,6 +35,11 @@ class MicroApp
         $this->container = $container;
     }
 
+    /**
+     * @param int|null $level
+     * @deprecated
+     * @see EnvHelper::setErrorVisible()
+     */
     public function setErrorLevel(int $level = null)
     {
         if ($level === null) {

@@ -4,6 +4,7 @@ namespace ZnLib\Web\Symfony4\MicroApp;
 
 use Illuminate\Container\Container;
 use Psr\Container\ContainerInterface;
+use ZnCore\Base\Legacy\Yii\Helpers\ArrayHelper;
 
 class ContainerHelper
 {
@@ -15,15 +16,31 @@ class ContainerHelper
         self::$container = $container;
     }
 
+
+
+    public static function mergeFromFiles(array $config, array $fileList, string $toKey = null): array
+    {
+        foreach ($fileList as $configFile) {
+            if($toKey) {
+                $sourceConfig = ArrayHelper::getValue($config, $toKey);
+            } else {
+                $sourceConfig = $config;
+            }
+            $mergedConfig = ArrayHelper::merge($sourceConfig, require($configFile));
+            ArrayHelper::setValue($config, $toKey, $mergedConfig);
+        }
+        return $config;
+    }
+
     /**
      * @return ContainerInterface|null
      */
     public static function getContainer(): ?object
     {
-        if(isset(self::$container)) {
+        if (isset(self::$container)) {
             return self::$container;
         }
-        if(class_exists(Container::class)) {
+        if (class_exists(Container::class)) {
             return Container::getInstance();
         }
         return null;

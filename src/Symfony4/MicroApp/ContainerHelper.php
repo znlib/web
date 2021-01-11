@@ -16,7 +16,33 @@ class ContainerHelper
         self::$container = $container;
     }
 
+    public static function importFromConfig(string $configFile): array
+    {
+        $importList = require $configFile;
+        $containerConfig = [];
+        $containerConfig = self::importFromFiles($containerConfig, $importList);
+        return $containerConfig;
+    }
 
+    private static function importFromFiles(array $config, array $fileList): array
+    {
+        foreach ($fileList as $configFile) {
+            $toKey = null;
+            if (is_array($configFile)) {
+                $toKey = $configFile[1];
+                $configFile = $configFile[0];
+            }
+            if ($toKey) {
+                $sourceConfig = ArrayHelper::getValue($config, $toKey);
+            } else {
+                $sourceConfig = $config;
+            }
+            $requiredConfig = require($configFile);
+            $mergedConfig = ArrayHelper::merge($sourceConfig, $requiredConfig);
+            ArrayHelper::setValue($config, $toKey, $mergedConfig);
+        }
+        return $config;
+    }
 
     public static function mergeFromFiles(array $config, array $fileList, string $toKey = null): array
     {

@@ -4,18 +4,23 @@ namespace ZnLib\Web\Symfony4\MicroApp;
 
 use Illuminate\Container\EntryNotFoundException;
 use Psr\Container\ContainerInterface;
+use Symfony\Component\Config\FileLocator;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Exception\NoConfigurationException;
+use Symfony\Component\Routing\Loader\PhpFileLoader;
 use Symfony\Component\Routing\Matcher\UrlMatcher;
 use Symfony\Component\Routing\Matcher\UrlMatcherInterface;
 use Symfony\Component\Routing\RequestContext;
 use Symfony\Component\Routing\RouteCollection;
+use Symfony\Component\Routing\Loader\Configurator\RoutingConfigurator;
 
 class MicroApp
 {
 
+    /** @var RouteCollection */
     private $routes;
+    private $routingConfigurator;
 
     /**
      * @var ContainerInterface
@@ -27,7 +32,10 @@ class MicroApp
         if($container) {
             $this->container = $container;
         }
-        $this->routes = $this->routes ?: $this->container->get(RouteCollection::class);
+        $this->routes = $routes ?: $this->container->get(RouteCollection::class);
+        $fileLocator = new FileLocator();
+        $fileLoader = new PhpFileLoader($fileLocator);
+        $this->routingConfigurator = new RoutingConfigurator($this->routes, $fileLoader, __FILE__, __FILE__);
     }
 
     public function setContainer(ContainerInterface $container)
@@ -63,6 +71,7 @@ class MicroApp
     {
         $module->configContainer($this->container);
         $module->configRoutes($this->routes);
+        $module->configRouting($this->routingConfigurator);
     }
 
     public function run(Request $request = null): Response
@@ -84,12 +93,19 @@ class MicroApp
     private function runAction(UrlMatcherInterface $matcher, Request $request): Response
     {
         $attributes = $matcher->match($request->getPathInfo());
-        $actionName = $attributes['_action'];
-        $controllerInstance = $this->container->get($attributes['_controller']);
+        if(is_array($attributes['_controller'])) {
+            list($controller, $actionName) = $attributes['_controller'];
+        } else {
+            $controller = $attributes['_controller'];
+            $actionName = $attributes['_action'];
+        }
+        $controllerInstance = $this->container->get($controller);
+        $attributes[Request::class] = $request;
+//        $this->container->bind(Request::class, function() use ($request) {return $request;});
         //$response = call_user_func_array([$controllerInstance, $actionName], [$request]);
-        $params = $request->query->all();
-        $params[] = $request;
-        $response = $this->container->call([$controllerInstance, $actionName], $params);
+        /*$params = $request->query->all();
+        $params[] = $request;*/
+        $response = $this->container->call([$controllerInstance, $actionName], $attributes);
         return $response;
     }
 

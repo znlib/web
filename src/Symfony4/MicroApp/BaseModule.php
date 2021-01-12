@@ -3,6 +3,7 @@
 namespace ZnLib\Web\Symfony4\MicroApp;
 
 use Illuminate\Container\Container;
+use Symfony\Component\Routing\Loader\Configurator\RoutingConfigurator;
 use Symfony\Component\Routing\RouteCollection;
 
 abstract class BaseModule
@@ -13,7 +14,17 @@ abstract class BaseModule
 
     }
 
+    /**
+     * @param RouteCollection $routes
+     * @deprecated
+     * @see configRouting
+     */
     public function configRoutes(RouteCollection $routes)
+    {
+
+    }
+
+    public function configRouting(RoutingConfigurator $routes)
     {
 
     }

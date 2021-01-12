@@ -14,6 +14,7 @@ use Symfony\Component\Routing\Matcher\UrlMatcherInterface;
 use Symfony\Component\Routing\RequestContext;
 use Symfony\Component\Routing\RouteCollection;
 use Symfony\Component\Routing\Loader\Configurator\RoutingConfigurator;
+use ZnCore\Base\Exceptions\DeprecatedException;
 
 class MicroApp
 {
@@ -50,6 +51,7 @@ class MicroApp
      */
     public function setErrorLevel(int $level = null)
     {
+        throw new DeprecatedException();
         if ($level === null) {
             error_reporting(0);
             ini_set('display_errors', '0');

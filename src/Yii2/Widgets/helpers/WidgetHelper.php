@@ -9,7 +9,7 @@ class WidgetHelper {
 
     public static function renderTemplateByRepo(RepoEntity $repoEntity, $name) {
         $url = self::renderTemplate($repoEntity->group->provider->url_templates[$name], $repoEntity->toArray());
-        $url = $repoEntity->group->provider->host . SL . $url;
+        $url = $repoEntity->group->provider->host . '/' . $url;
         return $url;
     }
 	

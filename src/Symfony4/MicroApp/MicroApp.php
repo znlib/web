@@ -85,7 +85,7 @@ class MicroApp
         } catch (NoConfigurationException $e) {
             $response = new Response('Not config', 404);
         } catch (EntryNotFoundException $e) {
-            $response = new Response('Not found class! ' . $e->getMessage(), 404);
+            $response = new Response('Not found class in container for DI in ' . $e->getMessage(), 404);
         } catch (\Exception $e) {
             $response = new Response($e->getMessage());
         }

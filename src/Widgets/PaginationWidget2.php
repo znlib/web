@@ -10,6 +10,7 @@ use ZnLib\Web\Widgets\Base\BaseWidget2;
 class PaginationWidget2 extends BaseWidget2
 {
 
+    /** @var DataProvider */
     public $dataProvider;
     private $dataProviderEntity;
     private $request;
@@ -18,17 +19,18 @@ class PaginationWidget2 extends BaseWidget2
     public function __construct(DataProvider $dataProvider = null, Request $request = null)
     {
         $request = $request ?: Request::createFromGlobals();
-        if($dataProvider) {
-            $this->dataProvider = $dataProvider;
-        }
-        $this->dataProviderEntity = new DataProviderEntity();
-        $this->dataProviderEntity->setTotalCount($this->dataProvider->getTotalCount());
-//        $this->dataProviderEntity->setCollection($this->dataProvider->getCollection());
         $this->request = $request;
+    }
+
+    public function init()
+    {
+        $this->dataProviderEntity = $this->dataProvider->getEntity();
+        $this->dataProviderEntity->setTotalCount($this->dataProvider->getTotalCount());
     }
 
     public function run(): string
     {
+        $this->init();
         if ($this->dataProviderEntity->getPageCount() == 1) {
             return '';
         }

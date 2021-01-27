@@ -20,10 +20,10 @@ class View
     public function render(string $viewFile, array $__params): string
     {
         $file = $this->getRenderDirectory() . DIRECTORY_SEPARATOR . $viewFile . '.php';
-        return $this->getRenderContent($file, $__params);
+        return $this->renderFile($file, $__params);
     }
 
-    public function getRenderContent(string $viewFile, array $__params): string
+    public function renderFile(string $viewFile, array $__params): string
     {
         $out = '';
         ob_start();

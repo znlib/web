@@ -7,16 +7,20 @@ use ReflectionClass;
 class View
 {
 
-    private $viewPath = 'views';
-
-    public function getViewPath(): string
+    public function getRenderDirectory(): string
     {
-        return $this->viewPath;
+        return $this->renderDirectory;
     }
 
-    public function setViewPath(string $viewPath): void
+    public function setRenderDirectory(string $renderDirectory): void
     {
-        $this->viewPath = $viewPath;
+        $this->renderDirectory = $renderDirectory;
+    }
+
+    public function render(string $viewFile, array $__params): string
+    {
+        $file = $this->getRenderDirectory() . DIRECTORY_SEPARATOR . $viewFile . '.php';
+        return $this->getRenderContent($file, $__params);
     }
 
     public function getRenderContent(string $viewFile, array $__params): string
@@ -37,15 +41,12 @@ class View
         return ob_get_clean() . $out;
     }
 
-    public function getRenderFile(object $class, string $relativeViewFileAlias): string
+    /*public function getRenderFile(object $class, string $relativeViewFileAlias): string
     {
-        $reflector = new ReflectionClass($class);
-        $classFile = $reflector->getFileName();
-        $classDirectory = dirname($classFile);
-        $viewsDirectory = $classDirectory . DIRECTORY_SEPARATOR . $this->viewPath;
+        $viewsDirectory = $this->getRenderDirectory($class);
         $viewFile = $viewsDirectory . DIRECTORY_SEPARATOR . $relativeViewFileAlias;
         return $viewFile . '.php';
-    }
+    }*/
 
     protected function includeRender(string $viewFile, array $__params)
     {

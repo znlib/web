@@ -58,7 +58,7 @@ class Alert extends Widget
     public static function create($content, $type = Alert::TYPE_SUCCESS, $delay = 5000) {
         $entity = new \stdClass();
         if(is_array($content)) {
-            $content = I18Next::t($content[0], $content[1]);
+            $content = I18Next::translateFromArray($content);
         }
         ClassHelper::configure($entity, [
             'type' => $type,

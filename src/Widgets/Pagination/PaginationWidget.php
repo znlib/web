@@ -1,13 +1,14 @@
 <?php
 
-namespace ZnLib\Web\Widgets;
+namespace ZnLib\Web\Widgets\Pagination;
 
 use Symfony\Component\HttpFoundation\Request;
 use ZnCore\Domain\Entities\DataProviderEntity;
 use ZnCore\Domain\Libs\DataProvider;
 use ZnLib\Web\Widgets\Base\BaseWidget2;
+use ZnLib\Web\Widgets\MenuWidget;
 
-class PaginationWidget2 extends BaseWidget2
+class PaginationWidget extends BaseWidget2
 {
 
     /** @var DataProvider */
@@ -84,7 +85,7 @@ class PaginationWidget2 extends BaseWidget2
             'options' => ['class' => ($this->dataProviderEntity->isLastPage() ? 'page-item disabled' : 'page-item')],
         ];
 
-        $menuWidget = new MenuWidget;
+        $menuWidget = new MenuWidget();
         $menuWidget->items = $items;
         $menuWidget->itemOptions = [
             'class' => 'page-item',

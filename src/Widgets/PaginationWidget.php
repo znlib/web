@@ -2,9 +2,12 @@
 
 namespace ZnLib\Web\Widgets;
 
+use ZnCore\Base\Helpers\DeprecateHelper;
 use ZnCore\Domain\Entities\DataProviderEntity;
 use ZnLib\Web\Widgets\Base\BaseWidget;
 use Symfony\Component\HttpFoundation\Request;
+
+DeprecateHelper::softThrow('PaginationWidget');
 
 class PaginationWidget extends BaseWidget
 {

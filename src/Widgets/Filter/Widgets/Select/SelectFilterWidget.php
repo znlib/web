@@ -8,6 +8,10 @@ use ZnCore\Base\Legacy\Yii\Helpers\Html;
 class SelectFilterWidget extends BaseFilterWidget
 {
 
+    public $options = [
+        'class' => 'form-control',
+        'onchange' => 'submitFormGlobal()',
+    ];
     public $choices = [];
 
     public function run(): string

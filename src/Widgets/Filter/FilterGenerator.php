@@ -18,7 +18,7 @@ class FilterGenerator
         $widgetDefaultAttributes = ArrayHelper::toArray($widgetInstance);
         $definition = ArrayHelper::merge($definition, $widgetDefaultAttributes);
         unset($definition['class']);
-        $definition['options']['onkeydown'] = 'submitForm(this, event)';
+        //$definition['options']['onkeydown'] = 'submitForm(this, event)';
         $definition['name'] = $name;
         $definition['value'] = $value;
         ClassHelper::configure($widgetInstance, $definition);
@@ -29,7 +29,7 @@ class FilterGenerator
     {
         $widgetClass = self::getWidgetClassByType($filterDefinition['type']);
         unset($filterDefinition['type']);
-        $options['onkeydown'] = 'submitForm(this, event)';
+        //$options['onkeydown'] = 'submitForm(this, event)';
         $definition = ClassHelper::normalizeComponentConfig($widgetClass);
         $definition = ArrayHelper::merge($definition, [
             'options' => $options,
@@ -37,7 +37,9 @@ class FilterGenerator
             'value' => $value,
         ]);
         $definition = ArrayHelper::merge($definition, $filterDefinition);
-
+        if($definition['options']) {
+            unset($definition['options']);
+        }
         $widgetInstance = ClassHelper::createObject($definition);
         return $widgetInstance->run();
     }
@@ -54,13 +56,15 @@ class FilterGenerator
             'text' => [
                 'class' => TextFilterWidget::class,
                 'options' => [
-                    'class' => 'form-control'
+                    'class' => 'form-control',
+                    //'onkeydown' => 'submitForm(this, event)',
                 ],
             ],
             'number' => [
                 'class' => NumberFilterWidget::class,
                 'options' => [
-                    'class' => 'form-control'
+                    'class' => 'form-control',
+                    //'onkeydown' => 'submitForm(this, event)',
                 ],
             ],
             'choice' => [

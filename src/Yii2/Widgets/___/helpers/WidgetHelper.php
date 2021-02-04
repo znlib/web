@@ -28,6 +28,4 @@ class WidgetHelper {
 		}
 		return $configPrepared;
 	}
-	
-	
 }

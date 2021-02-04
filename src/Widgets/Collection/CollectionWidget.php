@@ -28,7 +28,7 @@ class CollectionWidget extends BaseWidget2
         $formatterEncoder = new FormatEncoder();
         $formatterEncoder->setFormatterClasses($this->formatterClasses);
         $this->prepareAttributes();
-        return $this->render('collection-widget', [
+        return $this->render('index', [
             'tableClass' => $this->tableClass,
             'collection' => $this->collection,
             'dataProvider' => $this->dataProvider,

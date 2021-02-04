@@ -10,7 +10,7 @@
 use Illuminate\Support\Collection;
 use ZnLib\Web\Widgets\Format\Entities\AttributeEntity;
 use ZnLib\Web\Widgets\Format\Libs\FormatEncoder;
-use yii\web\View;
+use ZnLib\Web\View\View;
 use ZnCore\Base\Libs\I18Next\Facades\I18Next;
 
 ?>

@@ -2,7 +2,6 @@
 
 /**
  * @var View $this
- * @var Request $request
  * @var Collection $collection
  * @var DataProvider $dataProvider
  * @var AttributeEntity[] $attributes
@@ -14,12 +13,10 @@
  */
 
 use Illuminate\Support\Collection;
+use ZnCore\Domain\Libs\DataProvider;
+use ZnLib\Web\View\View;
 use ZnLib\Web\Widgets\Format\Entities\AttributeEntity;
 use ZnLib\Web\Widgets\Format\Libs\FormatEncoder;
-use yii\web\Request;
-use yii\web\View;
-use ZnCore\Base\Libs\I18Next\Facades\I18Next;
-use ZnCore\Domain\Libs\DataProvider;
 use ZnLib\Web\Widgets\Pagination\PaginationWidget;
 
 if (!isset($collection)) {

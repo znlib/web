@@ -2,12 +2,8 @@
 
 namespace ZnLib\Web\Yii2\Widgets\Toastr\widgets;
 
-use yii\base\BaseObject;
-use yii\base\Model;
 use yii\base\Widget;
-use yii2bundle\navigation\domain\entities\AlertEntity;
 use ZnCore\Base\Helpers\ClassHelper;
-use ZnCore\Base\Legacy\Yii\Helpers\ArrayHelper;
 use ZnCore\Base\Libs\I18Next\Facades\I18Next;
 
 class Alert extends Widget
@@ -46,18 +42,19 @@ class Alert extends Widget
 
     private static $all = [];
 
-	/**
-	 * Runs the widget
-	 */
-	public function run()
-	{
-		$collection = $this->getCollection();
-		$this->generateHtml($collection);
-	}
+    /**
+     * Runs the widget
+     */
+    public function run()
+    {
+        $collection = $this->getCollection();
+        $this->generateHtml($collection);
+    }
 
-    public static function create($content, $type = Alert::TYPE_SUCCESS, $delay = 5000) {
+    public static function create($content, $type = Alert::TYPE_SUCCESS, $delay = 5000)
+    {
         $entity = new \stdClass();
-        if(is_array($content)) {
+        if (is_array($content)) {
             $content = I18Next::translateFromArray($content);
         }
         ClassHelper::configure($entity, [
@@ -65,27 +62,29 @@ class Alert extends Widget
             'content' => $content,
             'delay' => $delay,
         ]);
-	    self::$all[] = $entity;
+        self::$all[] = $entity;
         \Yii::$app->session->setFlash('flash-alert', self::$all);
     }
 
-	private function getCollection() {
-		$collection = $this->collection;
-		if(empty($collection)) {
-			$collection = \Yii::$app->session->getFlash('flash-alert');
-		}
-		if(empty($collection)) {
-			$collection = [];
-		}
-		return $collection;
-	}
+    private function getCollection()
+    {
+        $collection = $this->collection;
+        if (empty($collection)) {
+            $collection = \Yii::$app->session->getFlash('flash-alert');
+        }
+        if (empty($collection)) {
+            $collection = [];
+        }
+        return $collection;
+    }
 
-	private function generateHtml($collection) {
-		foreach($collection as $entity) {
-		    $type = str_replace('alert-', '', $entity->type);
+    private function generateHtml($collection)
+    {
+        foreach ($collection as $entity) {
+            $type = str_replace('alert-', '', $entity->type);
 //		    dd("toastr.{$type}('{$entity->content}'); \n");
             $this->view->registerJs("toastr.{$type}('{$entity->content}'); \n");
-		}
-	}
+        }
+    }
 
 }

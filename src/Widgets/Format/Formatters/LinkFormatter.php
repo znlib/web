@@ -2,7 +2,7 @@
 
 namespace ZnLib\Web\Widgets\Format\Formatters;
 
-use yii\helpers\Html;
+use ZnCore\Base\Legacy\Yii\Helpers\Html;
 use ZnCore\Domain\Helpers\EntityHelper;
 
 class LinkFormatter extends BaseFormatter implements FormatterInterface

@@ -6,11 +6,11 @@
  * @var object $filterModel
  */
 
+use Symfony\Component\PropertyAccess\PropertyAccess;
+use ZnCore\Base\Legacy\Yii\Helpers\Inflector;
+use ZnLib\Web\View\View;
 use ZnLib\Web\Widgets\Filter\FilterGenerator;
 use ZnLib\Web\Widgets\Format\Entities\AttributeEntity;
-use Symfony\Component\PropertyAccess\PropertyAccess;
-use yii\web\View;
-use ZnCore\Base\Legacy\Yii\Helpers\Inflector;
 
 $propertyAccessor = PropertyAccess::createPropertyAccessor();
 

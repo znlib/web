@@ -31,7 +31,7 @@ $propertyAccessor = PropertyAccess::createPropertyAccessor();
                     if ($formatter instanceof ActionFormatter) {
                         echo '
                         <div class="text-right">
-                            <a class="text-decoration-none text-primary" href="#" onclick="submitFormGlobal(); return false;" title="Send filter parameters">
+                            <a class="text-decoration-none text-primary" href="#" onclick="filterForm.submit(); return false;" title="Send filter parameters">
                                 <i class="fas fa-filter"></i>
                             </a>
                             &nbsp;
@@ -62,14 +62,20 @@ $propertyAccessor = PropertyAccess::createPropertyAccessor();
 
 <script>
 
-    function submitFormGlobal() {
-        $('#collection-filter-form').submit();
-    }
-
-    function submitForm(self, event) {
-        if (event.keyCode === 13) {
-            console.log(event.keyCode);
-            self.form.submit();
+    window.filterForm = {
+        submit: function (self) {
+            if(typeof self === 'undefined') {
+                var form = $('#collection-filter-form');
+            } else {
+                var form = self.form;
+            }
+            $(form).submit();
+        },
+        submitOnKeyDown: function (self, event) {
+            if (event.keyCode === 13) {
+                this.submit(self);
+            }
         }
-    }
+    };
+
 </script>

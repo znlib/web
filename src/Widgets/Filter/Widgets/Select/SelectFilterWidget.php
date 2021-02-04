@@ -10,7 +10,7 @@ class SelectFilterWidget extends BaseFilterWidget
 
     public $options = [
         'class' => 'form-control',
-        'onchange' => 'submitFormGlobal()',
+        'onchange' => 'filterForm.submit()',
     ];
     public $choices = [];
 

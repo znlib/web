@@ -5,11 +5,11 @@ namespace ZnLib\Web\Yii2\Helpers;
 use yii\base\Model;
 use ZnCore\Domain\Exceptions\UnprocessibleEntityException;
 use ZnCore\Domain\Helpers\EntityHelper;
-use ZnYii\Web\Widgets\Toastr\Toastr;
 use ZnSandbox\Sandbox\RestClient\Domain\Interfaces\Services\AccessServiceInterface;
 use ZnSandbox\Sandbox\RestClient\Domain\Interfaces\Services\EnvironmentServiceInterface;
 use ZnSandbox\Sandbox\RestClient\Domain\Interfaces\Services\ProjectServiceInterface;
 use ZnSandbox\Sandbox\RestClient\Yii\Web\models\EnvironmentForm;
+use ZnYii\Web\Widgets\Toastr\Toastr;
 
 class ErrorHelper
 {
@@ -26,12 +26,13 @@ class ErrorHelper
         }
     }
 
-    public static function addErrorsFromException(UnprocessibleEntityException $e, Model $form) {
+    public static function addErrorsFromException(UnprocessibleEntityException $e, Model $form)
+    {
         $errors = $e->getErrorCollection();
-        if($errors instanceof Model) {
+        if ($errors instanceof Model) {
             $errors = $errors->getErrors();
         }
-        foreach($errors as $errorEntity) {
+        foreach ($errors as $errorEntity) {
             $form->addError($errorEntity->getField(), $errorEntity->getMessage());
         }
     }

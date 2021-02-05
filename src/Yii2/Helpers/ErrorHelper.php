@@ -5,7 +5,7 @@ namespace ZnLib\Web\Yii2\Helpers;
 use yii\base\Model;
 use ZnCore\Domain\Exceptions\UnprocessibleEntityException;
 use ZnCore\Domain\Helpers\EntityHelper;
-use ZnYii\Web\Widgets\Toastr\Alert;
+use ZnYii\Web\Widgets\Toastr\Toastr;
 use ZnSandbox\Sandbox\RestClient\Domain\Interfaces\Services\AccessServiceInterface;
 use ZnSandbox\Sandbox\RestClient\Domain\Interfaces\Services\EnvironmentServiceInterface;
 use ZnSandbox\Sandbox\RestClient\Domain\Interfaces\Services\ProjectServiceInterface;
@@ -21,7 +21,7 @@ class ErrorHelper
             if (!empty($error['field'])) {
                 $model->addError($error['field'], $error['message']);
             } else {
-                Alert::create($error['message'], Alert::TYPE_WARNING);
+                Toastr::create($error['message'], Toastr::TYPE_WARNING);
             }
         }
     }

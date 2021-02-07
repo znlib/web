@@ -13,6 +13,7 @@
  */
 
 use Illuminate\Support\Collection;
+use ZnCore\Base\Libs\I18Next\Facades\I18Next;
 use ZnCore\Domain\Libs\DataProvider;
 use ZnLib\Web\View\View;
 use ZnLib\Web\Widgets\Format\Entities\AttributeEntity;
@@ -46,9 +47,25 @@ if (!isset($collection)) {
         'collection' => $collection,
     ]) ?>
     </tbody>
+    <?php if ($collection->count()): ?>
+        <tfoot>
+        <tr>
+            <td colspan="<?= count($attributes) ?>">
+                <?= I18Next::t('web', 'collection.items_collection_count') ?>:
+                <?= $collection->count() ?>
+
+                <?php if (!empty($dataProvider)): ?>
+                    <span class="text-muted">
+            /
+        </span>
+                    <?= I18Next::t('web', 'collection.items_total_count') ?>:
+                    <?= $dataProvider->getTotalCount() ?>
+                <?php endif; ?>
+            </td>
+        </tr>
+        </tfoot>
+    <?php endif; ?>
 </table>
-
-
 
 <?php
 if (isset($dataProvider)) {
@@ -60,6 +77,6 @@ if (isset($dataProvider)) {
 <!---->
 <?php //else: ?>
 <!--    <div class="alert alert-secondary" role="alert">-->
-<!--        --><?//= I18Next::t('web', 'message.empty_list') ?>
+<!--        --><? //= I18Next::t('web', 'message.empty_list') ?>
 <!--    </div>-->
 <?php //endif; ?>

@@ -55,10 +55,7 @@ if (!isset($collection)) {
                 <?= $collection->count() ?>
 
                 <?php if (!empty($dataProvider)): ?>
-                    <span class="text-muted">
-            /
-        </span>
-                    <?= I18Next::t('web', 'collection.items_total_count') ?>:
+                    <?= I18Next::t('web', 'collection.items_of') ?>
                     <?= $dataProvider->getTotalCount() ?>
                 <?php endif; ?>
             </td>

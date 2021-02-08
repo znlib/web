@@ -3,6 +3,7 @@
 namespace ZnLib\Web\Widgets\Pagination;
 
 use Symfony\Component\HttpFoundation\Request;
+use ZnCore\Base\Helpers\StringHelper;
 use ZnCore\Domain\Entities\DataProviderEntity;
 use ZnCore\Domain\Libs\DataProvider;
 use ZnLib\Web\Widgets\Base\BaseWidget2;
@@ -16,6 +17,25 @@ class PaginationWidget extends BaseWidget2
     private $dataProviderEntity;
     private $request;
     private $perPageOptions = [10, 20, 50];
+
+    public $linkTemplate = '<a href="{url}" class="page-link {class}">{label}</a>';
+    public $layoutTemplate = '
+        <nav aria-label="Page navigation">
+            <ul class="pagination justify-content-end">
+                {items}
+            </ul>
+        </nav>';
+    public $pageSizeWrapperTemplate = '
+        <li class="page-item ">
+            <a class="page-link dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                {pageSize}
+            </a>
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                <h6 class="dropdown-header">Page size</h6>
+                {items}
+            </div>
+        </li>';
+    public $pageSizeItemTemplate = '<a class="dropdown-item" href="{url}">{size}</a>';
 
     public function __construct(DataProvider $dataProvider = null, Request $request = null)
     {
@@ -37,7 +57,7 @@ class PaginationWidget extends BaseWidget2
         }
         $itemsHtml = $this->renderItems();
         $renderPageSizeSelector = $this->renderPageSizeSelector();
-        $itemsHtml .= $renderPageSizeSelector ? '<li class="page-item">' . $renderPageSizeSelector . '</li>' : '';
+        $itemsHtml .= $renderPageSizeSelector/* ? '<li class="page-item">' . $renderPageSizeSelector . '</li>' : ''*/;
         return $this->renderLayout($itemsHtml);
     }
 
@@ -90,20 +110,14 @@ class PaginationWidget extends BaseWidget2
         $menuWidget->itemOptions = [
             'class' => 'page-item',
         ];
-        $menuWidget->linkTemplate = '<a href="{url}" class="page-link {class}">{label}</a>';
+        $menuWidget->linkTemplate = $this->linkTemplate;
         $itemsHtml = $menuWidget->render();
         return $itemsHtml;
     }
 
     private function renderLayout(string $items)
     {
-        return "
-            <nav aria-label=\"Page navigation\">
-                <ul class=\"pagination justify-content-end\">
-                    {$items}
-                </ul>
-            </nav>
-        ";
+        return StringHelper::renderTemplate($this->layoutTemplate, ['items' => $items]);
     }
 
     private function renderPageSizeSelector()
@@ -116,19 +130,16 @@ class PaginationWidget extends BaseWidget2
         foreach ($this->perPageOptions as $size) {
             $queryParams['per-page'] = $size;
             $queryParams['page'] = 1;
-            $queryString = http_build_query($queryParams);
-            $html .= "<a class=\"dropdown-item\" href='?{$queryString}'>{$size}</a>";
+            $queryString = '?' . http_build_query($queryParams);
+            $html .= StringHelper::renderTemplate($this->pageSizeItemTemplate, [
+                'url' => $queryString,
+                'size' => $size,
+            ]);
         }
-        return "
-            <li class=\"page-item \">
-                <a class=\"page-link dropdown-toggle\" href=\"#\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\">
-                    {$this->dataProviderEntity->getPageSize()}
-                </a>
-                <div class=\"dropdown-menu dropdown-menu-right\" aria-labelledby=\"navbarDropdown\">
-                    <h6 class=\"dropdown-header\">Page size</h6>
-                    {$html}
-                </div>
-            </li>";
+        return StringHelper::renderTemplate($this->pageSizeWrapperTemplate, [
+            'pageSize' => $this->dataProviderEntity->getPageSize(),
+            'items' => $html,
+        ]);
     }
 
 }

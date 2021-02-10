@@ -3,6 +3,8 @@
 namespace ZnLib\Web\Widgets\Format\Libs;
 
 use DateTime;
+use ZnCore\Base\Helpers\ClassHelper;
+use ZnCore\Base\Legacy\Yii\Helpers\ArrayHelper;
 use ZnLib\Web\Widgets\Format\Entities\AttributeEntity;
 use ZnLib\Web\Widgets\Format\Enums\TypeEnum;
 use ZnLib\Web\Widgets\Format\Formatters\ArrayFormatter;
@@ -19,8 +21,6 @@ use ZnLib\Web\Widgets\Format\Formatters\ResourceFormatter;
 use ZnLib\Web\Widgets\Format\Formatters\StringFormatter;
 use ZnLib\Web\Widgets\Format\Formatters\TimeFormatter;
 use ZnLib\Web\Widgets\Format\Formatters\UnknownTypeFormatter;
-use ZnCore\Base\Helpers\ClassHelper;
-use ZnCore\Base\Legacy\Yii\Helpers\ArrayHelper;
 
 class FormatEncoder
 {
@@ -45,7 +45,13 @@ class FormatEncoder
         }*/
         $formatterInstance = $this->getFormatterInstance($attributeEntity);
         $formatterInstance->setAttributeEntity($attributeEntity);
+        $formatterInstance->setFormatEncoder($this);
         return $formatterInstance->render($value);
+    }
+
+    public function encodeValue($value): string
+    {
+
     }
 
     private function getFormatterInstance(AttributeEntity $attributeEntity): FormatterInterface

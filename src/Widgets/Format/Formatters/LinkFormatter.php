@@ -16,7 +16,11 @@ class LinkFormatter extends BaseFormatter implements FormatterInterface
     public function render($value)
     {
         $entity = $this->attributeEntity->getEntity();
-        $title = EntityHelper::getValue($entity, $this->attributeEntity->getAttributeName());
+        if($this->attributeEntity->getAttributeName()) {
+            $title = EntityHelper::getValue($entity, $this->attributeEntity->getAttributeName());
+        } else {
+            $title = $value;
+        }
         $link = EntityHelper::getValue($entity, $this->linkAttribute);
         return Html::a($title, [$this->uri, $this->linkParam => $link]);
     }

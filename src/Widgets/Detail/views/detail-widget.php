@@ -8,7 +8,7 @@
  * @var FormatEncoder $formatter
  */
 
-use Packages\Company\Domain\Entities\PositionEntity;
+use Incloud\Packages\Company\Domain\Entities\PositionEntity;
 use ZnCore\Base\Libs\I18Next\Facades\I18Next;
 use ZnLib\Web\View\View;
 use ZnLib\Web\Widgets\Format\Entities\AttributeEntity;

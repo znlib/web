@@ -37,9 +37,9 @@ class PaginationWidget extends BaseWidget2
         </li>';
     public $pageSizeItemTemplate = '<a class="dropdown-item" href="{url}">{size}</a>';
 
-    public function __construct(DataProvider $dataProvider = null, Request $request = null)
+    public function __construct(DataProvider $dataProvider = null/*, Request $request = null*/)
     {
-        $request = $request ?: Request::createFromGlobals();
+        $request = /*$request ?: */Request::createFromGlobals();
         $this->request = $request;
     }
 

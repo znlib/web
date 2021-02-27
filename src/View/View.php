@@ -23,7 +23,7 @@ class View
         return $this->renderFile($file, $__params);
     }
 
-    public function renderFile(string $viewFile, array $__params): string
+    public function renderFile(string $viewFile, array $__params = []): string
     {
         $out = '';
         ob_start();
@@ -48,7 +48,7 @@ class View
         return $viewFile . '.php';
     }*/
 
-    protected function includeRender(string $viewFile, array $__params)
+    protected function includeRender(string $viewFile, array $__params = [])
     {
         extract($__params);
         include $viewFile;

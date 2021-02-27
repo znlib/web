@@ -8,6 +8,7 @@ use Symfony\Component\Config\FileLocator;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Exception\NoConfigurationException;
+use Symfony\Component\Routing\Exception\ResourceNotFoundException;
 use Symfony\Component\Routing\Loader\PhpFileLoader;
 use Symfony\Component\Routing\Matcher\UrlMatcher;
 use Symfony\Component\Routing\Matcher\UrlMatcherInterface;
@@ -15,6 +16,7 @@ use Symfony\Component\Routing\RequestContext;
 use Symfony\Component\Routing\RouteCollection;
 use Symfony\Component\Routing\Loader\Configurator\RoutingConfigurator;
 use ZnCore\Base\Exceptions\DeprecatedException;
+use ZnCore\Base\Libs\Scenario\Interfaces\RunInterface;
 
 class MicroApp
 {
@@ -82,11 +84,39 @@ class MicroApp
         $matcher = $this->createMatcher($this->routes, $request);
         try {
             $response = $this->runAction($matcher, $request);
-        } catch (NoConfigurationException $e) {
-            $response = new Response('Not config', 404);
-        } catch (EntryNotFoundException $e) {
-            $response = new Response('Not found class in container for DI in ' . $e->getMessage(), 404);
         } catch (\Exception $e) {
+            $response = $this->errorHandler($request, $e);
+        }
+        return $response;
+    }
+
+    private $errorController;
+
+    public function getErrorController()
+    {
+        return $this->errorHandler;
+    }
+
+    public function setErrorController($errorController): void
+    {
+        $this->errorHandler = $errorController;
+    }
+    
+    private function errorHandler(Request $request, \Throwable $e): Response {
+        $errorController = $this->getErrorController();
+        if($errorController) {
+            if(!is_object($errorController)) {
+                $errorController = $this->container->get($errorController);
+            }
+            return $errorController->handleError($request, $e);
+        }
+        if($e instanceof NoConfigurationException) {
+            $response = new Response('Not config', 500);
+        } elseif($e instanceof EntryNotFoundException) {
+            $response = new Response('Not found class in container for DI in ' . $e->getMessage(), 500);
+        } elseif($e instanceof ResourceNotFoundException) {
+            $response = new Response('Not found route', 404);
+        } elseif($e instanceof Exception) {
             $response = new Response($e->getMessage());
         }
         return $response;

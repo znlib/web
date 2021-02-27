@@ -26,7 +26,7 @@ abstract class BaseWidget2 implements WidgetInterface2
         return StringHelper::renderTemplate($templateCode, $params);
     }*/
 
-    public function render(string $relativeViewFileAlias, array $params)
+    public function render(string $relativeViewFileAlias, array $params = [])
     {
         $renderDirectory = RenderHelper::getRenderDirectoryByClass($this);
         $view = new View();

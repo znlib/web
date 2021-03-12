@@ -25,9 +25,21 @@ abstract class BaseWebController
         return new Response($content);
     }
 
+    protected function renderFile(string $file, array $params = []): Response
+    {
+        $view = new View();
+        $view->setRenderDirectory($this->viewsDir);
+        $pageContent = $view->renderFile($file, $params);
+        if (isset($this->layout)) {
+            $content = $view->renderFile($this->layout, [
+                'content' => $pageContent,
+            ]);
+        }
+        return new Response($content);
+    }
+    
     protected function render(string $file, array $params = []): Response
     {
-
         $view = new View();
         $view->setRenderDirectory($this->viewsDir);
         $pageContent = $view->render($file, $params);

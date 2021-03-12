@@ -94,7 +94,7 @@ class MicroApp
 
     public function getErrorController()
     {
-        return $this->errorHandler;
+        return $this->errorHandler ?? null;
     }
 
     public function setErrorController($errorController): void
@@ -116,8 +116,8 @@ class MicroApp
             $response = new Response('Not found class in container for DI in ' . $e->getMessage(), 500);
         } elseif($e instanceof ResourceNotFoundException) {
             $response = new Response('Not found route', 404);
-        } elseif($e instanceof Exception) {
-            $response = new Response($e->getMessage());
+        } elseif($e instanceof \Throwable) {
+            $response = new Response(get_class($e) . '  ' . $e->getMessage());
         }
         return $response;
     }

@@ -66,7 +66,11 @@ class MicroApp
     public function addModules(array $modulesConfig)
     {
         foreach ($modulesConfig as $moduleClass) {
-            $moduleInstance = $this->container->get($moduleClass);
+            if(is_object($moduleClass)) {
+                $moduleInstance = $moduleClass;
+            } else {
+                $moduleInstance = $this->container->get($moduleClass);
+            }
             $this->addModule($moduleInstance);
         }
     }

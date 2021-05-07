@@ -4,12 +4,23 @@ namespace ZnLib\Web\Widgets\Base;
 
 use ZnCore\Base\Helpers\ClassHelper;
 use ZnCore\Base\Helpers\StringHelper;
+use ZnCore\Base\Libs\App\Helpers\ContainerHelper;
 use ZnLib\Web\Widgets\Interfaces\WidgetInterface;
 
 abstract class BaseWidget implements WidgetInterface
 {
 
+    private static $_instance;
+
     abstract public function render(): string;
+
+    public static function getInstance(array $parameters = []): self
+    {
+        if(!isset(self::$_instance)) {
+            self::$_instance = ContainerHelper::getContainer()->make(static::class, $parameters);
+        }
+        return self::$_instance;
+    }
 
     public static function widget(array $options = []): string
     {

@@ -4,22 +4,22 @@ namespace ZnLib\Web\Symfony4\MicroApp\Libs\Renders;
 
 use ZnCore\Base\Legacy\Yii\Helpers\Html;
 
-class LabelRender extends BaseRender
+class LabelRender extends BaseInputRender
 {
 
-    protected function tagName(): string
+    public function tagName(): string
     {
         return 'label';
     }
 
-    protected function defaultOptions(): array {
+    public function defaultOptions(): array {
         return [
             'class'=>"control-label",
             'for' => $this->getViewOption('id'),
         ];
     }
 
-    public function render()
+    public function render(): string
     {
         $options = $this->defaultOptions();
         return Html::tag('label', $this->getViewOption('label'), $options);

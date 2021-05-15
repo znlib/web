@@ -2,10 +2,10 @@
 
 namespace ZnLib\Web\Symfony4\MicroApp\Libs\Renders;
 
-class TextRender extends BaseRender
+class TextRender extends BaseInputRender
 {
 
-    protected function defaultOptions(): array {
+    public function defaultOptions(): array {
         return [
             'class'=>"form-control"
         ];

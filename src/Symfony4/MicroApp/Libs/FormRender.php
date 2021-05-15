@@ -9,6 +9,7 @@ use ZnCore\Base\Libs\DotEnv\DotEnv;
 use ZnLib\Web\Symfony4\MicroApp\Libs\Renders\BaseRender;
 use ZnLib\Web\Symfony4\MicroApp\Libs\Renders\ButtonRender;
 use ZnLib\Web\Symfony4\MicroApp\Libs\Renders\CheckboxRender;
+use ZnLib\Web\Symfony4\MicroApp\Libs\Renders\FormErrorRender;
 use ZnLib\Web\Symfony4\MicroApp\Libs\Renders\HintRender;
 use ZnLib\Web\Symfony4\MicroApp\Libs\Renders\LabelRender;
 use ZnLib\Web\Symfony4\MicroApp\Libs\Renders\PasswordRender;
@@ -19,6 +20,15 @@ class FormRender
 
     private $formView;
     private $tokenManager;
+    private $renderDefinitions = [
+        'text' => TextRender::class,
+        'password' => PasswordRender::class,
+        'submit' => ButtonRender::class,
+        'checkbox' => CheckboxRender::class,
+        'hint' => HintRender::class,
+        'label' => LabelRender::class,
+        'formError' => FormErrorRender::class,
+    ];
 
     public function __construct(FormView $formView, CsrfTokenManagerInterface $tokenManager)
     {
@@ -31,33 +41,31 @@ class FormRender
             'name' => $this->formView->vars['name'],
             'method' => $this->formView->vars['method'],
         ]);
-        $token = $this->tokenManager->getToken(DotEnv::get('CSRF_TOKEN_ID'));
-        $html .= Html::hiddenInput('csrfToken', $token->getValue());
+        $html .= $this->csrfTokenInput();
         return $html;
     }
 
     public function endFrom() {
         return Html::endForm();
     }
-    
-    public function input($name, $type) {
-        $renderDefinition = $this->renderDefinitions[$type];
-        /** @var BaseRender $renderInstance */
-        $renderInstance = new $renderDefinition($this->formView, $name);
+
+    public function errors() {
+        $renderInstance = $this->createRender('formError');
         return $renderInstance->render();
     }
 
-    private $renderDefinitions = [
-        'text' => TextRender::class,
-        'password' => PasswordRender::class,
-        'submit' => ButtonRender::class,
-        'checkbox' => CheckboxRender::class,
-        'hint' => HintRender::class,
-        'label' => LabelRender::class,
-    ];
+    public function input(string $name, string $type) {
+        $renderInstance = $this->createRender($type);
+        $renderInstance->setAttributeName($name);
+        return $renderInstance->render();
+    }
 
     public function renderDefinitions(): array {
         return $this->renderDefinition;
+    }
+
+    public function addDefinition($definition): array {
+        $this->renderDefinition[] = $definition;
     }
 
     public function label($name) {
@@ -67,4 +75,17 @@ class FormRender
     public function hint($name, $text = null) {
         return $this->input($name, 'hint');
     }
+
+    private function createRender(string $type): BaseRender {
+        $renderDefinition = $this->renderDefinitions[$type];
+        /** @var BaseRender $renderInstance */
+        $renderInstance = new $renderDefinition($this->formView);
+        return $renderInstance;
+    }
+
+    private function csrfTokenInput(): string {
+        $token = $this->tokenManager->getToken(DotEnv::get('CSRF_TOKEN_ID'));
+        return Html::hiddenInput('csrfToken', $token->getValue());
+    }
+
 }

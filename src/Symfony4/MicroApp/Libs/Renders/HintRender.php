@@ -2,15 +2,15 @@
 
 namespace ZnLib\Web\Symfony4\MicroApp\Libs\Renders;
 
-class HintRender extends BaseRender
+class HintRender extends BaseInputRender
 {
 
-    protected function tagName(): string
+    public function tagName(): string
     {
         return 'p';
     }
 
-    protected function defaultOptions(): array {
+    public function defaultOptions(): array {
         return [
             'class'=>"help-block help-block-error",
         ];

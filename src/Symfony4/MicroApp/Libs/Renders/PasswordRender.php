@@ -2,10 +2,10 @@
 
 namespace ZnLib\Web\Symfony4\MicroApp\Libs\Renders;
 
-class PasswordRender extends BaseRender
+class PasswordRender extends BaseInputRender
 {
 
-    protected function defaultOptions(): array {
+    public function defaultOptions(): array {
         return [
             'class'=>"form-control",
             'type' => 'password',

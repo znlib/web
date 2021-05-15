@@ -2,10 +2,49 @@
 
 namespace ZnLib\Web\View;
 
-use ReflectionClass;
-
 class View
 {
+
+    private $jsCode = '';
+    private $cssCode = '';
+    private $cssFiles = [];
+    private $jsFiles = [];
+
+    public function registerCssFile(string $file) {
+        $this->cssFiles[] = $file;
+    }
+
+    public function getCssFiles(): array
+    {
+        return $this->cssFiles;
+    }
+    
+    public function registerCss(string $code) {
+        $this->cssCode .= PHP_EOL . $code . PHP_EOL;
+    }
+
+    public function getCssCode(): string
+    {
+        return $this->cssCode;
+    }
+
+    public function registerJsFile(string $file) {
+        $this->jsFiles[] = $file;
+    }
+
+    public function getJsFiles(): array
+    {
+        return $this->jsFiles;
+    }
+    
+    public function registerJs(string $code) {
+        $this->jsCode .= PHP_EOL . $code . PHP_EOL;
+    }
+
+    public function getJsCode(): string
+    {
+        return $this->jsCode;
+    }
 
     public function getRenderDirectory(): string
     {

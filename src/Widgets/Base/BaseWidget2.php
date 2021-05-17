@@ -11,7 +11,22 @@ use ZnLib\Web\Widgets\Interfaces\WidgetInterface2;
 
 abstract class BaseWidget2 implements WidgetInterface2
 {
+    
+    private $view;
 
+    public function getView(): View
+    {
+        if($this->view == null) {
+            $this->view = new View();
+        }
+        return $this->view;
+    }
+
+    public function setView(View $view): void
+    {
+        $this->view = $view;
+    }
+    
     abstract public function run(): string;
 
     public static function widget(array $config = []): string
@@ -29,9 +44,9 @@ abstract class BaseWidget2 implements WidgetInterface2
     public function render(string $relativeViewFileAlias, array $params = [])
     {
         $renderDirectory = RenderHelper::getRenderDirectoryByClass($this);
-        $view = new View();
-        $view->setRenderDirectory($renderDirectory);
-        return $view->render($relativeViewFileAlias, $params);
+//        $this->getView()->setRenderDirectory($renderDirectory);
+//        dd($renderDirectory . '/' . $relativeViewFileAlias);
+        return $this->getView()->renderFile($renderDirectory . '/' . $relativeViewFileAlias . '.php', $params);
     }
 
     /*protected function renderFile(string $viewFile, array $params)

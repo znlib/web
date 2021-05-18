@@ -37,45 +37,40 @@ class ToastrWidget extends BaseWidget2
         $this->toastrService = $toastrService;
     }
 
+    public function assets(): array
+    {
+        return [
+            ToastrAsset::class,
+        ];
+    }
+
     public function run(): string
     {
+        $this->registerAssets();
         $collection = $this->toastrService->all();
         $this->generateHtml($collection);
         return '';
     }
 
-    /*public static function create($content, $type = self::TYPE_SUCCESS, $delay = 5000)
+    protected function registerAssets()
     {
-        self::getToastrService()->add($type, $content, $delay);
-    }*/
+        parent::registerAssets();
+        $this->getView()->registerJsVar('toastr.options', $this);
+    }
 
     private function generateHtml(Collection $collection)
     {
         if ($collection->isEmpty()) {
             return;
         }
-        $this->defineAsset();
         $propertyAccessor = PropertyAccess::createPropertyAccessor();
         /** @var ToastrEntity $entity */
         foreach ($collection as $entity) {
-            //if($entity) {
             $type = $entity->getType();
             $type = str_replace('alert-', '', $type);
             $content = $entity->getContent();
             $this->getView()->registerJs("toastr.{$type}('{$content}'); \n");
-            //}
         }
         $this->toastrService->clear();
-    }
-
-    private function defineAsset()
-    {
-        $this->getView()->registerJsFile('https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js');
-        $this->getView()->registerCssFile('https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css');
-
-        //$this->registerCssFile('/dist/toastr.min.css');
-        //$this->registerJsFile('/dist/toastr.min.js');
-        
-        $this->getView()->registerJsVar('toastr.options', $this);
     }
 }

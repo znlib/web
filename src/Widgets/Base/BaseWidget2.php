@@ -14,6 +14,11 @@ abstract class BaseWidget2 implements WidgetInterface2
     
     private $view;
 
+    public function assets(): array
+    {
+        return [];
+    }
+    
     public function getView(): View
     {
         if($this->view == null) {
@@ -36,6 +41,14 @@ abstract class BaseWidget2 implements WidgetInterface2
         return $instance->run();
     }
 
+    protected function registerAssets() {
+        $assets = $this->assets();
+        foreach ($assets as $asset) {
+            $assetInstance = ClassHelper::createInstance($asset);
+            $assetInstance->register($this->getView());
+        }
+    }
+    
     /*protected function renderTemplate(string $templateCode, array $params)
     {
         return StringHelper::renderTemplate($templateCode, $params);

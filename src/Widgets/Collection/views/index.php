@@ -28,20 +28,20 @@ if (!isset($collection)) {
 
 <table class="<?= $tableClass ?>">
     <thead>
-    <?= $this->render('head', [
+    <?= $this->renderFile(__DIR__ . '/head.php', [
         'attributes' => $attributes,
         'baseUrl' => $baseUrl,
         'queryParams' => $queryParams,
     ]) ?>
     <?php if ($filterModel): ?>
-        <?= $this->render('filter', [
+        <?= $this->renderFile(__DIR__ . '/filter.php', [
             'attributes' => $attributes,
             'filterModel' => $filterModel,
         ]) ?>
     <?php endif; ?>
     </thead>
     <tbody>
-    <?= $this->render('body', [
+    <?= $this->renderFile(__DIR__ . '/body.php', [
         'attributes' => $attributes,
         'formatter' => $formatter,
         'collection' => $collection,

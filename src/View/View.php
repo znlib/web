@@ -11,6 +11,7 @@ class View
     private $cssCode = '';
     private $cssFiles = [];
     private $jsFiles = [];
+    private $renderDirectory;
 
     public function registerCssFile(string $file) {
         $this->cssFiles[] = $file;

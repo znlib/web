@@ -2,6 +2,8 @@
 
 namespace ZnLib\Web\View;
 
+use ZnCore\Base\Legacy\Yii\Helpers\ArrayHelper;
+
 class View
 {
 
@@ -39,6 +41,15 @@ class View
     
     public function registerJs(string $code) {
         $this->jsCode .= PHP_EOL . $code . PHP_EOL;
+    }
+
+    public function registerJsVar(string $name, $value) {
+        if(is_object($value)) {
+            $value = ArrayHelper::toArray($value);
+        }
+        $json = json_encode($value);
+        $code = "$name = ".$json.";";
+        $this->registerJs($code);
     }
 
     public function getJsCode(): string

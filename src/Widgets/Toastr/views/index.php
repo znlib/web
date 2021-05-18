@@ -6,8 +6,10 @@
 
 use ZnLib\Web\View\View;
 
-$this->registerCssFile('/dist/toastr.min.css');
-$this->registerJsFile('/dist/toastr.min.js');
+//$this->registerCssFile('/dist/toastr.min.css');
+//$this->registerJsFile('/dist/toastr.min.js');
+
+
 
 ?>
 

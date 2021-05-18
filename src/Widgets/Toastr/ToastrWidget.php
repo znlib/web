@@ -4,6 +4,7 @@ namespace ZnLib\Web\Widgets\Toastr;
 
 use Illuminate\Support\Collection;
 use Symfony\Component\PropertyAccess\PropertyAccess;
+use ZnBundle\Notify\Domain\Entities\ToastrEntity;
 use ZnBundle\Notify\Domain\Interfaces\Services\ToastrServiceInterface;
 use ZnLib\Web\Widgets\Base\BaseWidget2;
 
@@ -61,17 +62,45 @@ class ToastrWidget extends BaseWidget2
 
     private function generateHtml(Collection $collection)
     {
-        $propertyAccessor = PropertyAccess::createPropertyAccessor();
-        //dd($collection);
-        foreach ($collection as $entity) {
-            if($entity) {
-                $type = $propertyAccessor->getValue($entity, 'type');
-                $type = str_replace('alert-', '', $type);
-                $content = $propertyAccessor->getValue($entity, 'content');
-                $this->getView()->registerJs("toastr.{$type}('{$content}'); \n");
-                //dd("toastr.{$type}('{$content}'); \n");
-            }
+        if($collection->isEmpty()) {
+            return;
+        }
 
+        $this->getView()->registerJsFile('https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js');
+        $this->getView()->registerCssFile('https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css');
+
+        $config = <<<JS
+
+    toastr.options = {
+        "closeButton": false,
+        "debug": false,
+        "newestOnTop": false,
+        "progressBar": true,
+        "positionClass": "toast-bottom-left",
+        "preventDuplicates": false,
+        "onclick": null,
+        "showDuration": "300",
+        "hideDuration": "1000",
+        "timeOut": "5000",
+        "extendedTimeOut": "1000",
+        "showEasing": "swing",
+        "hideEasing": "linear",
+        "showMethod": "fadeIn",
+        "hideMethod": "fadeOut"
+    };
+
+JS;
+
+        $this->getView()->registerJs($config);
+        $propertyAccessor = PropertyAccess::createPropertyAccessor();
+        /** @var ToastrEntity $entity */
+        foreach ($collection as $entity) {
+            //if($entity) {
+                $type = $entity->getType();
+                $type = str_replace('alert-', '', $type);
+                $content = $entity->getContent();
+                $this->getView()->registerJs("toastr.{$type}('{$content}'); \n");
+            //}
         }
         $this->toastrService->clear();
     }

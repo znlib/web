@@ -49,7 +49,7 @@ abstract class BaseInputRender extends BaseRender
     
     public function render(): string
     {
-        $options = $this->getOptions();
+        $options = $this->options();
         return Html::tag($this->tagName(), '', $options);
     }
 
@@ -61,10 +61,11 @@ abstract class BaseInputRender extends BaseRender
         return $this->getView()->vars[$name];
     }
 
-    protected function getOptions(): array {
+    protected function options(): array {
         $inputVars = $this->getViewOptions();
         $options = $this->defaultOptions();
         $options = ArrayHelper::merge($options, $this->filterOptions($inputVars));
+        $options = ArrayHelper::merge($options, $this->getOptions());
         return $options;
     }
 

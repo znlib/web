@@ -4,6 +4,7 @@ namespace ZnLib\Web\Symfony4\MicroApp\Libs;
 
 use Symfony\Component\Form\FormView;
 use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
+use ZnCore\Base\Legacy\Yii\Helpers\ArrayHelper;
 use ZnCore\Base\Legacy\Yii\Helpers\Html;
 use ZnCore\Base\Libs\DotEnv\DotEnv;
 use ZnLib\Web\Symfony4\MicroApp\Libs\Renders\BaseRender;
@@ -18,6 +19,7 @@ use ZnLib\Web\Symfony4\MicroApp\Libs\Renders\TextRender;
 class FormRender
 {
 
+    private $formOptions = [];
     private $formView;
     private $tokenManager;
     private $renderDefinitions = [
@@ -36,11 +38,16 @@ class FormRender
         $this->tokenManager = $tokenManager;
     }
 
+    public function addFormOption(string $name, string $value = null) {
+        $this->formOptions[$name] = $value;
+    }
+
     public function beginFrom() {
-        $html =  Html::beginTag('form', [
+        $formOptions = ArrayHelper::merge($this->formOptions, [
             'name' => $this->formView->vars['name'],
             'method' => $this->formView->vars['method'],
         ]);
+        $html =  Html::beginTag('form', $formOptions);
         $html .= $this->csrfTokenInput();
         return $html;
     }
@@ -54,8 +61,8 @@ class FormRender
         return $renderInstance->render();
     }
 
-    public function input(string $name, string $type) {
-        $renderInstance = $this->createRender($type);
+    public function input(string $name, string $type, array $options = []) {
+        $renderInstance = $this->createRender($type, $options);
         $renderInstance->setAttributeName($name);
         return $renderInstance->render();
     }
@@ -76,10 +83,11 @@ class FormRender
         return $this->input($name, 'hint');
     }
 
-    private function createRender(string $type): BaseRender {
+    private function createRender(string $type, array $options = []): BaseRender {
         $renderDefinition = $this->renderDefinitions[$type];
         /** @var BaseRender $renderInstance */
         $renderInstance = new $renderDefinition($this->formView);
+        $renderInstance->setOptions($options);
         return $renderInstance;
     }
 

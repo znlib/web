@@ -15,7 +15,7 @@ class CheckboxRender extends BaseInputRender
 
     public function render(): string
     {
-        $options = $this->getOptions();
+        $options = $this->options();
         $input = Html::tag('input', '', $options) . $this->getViewOption('label');
         return Html::tag('label', $input, [
             'for' => $this->getViewOption('id'),

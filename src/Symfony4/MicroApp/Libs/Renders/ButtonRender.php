@@ -15,7 +15,7 @@ class ButtonRender extends BaseInputRender
 
     public function render(): string
     {
-        $options = $this->getOptions();
+        $options = $this->options();
         return Html::submitButton($this->getViewOption('label'), $options);
     }
 }

@@ -8,11 +8,6 @@ use ZnLib\Web\View\View;
 class Fontawesome5Asset extends BaseAsset
 {
 
-    public function jsFiles(View $view)
-    {
-        
-    }
-
     public function cssFiles(View $view)
     {
         $view->registerCssFile('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css', [

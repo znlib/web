@@ -1,8 +1,9 @@
 <?php
 
 /**
- * @var View $this
+ * @var \ZnLib\Web\View\View $this
  * @var \ZnBundle\User\Domain\Interfaces\Entities\IdentityEntityInterface $identity
+ * @var string $userMenuHtml
  */
 
 use ZnCore\Base\Legacy\Yii\Helpers\Html;
@@ -18,12 +19,7 @@ use ZnCore\Base\Libs\I18Next\Facades\I18Next;
         <?= $identity->getUsername() ?>
     </a>
     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
-        <?php if(1==2 && isset(Yii::$app->modules['settings'])): ?>
-            <a class="dropdown-item" href="<?= Url::to(['/settings']) ?>">
-                <i class="fas fa-user-cog"></i>
-                <?= I18Next::t('settings', 'main.title'); ?>
-            </a>
-        <?php endif; ?>
+        <?= $userMenuHtml ?>
         <a class="dropdown-item" href="#" onclick="$('#logout-form').submit()">
             <i class="fas fa-sign-out-alt"></i>
             <?= I18Next::t('user', 'auth.logout_title') ?>

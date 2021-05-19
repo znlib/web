@@ -13,15 +13,23 @@ class View
     private $jsFiles = [];
     private $renderDirectory;
 
-    public function registerCssFile(string $file) {
-        $this->cssFiles[] = $file;
+    public function registerCssFile(string $file, array $options = []) {
+        $this->cssFiles[] = [
+            'file' => $file,
+            'options' => $options,
+        ];
     }
 
     public function getCssFiles(): array
     {
         return $this->cssFiles;
     }
-    
+
+    public function resetCssFiles()
+    {
+        $this->cssFiles = [];
+    }
+
     public function registerCss(string $code) {
         $this->cssCode .= PHP_EOL . $code . PHP_EOL;
     }
@@ -31,15 +39,28 @@ class View
         return $this->cssCode;
     }
 
-    public function registerJsFile(string $file) {
-        $this->jsFiles[] = $file;
+    public function resetCssCode()
+    {
+        $this->cssCode = '';
+    }
+
+    public function registerJsFile(string $file, array $options = []) {
+        $this->jsFiles[] = [
+            'file' => $file,
+            'options' => $options,
+        ];
     }
 
     public function getJsFiles(): array
     {
         return $this->jsFiles;
     }
-    
+
+    public function resetJsFiles()
+    {
+        $this->jsFiles = [];
+    }
+
     public function registerJs(string $code) {
         $this->jsCode .= PHP_EOL . $code . PHP_EOL;
     }
@@ -56,6 +77,11 @@ class View
     public function getJsCode(): string
     {
         return $this->jsCode;
+    }
+
+    public function resetJsCode()
+    {
+        $this->jsCode = '';
     }
 
     public function getRenderDirectory(): string

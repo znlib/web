@@ -20,10 +20,18 @@ use ZnLib\Web\View\View;
 
 <title><?= $title ?? '' ?></title>
 
+<?php
+if($this instanceof View) {
+    foreach ($this->getCssFiles() as $item) {
+        $options = $item['options'];
+        $options['rel'] = 'stylesheet';
+        $options['href'] = $item['file'];
+        echo \ZnCore\Base\Legacy\Yii\Helpers\Html::tag('link', '', $options);
+    }
+}
+?>
+
 <?php if($this instanceof View): ?>
-    <?php foreach ($this->getCssFiles() as $fileName): ?>
-        <link rel="stylesheet" href="<?= $fileName ?>">
-    <?php endforeach; ?>
     <style>
             <?= $this->getCssCode() ?>
     </style>

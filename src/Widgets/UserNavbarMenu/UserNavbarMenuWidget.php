@@ -2,7 +2,6 @@
 
 namespace ZnLib\Web\Widgets\UserNavbarMenu;
 
-use Yii;
 use ZnBundle\User\Domain\Interfaces\Services\AuthServiceInterface;
 use ZnLib\Web\Widgets\Base\BaseWidget2;
 

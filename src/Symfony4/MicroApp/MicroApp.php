@@ -16,10 +16,15 @@ use Symfony\Component\Routing\RequestContext;
 use Symfony\Component\Routing\RouteCollection;
 use Symfony\Component\Routing\Loader\Configurator\RoutingConfigurator;
 use ZnCore\Base\Exceptions\DeprecatedException;
+use ZnCore\Base\Libs\Event\Traits\EventDispatcherTrait;
 use ZnCore\Base\Libs\Scenario\Interfaces\RunInterface;
+use ZnLib\Web\Symfony4\MicroApp\Enums\ControllerEventEnum;
+use ZnLib\Web\Symfony4\MicroApp\Events\ControllerEvent;
 
 class MicroApp
 {
+
+    use EventDispatcherTrait;
 
     /** @var RouteCollection */
     private $routes;
@@ -141,6 +146,10 @@ class MicroApp
         //$response = call_user_func_array([$controllerInstance, $actionName], [$request]);
         /*$params = $request->query->all();
         $params[] = $request;*/
+
+        $controllerEvent = new ControllerEvent($controllerInstance, $actionName, $request);
+        $this->getEventDispatcher()->dispatch($controllerEvent, ControllerEventEnum::BEFORE_ACTION);
+
         $response = $this->container->call([$controllerInstance, $actionName], $attributes);
         return $response;
     }

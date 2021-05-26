@@ -8,14 +8,35 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use ZnCore\Base\Helpers\LoadHelper;
 use ZnLib\Rest\Web\Controller\BaseCrudWebController;
+use ZnLib\Web\Symfony4\MicroApp\Interfaces\ControllerLayoutInterface;
 use ZnLib\Web\View\View;
 
-abstract class BaseWebController
+abstract class BaseWebController implements ControllerLayoutInterface
 {
 
     protected $layout = __DIR__ . '/layouts/main.php';
     protected $viewsDir;
     protected $fileExt = 'php';
+
+    public function getLayout(): ?string
+    {
+        return $this->layout;
+    }
+
+    public function setLayout(?string $layout): void
+    {
+        $this->layout = $layout;
+    }
+
+    public function getViewsDir(): ?string
+    {
+        return $this->viewsDir;
+    }
+
+    public function setViewsDir(string $viewsDir): void
+    {
+        $this->viewsDir = $viewsDir;
+    }
 
     protected function renderTemplate(string $file, array $params = []): Response
     {
@@ -40,7 +61,7 @@ abstract class BaseWebController
         }
         return new Response($content);
     }
-    
+
     protected function render(string $file, array $params = []): Response
     {
         $view = new View();

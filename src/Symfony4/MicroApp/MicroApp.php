@@ -20,6 +20,7 @@ use ZnCore\Base\Libs\Event\Traits\EventDispatcherTrait;
 use ZnCore\Base\Libs\Scenario\Interfaces\RunInterface;
 use ZnLib\Web\Symfony4\MicroApp\Enums\ControllerEventEnum;
 use ZnLib\Web\Symfony4\MicroApp\Events\ControllerEvent;
+use ZnLib\Web\Symfony4\MicroApp\Interfaces\ControllerLayoutInterface;
 
 class MicroApp
 {
@@ -29,6 +30,7 @@ class MicroApp
     /** @var RouteCollection */
     private $routes;
     private $routingConfigurator;
+    private $layout;
 
     /**
      * @var ContainerInterface
@@ -44,6 +46,16 @@ class MicroApp
         $fileLocator = new FileLocator();
         $fileLoader = new PhpFileLoader($fileLocator);
         $this->routingConfigurator = new RoutingConfigurator($this->routes, $fileLoader, __FILE__, __FILE__);
+    }
+
+    public function getLayout(): ?string
+    {
+        return $this->layout;
+    }
+
+    public function setLayout(string $layout): void
+    {
+        $this->layout = $layout;
     }
 
     public function setContainer(ContainerInterface $container)
@@ -141,6 +153,9 @@ class MicroApp
             $actionName = $attributes['_action'];
         }
         $controllerInstance = $this->container->get($controller);
+        if(isset($this->layout) && $controllerInstance instanceof ControllerLayoutInterface) {
+            $controllerInstance->setLayout($this->layout);
+        }
         $attributes[Request::class] = $request;
 //        $this->container->bind(Request::class, function() use ($request) {return $request;});
         //$response = call_user_func_array([$controllerInstance, $actionName], [$request]);

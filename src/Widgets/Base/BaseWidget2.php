@@ -37,6 +37,7 @@ abstract class BaseWidget2 implements WidgetInterface2
     public static function widget(array $config = []): string
     {
         $config['class'] = get_called_class();
+        /** @var self $instance */
         $instance = ClassHelper::createObject($config);
         return $instance->run();
     }

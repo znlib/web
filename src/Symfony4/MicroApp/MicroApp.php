@@ -9,15 +9,14 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Exception\NoConfigurationException;
 use Symfony\Component\Routing\Exception\ResourceNotFoundException;
+use Symfony\Component\Routing\Loader\Configurator\RoutingConfigurator;
 use Symfony\Component\Routing\Loader\PhpFileLoader;
 use Symfony\Component\Routing\Matcher\UrlMatcher;
 use Symfony\Component\Routing\Matcher\UrlMatcherInterface;
 use Symfony\Component\Routing\RequestContext;
 use Symfony\Component\Routing\RouteCollection;
-use Symfony\Component\Routing\Loader\Configurator\RoutingConfigurator;
 use ZnCore\Base\Exceptions\DeprecatedException;
 use ZnCore\Base\Libs\Event\Traits\EventDispatcherTrait;
-use ZnCore\Base\Libs\Scenario\Interfaces\RunInterface;
 use ZnLib\Web\Symfony4\MicroApp\Enums\ControllerEventEnum;
 use ZnLib\Web\Symfony4\MicroApp\Events\ControllerEvent;
 use ZnLib\Web\Symfony4\MicroApp\Interfaces\ControllerLayoutInterface;
@@ -32,6 +31,8 @@ class MicroApp
     private $routingConfigurator;
     private $layout;
 
+    private $errorController;
+
     /**
      * @var ContainerInterface
      */
@@ -39,7 +40,7 @@ class MicroApp
 
     public function __construct(ContainerInterface $container = null, RouteCollection $routes = null)
     {
-        if($container) {
+        if ($container) {
             $this->container = $container;
         }
         $this->routes = $routes ?: $this->container->get(RouteCollection::class);
@@ -83,7 +84,7 @@ class MicroApp
     public function addModules(array $modulesConfig)
     {
         foreach ($modulesConfig as $moduleClass) {
-            if(is_object($moduleClass)) {
+            if (is_object($moduleClass)) {
                 $moduleInstance = $moduleClass;
             } else {
                 $moduleInstance = $this->container->get($moduleClass);
@@ -111,34 +112,37 @@ class MicroApp
         return $response;
     }
 
-    private $errorController;
-
     public function getErrorController()
     {
-        return $this->errorHandler ?? null;
+        return $this->errorController ?? null;
     }
 
     public function setErrorController($errorController): void
     {
-        $this->errorHandler = $errorController;
+        $this->errorController = $errorController;
     }
-    
-    private function errorHandler(Request $request, \Throwable $e): Response {
+
+    private function errorHandler(Request $request, \Throwable $e): Response
+    {
         $errorController = $this->getErrorController();
-        if($errorController) {
-            if(!is_object($errorController)) {
+        if ($errorController) {
+            if (!is_object($errorController)) {
                 $errorController = $this->container->get($errorController);
             }
+            $attributes = [
+                \Exception::class => $e,
+            ];
+            return $this->callControllerAction($errorController, 'handleError', $request, $attributes);
             return $errorController->handleError($request, $e);
         }
-        if($e instanceof NoConfigurationException) {
+        if ($e instanceof NoConfigurationException) {
             $response = new Response('Not config', 500);
-        } elseif($e instanceof EntryNotFoundException) {
+        } elseif ($e instanceof EntryNotFoundException) {
             $response = new Response('Not found class in container for DI in ' . $e->getMessage(), 500);
-        } elseif($e instanceof ResourceNotFoundException) {
+        } elseif ($e instanceof ResourceNotFoundException) {
             $response = new Response('Not found route', 404);
-        } elseif($e instanceof \Throwable) {
-            $response = new Response(get_class($e) . '  ' . $e->getMessage());
+        } elseif ($e instanceof \Throwable) {
+            $response = new Response(get_class($e) . ' ' . $e->getMessage());
         }
         return $response;
     }
@@ -146,14 +150,20 @@ class MicroApp
     private function runAction(UrlMatcherInterface $matcher, Request $request): Response
     {
         $attributes = $matcher->match($request->getPathInfo());
-        if(is_array($attributes['_controller'])) {
-            list($controller, $actionName) = $attributes['_controller'];
+        if (is_array($attributes['_controller'])) {
+            list($controllerClass, $actionName) = $attributes['_controller'];
         } else {
-            $controller = $attributes['_controller'];
+            $controllerClass = $attributes['_controller'];
             $actionName = $attributes['_action'];
         }
-        $controllerInstance = $this->container->get($controller);
-        if(isset($this->layout) && $controllerInstance instanceof ControllerLayoutInterface) {
+
+        $controllerInstance = $this->container->get($controllerClass);
+        return $this->callControllerAction($controllerInstance, $actionName, $request);
+    }
+
+    private function callControllerAction(object $controllerInstance, string $actionName, Request $request, array $attributes = []): Response
+    {
+        if (isset($this->layout) && $controllerInstance instanceof ControllerLayoutInterface) {
             $controllerInstance->setLayout($this->layout);
         }
         $attributes[Request::class] = $request;

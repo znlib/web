@@ -100,7 +100,7 @@ trait ControllerFormTrait
         }
     }
 
-    private static function validCsrfToken(CsrfTokenManagerInterface $tokenManager, Request $request)
+    protected static function validCsrfToken(CsrfTokenManagerInterface $tokenManager, Request $request)
     {
         $csrfToken = new CsrfToken(DotEnv::get('CSRF_TOKEN_ID'), $request->get('csrfToken'));
         $isValidToken = $tokenManager->isTokenValid($csrfToken);

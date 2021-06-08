@@ -94,7 +94,7 @@ class View
         $this->renderDirectory = $renderDirectory;
     }
 
-    public function render(string $viewFile, array $__params): string
+    public function render(string $viewFile, array $__params = []): string
     {
         $file = $this->getRenderDirectory() . DIRECTORY_SEPARATOR . $viewFile . '.php';
         return $this->renderFile($file, $__params);

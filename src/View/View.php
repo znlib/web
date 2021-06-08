@@ -12,6 +12,15 @@ class View
     private $cssFiles = [];
     private $jsFiles = [];
     private $renderDirectory;
+    private $attributes = [];
+
+    public function addAttribute(string $name, $value) {
+        $this->attributes[$name] = $value;
+    }
+
+    public function getAttribute(string $name, $default = null) {
+        return $this->attributes[$name] ?? $default;
+    }
 
     public function registerCssFile(string $file, array $options = []) {
         $this->cssFiles[] = [

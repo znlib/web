@@ -16,6 +16,7 @@ abstract class BaseWebController implements ControllerLayoutInterface
 
     protected $layout = __DIR__ . '/layouts/main.php';
     protected $viewsDir;
+    protected $view;
     protected $fileExt = 'php';
 
     public function getLayout(): ?string
@@ -49,9 +50,16 @@ abstract class BaseWebController implements ControllerLayoutInterface
         return new Response($content);
     }
 
+    protected function getView(): View {
+        if(empty($this->view)) {
+            $this->view = new View();
+        }
+        return $this->view;
+    }
+
     protected function renderFile(string $file, array $params = []): Response
     {
-        $view = new View();
+        $view = $this->getView();
         $view->setRenderDirectory($this->viewsDir);
         $pageContent = $view->renderFile($file, $params);
         if (isset($this->layout)) {
@@ -64,7 +72,7 @@ abstract class BaseWebController implements ControllerLayoutInterface
 
     protected function render(string $file, array $params = []): Response
     {
-        $view = new View();
+        $view = $this->getView();
         $view->setRenderDirectory($this->viewsDir);
         $pageContent = $view->render($file, $params);
         if (isset($this->layout)) {

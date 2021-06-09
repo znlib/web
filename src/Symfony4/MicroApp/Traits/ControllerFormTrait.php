@@ -66,9 +66,13 @@ trait ControllerFormTrait
     protected function buildForm(BuildFormInterface $form, Request $request): FormInterface
     {
         $formBuilder = $this->createFormBuilder($form);
-        if ($form instanceof BuildFormInterface) {
+        /*if ($form instanceof BuildFormInterface) {
             $form->buildForm($formBuilder);
-        }
+        }*/
+        return $this->formBuilderToForm($formBuilder, $request);
+    }
+
+    protected function formBuilderToForm(FormBuilderInterface $formBuilder, Request $request) {
         $buildForm = $formBuilder->getForm();
         $buildForm->handleRequest($request);
         if ($buildForm->isSubmitted()) {
@@ -109,8 +113,12 @@ trait ControllerFormTrait
         }
     }
 
-    private function createFormBuilder(object $formObject, array $options = []): FormBuilderInterface
+    private function createFormBuilder(object $form, array $options = []): FormBuilderInterface
     {
-        return $this->getFormFactory()->createBuilder($this->type, $formObject, $options);
+        $formBuilder = $this->getFormFactory()->createBuilder($this->type, $form, $options);
+        if ($form instanceof BuildFormInterface) {
+            $form->buildForm($formBuilder);
+        }
+        return $formBuilder;
     }
 }

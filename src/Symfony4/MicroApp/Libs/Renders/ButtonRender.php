@@ -9,7 +9,7 @@ class ButtonRender extends BaseInputRender
 
     public function defaultOptions(): array {
         return [
-            'class' => "btn btn-primary btn-flat",
+            'class' => "btn btn-primary",
         ];
     }
 

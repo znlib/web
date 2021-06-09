@@ -133,7 +133,7 @@ class MicroApp
                 \Exception::class => $e,
             ];
             return $this->callControllerAction($errorController, 'handleError', $request, $attributes);
-            return $errorController->handleError($request, $e);
+//            return $errorController->handleError($request, $e);
         }
         if ($e instanceof NoConfigurationException) {
             $response = new Response('Not config', 500);
@@ -156,7 +156,7 @@ class MicroApp
             $controllerClass = $attributes['_controller'];
             $actionName = $attributes['_action'];
         }
-
+//        dd($attributes);
         $controllerInstance = $this->container->get($controllerClass);
         return $this->callControllerAction($controllerInstance, $actionName, $request);
     }

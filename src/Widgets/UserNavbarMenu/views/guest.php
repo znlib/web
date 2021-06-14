@@ -5,9 +5,9 @@
  * @var string $loginUrl
  */
 
-use yii\web\View;
 use ZnCore\Base\Libs\I18Next\Facades\I18Next;
 use ZnCore\Base\Legacy\Yii\Helpers\Url;
+use ZnLib\Web\View\View;
 
 ?>
 

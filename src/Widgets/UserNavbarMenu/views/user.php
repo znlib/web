@@ -1,14 +1,15 @@
 <?php
 
 /**
- * @var \ZnLib\Web\View\View $this
- * @var \ZnBundle\User\Domain\Interfaces\Entities\IdentityEntityInterface $identity
+ * @var View $this
+ * @var IdentityEntityInterface $identity
  * @var string $userMenuHtml
  */
 
+use ZnBundle\User\Domain\Interfaces\Entities\IdentityEntityInterface;
 use ZnCore\Base\Legacy\Yii\Helpers\Html;
-use ZnCore\Base\Legacy\Yii\Helpers\Url;
 use ZnCore\Base\Libs\I18Next\Facades\I18Next;
+use ZnLib\Web\View\View;
 
 ?>
 

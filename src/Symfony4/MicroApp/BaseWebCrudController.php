@@ -12,11 +12,14 @@ use ZnCore\Base\Libs\I18Next\Facades\I18Next;
 use ZnCore\Domain\Base\BaseCrudService;
 use ZnCore\Domain\Exceptions\UnprocessibleEntityException;
 use ZnCore\Domain\Helpers\EntityHelper;
+use ZnCore\Domain\Interfaces\Entity\EntityIdInterface;
 use ZnCore\Domain\Interfaces\Service\CrudServiceInterface;
 use ZnCore\Domain\Libs\Query;
+use ZnLib\Web\Symfony4\MicroApp\Enums\CrudControllerActionEnum;
 use ZnLib\Web\Symfony4\MicroApp\Interfaces\BuildFormInterface;
 use ZnLib\Web\Symfony4\MicroApp\Traits\ControllerFormTrait;
 use ZnLib\Web\Widgets\BreadcrumbWidget;
+use ZnSandbox\Sandbox\Casbin\Domain\Enums\Rbac\ExtraPermissionEnum;
 
 abstract class BaseWebCrudController extends BaseWebController
 {
@@ -32,6 +35,11 @@ abstract class BaseWebCrudController extends BaseWebController
     protected function setService(CrudServiceInterface $service)
     {
         $this->service = $service;
+    }
+
+    public function getService(): BaseCrudService
+    {
+        return $this->service;
     }
 
     public function getBaseUri(): string
@@ -64,29 +72,62 @@ abstract class BaseWebCrudController extends BaseWebController
         $this->breadcrumbWidget = $breadcrumbWidget;
     }
 
+    protected function titleAttribute(): string
+    {
+        return 'title';
+    }
+
+    public function access(): array
+    {
+        return [
+            'index' => [
+                ExtraPermissionEnum::ADMIN_ONLY,
+            ],
+            'view' => [
+                ExtraPermissionEnum::ADMIN_ONLY,
+            ],
+            'update' => [
+                ExtraPermissionEnum::ADMIN_ONLY,
+            ],
+            'delete' => [
+                ExtraPermissionEnum::ADMIN_ONLY,
+            ],
+            'create' => [
+                ExtraPermissionEnum::ADMIN_ONLY,
+            ],
+        ];
+    }
+
+    protected function prepareQuery(string $action, Request $request): Query
+    {
+        $query = new Query();
+        return $query;
+    }
+
     public function index(Request $request): Response
     {
         $this->getView()->addAttribute('title', 'list');
-        $query = new Query();
+        $query = $this->prepareQuery(CrudControllerActionEnum::INDEX, $request);
         $query->perPage($request->query->get('per-page'));
         $query->page($request->query->get('page'));
-        $dataProvider = $this->service->getDataProvider($query);
+        $dataProvider = $this->getService()->getDataProvider($query);
         return $this->render('index', [
             'dataProvider' => $dataProvider,
             'baseUri' => $this->getBaseUri(),
         ]);
     }
 
-    protected function titleAttribute(): string
-    {
-        return 'title';
-    }
-
     public function view(Request $request): Response
     {
+        $query = $this->prepareQuery(CrudControllerActionEnum::VIEW, $request);
         $id = $request->query->get('id');
-        $entity = $this->service->oneById($id);
-        $this->getBreadcrumbWidget()->add('view', Url::to([$this->getBaseUri() . '/view', 'id' => $id]));
+        $entity = $this->getService()->oneById($id, $query);
+        return $this->showView($entity);
+    }
+
+    protected function showView(EntityIdInterface $entity): Response
+    {
+        $this->getBreadcrumbWidget()->add('view', Url::to([$this->getBaseUri() . '/view', 'id' => $entity->getId()]));
         $title = EntityHelper::getAttribute($entity, $this->titleAttribute());
         $this->getView()->addAttribute('title', $title);
         return $this->render('view', [
@@ -99,14 +140,14 @@ abstract class BaseWebCrudController extends BaseWebController
     {
         $id = $request->query->get('id');
         /** @var BuildFormInterface $form */
-        $form = $this->service->oneById($id);
+        $form = $this->getService()->oneById($id);
         $this->getBreadcrumbWidget()->add('update', Url::to([$this->getBaseUri() . '/update', 'id' => $id]));
         $title = EntityHelper::getAttribute($form, $this->titleAttribute());
         $this->getView()->addAttribute('title', $title);
         $buildForm = $this->buildForm($form, $request);
         if ($buildForm->isSubmitted() && $buildForm->isValid()) {
             try {
-                $this->service->updateById($id, EntityHelper::toArray($form));
+                $this->getService()->updateById($id, EntityHelper::toArray($form));
                 $this->getToastrService()->success(['core', 'message.saved_success']);
                 return $this->redirect(Url::to([$this->getBaseUri()]));
             } catch (UnprocessibleEntityException $e) {
@@ -122,7 +163,7 @@ abstract class BaseWebCrudController extends BaseWebController
     public function delete(Request $request): Response
     {
         $id = $request->query->get('id');
-        $this->service->deleteById($id);
+        $this->getService()->deleteById($id);
         $this->getToastrService()->success(['core', 'message.deleted_success']);
         return $this->redirect(Url::to([$this->getBaseUri()]));
     }
@@ -131,11 +172,11 @@ abstract class BaseWebCrudController extends BaseWebController
     {
         $this->getBreadcrumbWidget()->add('create', Url::to([$this->getBaseUri() . '/create']));
         $this->getView()->addAttribute('title', 'create');
-        $form = $this->service->createEntity();
+        $form = $this->getService()->createEntity();
         $buildForm = $this->buildForm($form, $request);
         if ($buildForm->isSubmitted() && $buildForm->isValid()) {
             try {
-                $this->service->create(EntityHelper::toArray($form));
+                $this->getService()->create(EntityHelper::toArray($form));
                 $this->getToastrService()->success(['core', 'message.saved_success']);
                 return $this->redirect(Url::to([$this->getBaseUri()]));
             } catch (UnprocessibleEntityException $e) {

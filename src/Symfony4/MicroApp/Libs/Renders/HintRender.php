@@ -2,6 +2,11 @@
 
 namespace ZnLib\Web\Symfony4\MicroApp\Libs\Renders;
 
+use Symfony\Component\Form\FormError;
+use Symfony\Component\Form\FormView;
+use Symfony\Component\Validator\ConstraintViolation;
+use ZnLib\Web\Symfony4\MicroApp\Helpers\FormErrorHelper;
+
 class HintRender extends BaseInputRender
 {
 
@@ -10,9 +15,34 @@ class HintRender extends BaseInputRender
         return 'p';
     }
 
-    public function defaultOptions(): array {
+    public function defaultOptions(): array
+    {
         return [
-            'class'=>"help-block help-block-error",
+            'class' => "help-block help-block-error",
         ];
+    }
+
+    public function render(): string
+    {
+        $inputVars = $this->getViewOptions();
+        $errors = FormErrorHelper::getErrorArray($this->getFormView());
+
+        foreach ($errors as $error) {
+            /** @var FormError $formError */
+            $formError = $error['formError'];
+            /** @var ConstraintViolation $cause */
+            $cause = $formError->getCause();
+            /** @var FormView $formError */
+            $formView = $error['view'] ?? null;
+            if ($cause && $formView) {
+                if ($formView->vars['full_name'] == $inputVars['full_name']) {
+                    $message = $cause->getMessage();
+                    return '<div class="text-danger">
+                          ' . $message . '
+                        </div>';
+                }
+            }
+        }
+        return '';
     }
 }

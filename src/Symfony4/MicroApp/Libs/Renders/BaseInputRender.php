@@ -43,7 +43,7 @@ abstract class BaseInputRender extends BaseRender
 //    "name",
             "disabled",
             "multipart",
-            "required",
+           // "required",
         ];
     }
     

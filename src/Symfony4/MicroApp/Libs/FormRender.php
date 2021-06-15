@@ -68,11 +68,11 @@ class FormRender
     }
 
     public function renderDefinitions(): array {
-        return $this->renderDefinition;
+        return $this->renderDefinitions;
     }
 
     public function addDefinition($definition): array {
-        $this->renderDefinition[] = $definition;
+        $this->renderDefinitions[] = $definition;
     }
 
     public function label($name) {

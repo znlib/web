@@ -2,6 +2,7 @@
 
 namespace ZnLib\Web\Widgets\Format\Formatters;
 
+use yii\helpers\ArrayHelper;
 use ZnCore\Base\Legacy\Yii\Helpers\Html;
 use ZnCore\Domain\Helpers\EntityHelper;
 
@@ -22,6 +23,8 @@ class LinkFormatter extends BaseFormatter implements FormatterInterface
             $title = $value;
         }
         $link = EntityHelper::getValue($entity, $this->linkAttribute);
-        return Html::a($title, [$this->uri, $this->linkParam => $link]);
+        $uri = ArrayHelper::toArray($this->uri);
+        $uri[$this->linkParam] = $link;
+        return Html::a($title, $uri);
     }
 }

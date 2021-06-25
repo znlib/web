@@ -49,10 +49,10 @@ class WebAssert extends BaseAssert
         return $this;
     }
 
-    public function assertFormError($message)
+    /*public function assertFormError($message)
     {
         //$this->assertIsFormError();
         $this->assertContains($message, $this->crawler->html());
         return $this;
-    }
+    }*/
 }

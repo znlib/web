@@ -2,18 +2,20 @@
 
 namespace ZnLib\Web\Test;
 
-use Symfony\Component\DomCrawler\Crawler;
+use Symfony\Component\BrowserKit\HttpBrowser;
 use ZnTool\Test\Asserts\BaseAssert;
 
 class WebAssert extends BaseAssert
 {
 
     protected $crawler;
+    protected $browser;
 
-    public function __construct($name = null, array $data = [], $dataName = '', Crawler $crawler = null)
+    public function __construct($name = null, array $data = [], $dataName = '', HttpBrowser $browser)
     {
         parent::__construct($name, $data, $dataName);
-        $this->crawler = $crawler;
+        $this->crawler = $browser->getCrawler();
+        $this->browser = $browser;
     }
 
     public function assertContainsContent(string $content)

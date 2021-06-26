@@ -16,6 +16,7 @@ use Symfony\Component\Routing\Matcher\UrlMatcherInterface;
 use Symfony\Component\Routing\RequestContext;
 use Symfony\Component\Routing\RouteCollection;
 use ZnCore\Base\Exceptions\DeprecatedException;
+use ZnCore\Base\Helpers\InstanceHelper;
 use ZnCore\Base\Libs\Event\Traits\EventDispatcherTrait;
 use ZnLib\Web\Symfony4\MicroApp\Enums\ControllerEventEnum;
 use ZnLib\Web\Symfony4\MicroApp\Events\ControllerEvent;
@@ -175,7 +176,9 @@ class MicroApp
         $controllerEvent = new ControllerEvent($controllerInstance, $actionName, $request);
         $this->getEventDispatcher()->dispatch($controllerEvent, ControllerEventEnum::BEFORE_ACTION);
 
-        $response = $this->container->call([$controllerInstance, $actionName], $attributes);
+//        $response = $this->container->call([$controllerInstance, $actionName], $attributes);
+        $response = InstanceHelper::callMethod($controllerInstance, $actionName, $attributes);
+
         return $response;
     }
 

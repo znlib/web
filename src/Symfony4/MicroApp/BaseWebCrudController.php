@@ -20,6 +20,7 @@ use ZnLib\Web\Symfony4\MicroApp\Interfaces\BuildFormInterface;
 use ZnLib\Web\Symfony4\MicroApp\Traits\ControllerFormTrait;
 use ZnLib\Web\Widgets\BreadcrumbWidget;
 use ZnSandbox\Sandbox\Casbin\Domain\Enums\Rbac\ExtraPermissionEnum;
+use ZnCore\Base\Libs\App\Helpers\ContainerHelper;
 
 abstract class BaseWebCrudController extends BaseWebController
 {
@@ -28,6 +29,7 @@ abstract class BaseWebCrudController extends BaseWebController
 
     /** @var BaseCrudService */
     protected $service;
+    protected $formClass;
     protected $baseUri;
     protected $toastrService;
     protected $breadcrumbWidget;
@@ -98,9 +100,18 @@ abstract class BaseWebCrudController extends BaseWebController
         ];
     }
 
+    public function with(): array
+    {
+        return [];
+    }
+
     protected function prepareQuery(string $action, Request $request): Query
     {
         $query = new Query();
+        $with = $this->with();
+        if($with) {
+            $query->with($with);
+        }
         return $query;
     }
 
@@ -108,6 +119,7 @@ abstract class BaseWebCrudController extends BaseWebController
     {
         $this->getView()->addAttribute('title', 'list');
         $query = $this->prepareQuery(CrudControllerActionEnum::INDEX, $request);
+
         $query->perPage($request->query->get('per-page'));
         $query->page($request->query->get('page'));
         $dataProvider = $this->getService()->getDataProvider($query);
@@ -140,7 +152,16 @@ abstract class BaseWebCrudController extends BaseWebController
     {
         $id = $request->query->get('id');
         /** @var BuildFormInterface $form */
-        $form = $this->getService()->oneById($id);
+
+        if(isset($this->formClass)) {
+            $form = ContainerHelper::getContainer()->get($this->formClass);
+            $entity = $this->getService()->oneById($id);
+            $entityAttributes = EntityHelper::toArray($entity);
+            EntityHelper::setAttributes($form, $entityAttributes);
+        } else {
+            $form = $this->getService()->oneById($id);
+        }
+
         $this->getBreadcrumbWidget()->add('update', Url::to([$this->getBaseUri() . '/update', 'id' => $id]));
         $title = EntityHelper::getAttribute($form, $this->titleAttribute());
         $this->getView()->addAttribute('title', $title);
@@ -172,7 +193,13 @@ abstract class BaseWebCrudController extends BaseWebController
     {
         $this->getBreadcrumbWidget()->add('create', Url::to([$this->getBaseUri() . '/create']));
         $this->getView()->addAttribute('title', 'create');
-        $form = $this->getService()->createEntity();
+
+        if(isset($this->formClass)) {
+            $form = ContainerHelper::getContainer()->get($this->formClass);
+        } else {
+            $form = $this->getService()->createEntity();
+        }
+
         $buildForm = $this->buildForm($form, $request);
         if ($buildForm->isSubmitted() && $buildForm->isValid()) {
             try {

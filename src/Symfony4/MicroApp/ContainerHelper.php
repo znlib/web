@@ -2,6 +2,10 @@
 
 namespace ZnLib\Web\Symfony4\MicroApp;
 
+use ZnCore\Base\Helpers\DeprecateHelper;
+
+DeprecateHelper::softThrow();
+
 /**
  * @deprecated 
  */

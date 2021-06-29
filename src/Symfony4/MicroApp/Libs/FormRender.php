@@ -15,6 +15,7 @@ use ZnLib\Web\Symfony4\MicroApp\Libs\Renders\HintRender;
 use ZnLib\Web\Symfony4\MicroApp\Libs\Renders\LabelRender;
 use ZnLib\Web\Symfony4\MicroApp\Libs\Renders\PasswordRender;
 use ZnLib\Web\Symfony4\MicroApp\Libs\Renders\SelectRender;
+use ZnLib\Web\Symfony4\MicroApp\Libs\Renders\TextareaRender;
 use ZnLib\Web\Symfony4\MicroApp\Libs\Renders\TextRender;
 
 class FormRender
@@ -25,6 +26,7 @@ class FormRender
     private $tokenManager;
     private $renderDefinitions = [
         'text' => TextRender::class,
+        'textarea' => TextareaRender::class,
         'select' => SelectRender::class,
         'password' => PasswordRender::class,
         'submit' => ButtonRender::class,

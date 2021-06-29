@@ -6,12 +6,15 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use ZnBundle\Notify\Domain\Interfaces\Services\ToastrServiceInterface;
 use ZnCore\Base\Legacy\Yii\Helpers\Url;
 use ZnCore\Base\Libs\I18Next\Facades\I18Next;
 use ZnCore\Domain\Base\BaseCrudService;
 use ZnCore\Domain\Exceptions\UnprocessibleEntityException;
 use ZnCore\Domain\Helpers\EntityHelper;
+use ZnCore\Domain\Helpers\QueryHelper;
+use ZnCore\Domain\Helpers\ValidationHelper;
 use ZnCore\Domain\Interfaces\Entity\EntityIdInterface;
 use ZnCore\Domain\Interfaces\Service\CrudServiceInterface;
 use ZnCore\Domain\Libs\Query;
@@ -33,6 +36,7 @@ abstract class BaseWebCrudController extends BaseWebController
     protected $baseUri;
     protected $toastrService;
     protected $breadcrumbWidget;
+    private $filterModel;
 
     protected function setService(CrudServiceInterface $service)
     {
@@ -119,14 +123,51 @@ abstract class BaseWebCrudController extends BaseWebController
     {
         $this->getView()->addAttribute('title', 'list');
         $query = $this->prepareQuery(CrudControllerActionEnum::INDEX, $request);
-
-        $query->perPage($request->query->get('per-page'));
-        $query->page($request->query->get('page'));
+        $query = QueryHelper::getAllParams($request->query->all(), $query);
+        $query->removeParam(Query::WHERE);
+        $query->removeParam(Query::WHERE_NEW);
         $dataProvider = $this->getService()->getDataProvider($query);
+        if ($this->filterModel) {
+            $filterModel = $this->forgeFilterModel($request);
+            $dataProvider->setFilterModel($filterModel);
+        }
         return $this->render('index', [
             'dataProvider' => $dataProvider,
             'baseUri' => $this->getBaseUri(),
         ]);
+    }
+
+    public function setFilterModel(?string $filterModel): void
+    {
+        $this->filterModel = $filterModel;
+    }
+
+    private function forgeFilterModel(Request $request): object {
+
+        $filterAttributes = $request->query->get('filter');
+//            $filterAttributes = QueryHelper::getFilterParams($query);
+        $filterAttributes = $filterAttributes ? $this->removeEmptyParameters($filterAttributes) : [];
+        $filterModel = EntityHelper::createEntity($this->filterModel, $filterAttributes);
+        try {
+            ValidationHelper::validateEntity($filterModel);
+        } catch (UnprocessibleEntityException $e) {
+            $errorCollection = $e->getErrorCollection();
+            $errors = [];
+            foreach ($errorCollection as $errorEntity) {
+                $errors[] = $errorEntity->getField() . ': ' . $errorEntity->getMessage();
+            }
+            throw new BadRequestHttpException(implode('<br/>', $errors));
+        }
+        return $filterModel;
+    }
+
+    private function removeEmptyParameters(array $filterAttributes): array {
+        foreach ($filterAttributes as $attribute => $value) {
+            if($value === '') {
+                unset($filterAttributes[$attribute]);
+            }
+        }
+        return $filterAttributes;
     }
 
     public function view(Request $request): Response

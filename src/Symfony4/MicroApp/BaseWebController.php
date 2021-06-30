@@ -93,9 +93,9 @@ abstract class BaseWebController implements ControllerLayoutInterface
         return $this->redirect('/', $status);
     }
 
-    protected function redirectToBack(Request $request): RedirectResponse
+    protected function redirectToBack(Request $request, string $fallbackUrl = null): RedirectResponse
     {
-        $referer = $request->headers->get('referer');
+        $referer = $request->headers->get('referer') ?? $fallbackUrl;
         //$request->getSession()->setFlash('error', $exception->getMessage());
         return new RedirectResponse($referer);
     }

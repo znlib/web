@@ -10,6 +10,7 @@
  * @var array $queryParams
  * @var FormatEncoder $formatter
  * @var object $filterModel
+ * @var bool $showStatistic
  */
 
 use Illuminate\Support\Collection;
@@ -47,7 +48,7 @@ if (!isset($collection)) {
         'collection' => $collection,
     ]) ?>
     </tbody>
-    <?php if ($collection->count()): ?>
+    <?php if ($collection->count() && $showStatistic): ?>
         <tfoot>
         <tr>
             <td colspan="<?= count($attributes) ?>">

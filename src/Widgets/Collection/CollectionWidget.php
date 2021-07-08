@@ -18,6 +18,7 @@ class CollectionWidget extends BaseWidget2
     public $baseUrl;
     public $filter;
     public $formatterClasses = [];
+    public $showStatistic = true;
 
     /** @var AttributeEntity[] | array */
     public $attributes;
@@ -37,6 +38,7 @@ class CollectionWidget extends BaseWidget2
             'formatter' => $formatterEncoder,
             'queryParams' => $request->query->all(),
             'filterModel' => $this->filter,
+            'showStatistic' => $this->showStatistic,
         ]);
     }
 

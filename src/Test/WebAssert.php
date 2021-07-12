@@ -20,7 +20,8 @@ class WebAssert extends BaseAssert
 
     public function assertContainsContent(string $content)
     {
-        $this->assertContains($content, $this->crawler->html());
+        $html = html_entity_decode($this->crawler->html());
+        $this->assertContains($content, $html);
         return $this;
     }
 
@@ -33,19 +34,22 @@ class WebAssert extends BaseAssert
 
     public function assertUnauthorized()
     {
-        $this->assertContains('Логин или телефон', $this->crawler->html());
+        $html = html_entity_decode($this->crawler->html());
+        $this->assertContains('Логин или телефон', $html);
         return $this;
     }
 
     public function assertIsFormError()
     {
-        $this->assertContains('Has errors!', $this->crawler->html());
+        $html = html_entity_decode($this->crawler->html());
+        $this->assertContains('Has errors!', $html);
         return $this;
     }
 
     public function assertIsNotFormError()
     {
-        $this->assertNotContains('Has errors!', $this->crawler->html());
+        $html = html_entity_decode($this->crawler->html());
+        $this->assertNotContains('Has errors!', $html);
         return $this;
     }
 

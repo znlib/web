@@ -8,6 +8,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use ZnBundle\Notify\Domain\Interfaces\Services\ToastrServiceInterface;
+use ZnCore\Base\Legacy\Yii\Helpers\ArrayHelper;
 use ZnCore\Base\Legacy\Yii\Helpers\Url;
 use ZnCore\Base\Libs\I18Next\Facades\I18Next;
 use ZnCore\Domain\Base\BaseCrudService;
@@ -178,15 +179,21 @@ abstract class BaseWebCrudController extends BaseWebController
         return $this->showView($entity);
     }
 
-    protected function showView(EntityIdInterface $entity): Response
+    protected function showView(EntityIdInterface $entity, array $params = []): Response
     {
         $this->getBreadcrumbWidget()->add('view', Url::to([$this->getBaseUri() . '/view', 'id' => $entity->getId()]));
-        $title = EntityHelper::getAttribute($entity, $this->titleAttribute());
+        $title = $this->getTitleFromEntity($entity);
         $this->getView()->addAttribute('title', $title);
-        return $this->render('view', [
+        $params = ArrayHelper::merge($params, [
             'entity' => $entity,
             'baseUri' => $this->getBaseUri(),
         ]);
+        return $this->render('view', $params);
+    }
+
+    protected function getTitleFromEntity(object $entity): string
+    {
+        return EntityHelper::getAttribute($entity, $this->titleAttribute());
     }
 
     public function update(Request $request): Response
@@ -204,7 +211,8 @@ abstract class BaseWebCrudController extends BaseWebController
         }
 
         $this->getBreadcrumbWidget()->add('update', Url::to([$this->getBaseUri() . '/update', 'id' => $id]));
-        $title = EntityHelper::getAttribute($form, $this->titleAttribute());
+        //$title = EntityHelper::getAttribute($form, $this->titleAttribute());
+        $title = $this->getTitleFromEntity($form);
         $this->getView()->addAttribute('title', $title);
         $buildForm = $this->buildForm($form, $request);
         if ($buildForm->isSubmitted() && $buildForm->isValid()) {

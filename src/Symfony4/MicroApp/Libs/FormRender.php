@@ -26,7 +26,9 @@ class FormRender
     private $tokenManager;
     private $renderDefinitions = [
         'text' => TextRender::class,
+        'number' => TextRender::class,
         'textarea' => TextareaRender::class,
+        'choice' => SelectRender::class,
         'select' => SelectRender::class,
         'password' => PasswordRender::class,
         'submit' => ButtonRender::class,
@@ -42,52 +44,65 @@ class FormRender
         $this->tokenManager = $tokenManager;
     }
 
-    public function addFormOption(string $name, string $value = null) {
+    public function addFormOption(string $name, string $value = null)
+    {
         $this->formOptions[$name] = $value;
     }
 
-    public function beginFrom() {
+    public function beginFrom()
+    {
         $formOptions = ArrayHelper::merge($this->formOptions, [
             'name' => $this->formView->vars['name'],
             'method' => $this->formView->vars['method'],
         ]);
-        $html =  Html::beginTag('form', $formOptions);
+        $html = Html::beginTag('form', $formOptions);
         $html .= $this->csrfTokenInput();
         return $html;
     }
 
-    public function endFrom() {
+    public function endFrom()
+    {
         return Html::endForm();
     }
 
-    public function errors() {
+    public function errors()
+    {
         $renderInstance = $this->createRender('formError');
         return $renderInstance->render();
     }
 
-    public function input(string $name, string $type, array $options = []) {
-        $renderInstance = $this->createRender($type, $options);
+    public function input(string $name, string $type = null, array $options = [])
+    {
+        $renderInstance = $this->createRender($type, $name, $options);
         $renderInstance->setAttributeName($name);
         return $renderInstance->render();
     }
 
-    public function renderDefinitions(): array {
+    public function renderDefinitions(): array
+    {
         return $this->renderDefinitions;
     }
 
-    public function addDefinition($definition): array {
+    public function addDefinition($definition): array
+    {
         $this->renderDefinitions[] = $definition;
     }
 
-    public function label($name) {
+    public function label($name)
+    {
         return $this->input($name, 'label');
     }
 
-    public function hint($name, $text = null) {
+    public function hint($name, $text = null)
+    {
         return $this->input($name, 'hint');
     }
 
-    private function createRender(string $type, array $options = []): BaseRender {
+    private function createRender(?string $type, string $name = null, array $options = []): BaseRender
+    {
+        if ($type == null) {
+            $type = $this->extractType($name);
+        }
         $renderDefinition = $this->renderDefinitions[$type];
         /** @var BaseRender $renderInstance */
         $renderInstance = new $renderDefinition($this->formView);
@@ -95,9 +110,22 @@ class FormRender
         return $renderInstance;
     }
 
-    private function csrfTokenInput(): string {
+    private function csrfTokenInput(): string
+    {
         $token = $this->tokenManager->getToken(DotEnv::get('CSRF_TOKEN_ID'));
         return Html::hiddenInput('csrfToken', $token->getValue());
     }
 
+    private function extractType(string $name): string
+    {
+        /** @var FormView $childrenView */
+        $childrenView = $this->formView->children[$name];
+        $blockPrefixes = $childrenView->vars['block_prefixes'];
+        if(count($blockPrefixes) == 3) {
+            $type = $blockPrefixes[1];
+        } elseif(count($blockPrefixes) == 4) {
+            $type = $blockPrefixes[2];
+        }
+        return $type;
+    }
 }

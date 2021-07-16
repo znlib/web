@@ -10,6 +10,7 @@ use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use ZnBundle\Notify\Domain\Interfaces\Services\ToastrServiceInterface;
 use ZnCore\Base\Legacy\Yii\Helpers\ArrayHelper;
 use ZnCore\Base\Legacy\Yii\Helpers\Url;
+use ZnCore\Base\Libs\App\Helpers\ContainerHelper;
 use ZnCore\Base\Libs\I18Next\Facades\I18Next;
 use ZnCore\Domain\Base\BaseCrudService;
 use ZnCore\Domain\Exceptions\UnprocessibleEntityException;
@@ -17,6 +18,7 @@ use ZnCore\Domain\Helpers\EntityHelper;
 use ZnCore\Domain\Helpers\QueryHelper;
 use ZnCore\Domain\Helpers\ValidationHelper;
 use ZnCore\Domain\Interfaces\Entity\EntityIdInterface;
+use ZnCore\Domain\Interfaces\Entity\ValidateEntityInterface;
 use ZnCore\Domain\Interfaces\Service\CrudServiceInterface;
 use ZnCore\Domain\Libs\Query;
 use ZnLib\Web\Symfony4\MicroApp\Enums\CrudControllerActionEnum;
@@ -24,7 +26,6 @@ use ZnLib\Web\Symfony4\MicroApp\Interfaces\BuildFormInterface;
 use ZnLib\Web\Symfony4\MicroApp\Traits\ControllerFormTrait;
 use ZnLib\Web\Widgets\BreadcrumbWidget;
 use ZnSandbox\Sandbox\Casbin\Domain\Enums\Rbac\ExtraPermissionEnum;
-use ZnCore\Base\Libs\App\Helpers\ContainerHelper;
 
 abstract class BaseWebCrudController extends BaseWebController
 {
@@ -37,7 +38,7 @@ abstract class BaseWebCrudController extends BaseWebController
     protected $baseUri;
     protected $toastrService;
     protected $breadcrumbWidget;
-    private $filterModel;
+    protected $filterModel;
 
     protected function setService(CrudServiceInterface $service)
     {
@@ -135,6 +136,7 @@ abstract class BaseWebCrudController extends BaseWebController
         return $this->render('index', [
             'dataProvider' => $dataProvider,
             'baseUri' => $this->getBaseUri(),
+//            'filterModel' => $filterModel,
         ]);
     }
 
@@ -143,6 +145,10 @@ abstract class BaseWebCrudController extends BaseWebController
         $this->filterModel = $filterModel;
     }
 
+    /*protected function getFilterModelInstance(): ValidateEntityInterface {
+        return ;
+    }*/
+    
     private function forgeFilterModel(Request $request): object {
 
         $filterAttributes = $request->query->get('filter');

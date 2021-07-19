@@ -6,6 +6,7 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use ZnCore\Base\Enums\Http\HttpStatusCodeEnum;
 use ZnCore\Base\Helpers\LoadHelper;
 use ZnLib\Rest\Web\Controller\BaseCrudWebController;
 use ZnLib\Web\Symfony4\MicroApp\Interfaces\ControllerLayoutInterface;
@@ -100,7 +101,7 @@ abstract class BaseWebController implements ControllerLayoutInterface
         return new RedirectResponse($referer);
     }
 
-    protected function redirect(string $url, int $status = 302): RedirectResponse
+    protected function redirect(string $url, int $status = HttpStatusCodeEnum::MOVED_TEMPORARILY): RedirectResponse
     {
         return new RedirectResponse($url, $status);
     }

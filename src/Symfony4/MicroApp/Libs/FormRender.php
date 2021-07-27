@@ -11,6 +11,7 @@ use ZnLib\Web\Symfony4\MicroApp\Libs\Renders\BaseRender;
 use ZnLib\Web\Symfony4\MicroApp\Libs\Renders\ButtonRender;
 use ZnLib\Web\Symfony4\MicroApp\Libs\Renders\CheckboxRender;
 use ZnLib\Web\Symfony4\MicroApp\Libs\Renders\FormErrorRender;
+use ZnLib\Web\Symfony4\MicroApp\Libs\Renders\HiddenRender;
 use ZnLib\Web\Symfony4\MicroApp\Libs\Renders\HintRender;
 use ZnLib\Web\Symfony4\MicroApp\Libs\Renders\LabelRender;
 use ZnLib\Web\Symfony4\MicroApp\Libs\Renders\PasswordRender;
@@ -25,6 +26,7 @@ class FormRender
     private $formView;
     private $tokenManager;
     private $renderDefinitions = [
+        'hidden' => HiddenRender::class,
         'text' => TextRender::class,
         'number' => TextRender::class,
         'textarea' => TextareaRender::class,

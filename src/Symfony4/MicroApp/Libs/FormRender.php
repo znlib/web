@@ -10,6 +10,7 @@ use ZnCore\Base\Libs\DotEnv\DotEnv;
 use ZnLib\Web\Symfony4\MicroApp\Libs\Renders\BaseRender;
 use ZnLib\Web\Symfony4\MicroApp\Libs\Renders\ButtonRender;
 use ZnLib\Web\Symfony4\MicroApp\Libs\Renders\CheckboxRender;
+use ZnLib\Web\Symfony4\MicroApp\Libs\Renders\FileRender;
 use ZnLib\Web\Symfony4\MicroApp\Libs\Renders\FormErrorRender;
 use ZnLib\Web\Symfony4\MicroApp\Libs\Renders\HintRender;
 use ZnLib\Web\Symfony4\MicroApp\Libs\Renders\LabelRender;
@@ -25,6 +26,7 @@ class FormRender
     private $formView;
     private $tokenManager;
     private $renderDefinitions = [
+        'file' => FileRender::class,
         'text' => TextRender::class,
         'number' => TextRender::class,
         'textarea' => TextareaRender::class,
@@ -54,6 +56,7 @@ class FormRender
         $formOptions = ArrayHelper::merge($this->formOptions, [
             'name' => $this->formView->vars['name'],
             'method' => $this->formView->vars['method'],
+            
         ]);
         $html = Html::beginTag('form', $formOptions);
         $html .= $this->csrfTokenInput();

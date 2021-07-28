@@ -23,6 +23,7 @@ class TextareaRender extends BaseInputRender
         $options = $this->options();
         //$options = $this->defaultOptions();
 //        dd($this->getViewOptions());
+        unset($options['value']);
         return Html::textarea($this->getViewOptions()['full_name'], $this->getViewOptions()['value'], $options);
     }
 }

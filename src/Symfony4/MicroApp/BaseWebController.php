@@ -2,12 +2,14 @@
 
 namespace ZnLib\Web\Symfony4\MicroApp;
 
+use Symfony\Component\HttpFoundation\HeaderUtils;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use ZnCore\Base\Enums\Http\HttpStatusCodeEnum;
 use ZnCore\Base\Helpers\LoadHelper;
+use ZnCore\Base\Legacy\Yii\Helpers\FileHelper;
 use ZnLib\Rest\Web\Controller\BaseCrudWebController;
 use ZnLib\Web\Symfony4\MicroApp\Interfaces\ControllerLayoutInterface;
 use ZnLib\Web\View\View;
@@ -69,6 +71,24 @@ abstract class BaseWebController implements ControllerLayoutInterface
             ]);
         }
         return new Response($content);
+    }
+
+    protected function downloadFile(string $fileName, string $aliasFileName = null): Response
+    {
+        $aliasFileName = $aliasFileName ?? basename($fileName);
+        $content = FileHelper::load($fileName);
+        return $this->downloadFileContent($content, $aliasFileName);
+    }
+
+    protected function downloadFileContent(string $content, string $aliasFileName = null): Response
+    {
+        $response = new Response($content);
+        $disposition = HeaderUtils::makeDisposition(
+            HeaderUtils::DISPOSITION_ATTACHMENT,
+            $aliasFileName
+        );
+        $response->headers->set('Content-Disposition', $disposition);
+        return $response;
     }
 
     protected function render(string $file, array $params = []): Response

@@ -76,7 +76,7 @@ abstract class BaseWebController implements ControllerLayoutInterface
     protected function downloadFile(string $fileName, string $aliasFileName = null): Response
     {
         $aliasFileName = $aliasFileName ?? basename($fileName);
-        $content = FileHelper::load($fileName);
+        $content = file_get_contents($fileName);
         return $this->downloadFileContent($content, $aliasFileName);
     }
 

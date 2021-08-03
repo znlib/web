@@ -31,6 +31,7 @@ class MicroApp
     private $routes;
     private $routingConfigurator;
     private $layout;
+    private $layoutParams = [];
 
     private $errorController;
 
@@ -58,6 +59,21 @@ class MicroApp
     public function setLayout(string $layout): void
     {
         $this->layout = $layout;
+    }
+
+    public function getLayoutParams(): array
+    {
+        return $this->layoutParams;
+    }
+
+    public function setLayoutParams(array $layoutParams): void
+    {
+        $this->layoutParams = $layoutParams;
+    }
+
+    public function addLayoutParam(string $name, $value): void
+    {
+        $this->layoutParams[$name] = $value;
     }
 
     public function setContainer(ContainerInterface $container)
@@ -167,7 +183,9 @@ class MicroApp
     {
         if (isset($this->layout) && $controllerInstance instanceof ControllerLayoutInterface) {
             $controllerInstance->setLayout($this->layout);
+            $controllerInstance->setLayoutParams($this->getLayoutParams());
         }
+
         $attributes[Request::class] = $request;
 //        $this->container->bind(Request::class, function() use ($request) {return $request;});
         //$response = call_user_func_array([$controllerInstance, $actionName], [$request]);

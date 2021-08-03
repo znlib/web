@@ -9,6 +9,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use ZnCore\Base\Enums\Http\HttpStatusCodeEnum;
 use ZnCore\Base\Helpers\LoadHelper;
+use ZnCore\Base\Legacy\Yii\Helpers\ArrayHelper;
 use ZnCore\Base\Legacy\Yii\Helpers\FileHelper;
 use ZnLib\Rest\Web\Controller\BaseCrudWebController;
 use ZnLib\Web\Symfony4\MicroApp\Interfaces\ControllerLayoutInterface;
@@ -18,6 +19,7 @@ abstract class BaseWebController implements ControllerLayoutInterface
 {
 
     protected $layout = __DIR__ . '/layouts/main.php';
+    protected $layoutParams = [];
     protected $viewsDir;
     protected $view;
     protected $fileExt = 'php';
@@ -30,6 +32,21 @@ abstract class BaseWebController implements ControllerLayoutInterface
     public function setLayout(?string $layout): void
     {
         $this->layout = $layout;
+    }
+
+    public function getLayoutParams(): array
+    {
+        return $this->layoutParams;
+    }
+
+    public function setLayoutParams(array $layoutParams): void
+    {
+        $this->layoutParams = $layoutParams;
+    }
+
+    public function addLayoutParam(string $name, $value): void
+    {
+        $this->layoutParams[$name] = $value;
     }
 
     public function getViewsDir(): ?string
@@ -46,9 +63,9 @@ abstract class BaseWebController implements ControllerLayoutInterface
     {
         $content = LoadHelper::loadTemplate($this->viewsDir . '/' . $file . '.' . $this->fileExt, $params);
         if (isset($this->layout)) {
-            $content = LoadHelper::loadTemplate($this->layout, [
-                'content' => $content,
-            ]);
+            $params = ArrayHelper::merge($this->getLayoutParams(), $params);
+            $params['content'] = $content;
+            $content = LoadHelper::loadTemplate($this->layout, $params);
         }
         return new Response($content);
     }
@@ -66,9 +83,9 @@ abstract class BaseWebController implements ControllerLayoutInterface
         $view->setRenderDirectory($this->viewsDir);
         $pageContent = $view->renderFile($file, $params);
         if (isset($this->layout)) {
-            $content = $view->renderFile($this->layout, [
-                'content' => $pageContent,
-            ]);
+            $params = ArrayHelper::merge($this->getLayoutParams(), $params);
+            $params['content'] = $pageContent;
+            $content = $view->renderFile($this->layout, $params);
         }
         return new Response($content);
     }
@@ -97,9 +114,9 @@ abstract class BaseWebController implements ControllerLayoutInterface
         $view->setRenderDirectory($this->viewsDir);
         $pageContent = $view->render($file, $params);
         if (isset($this->layout)) {
-            $content = $view->renderFile($this->layout, [
-                'content' => $pageContent,
-            ]);
+            $params = ArrayHelper::merge($this->getLayoutParams(), $params);
+            $params['content'] = $pageContent;
+            $content = $view->renderFile($this->layout, $params);
         }
         return new Response($content);
     }

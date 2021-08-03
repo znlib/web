@@ -150,7 +150,8 @@ class MicroApp
 
     private function runAction(UrlMatcherInterface $matcher, Request $request): Response
     {
-        $attributes = $matcher->match($request->getPathInfo());
+        $uri = rtrim($request->getPathInfo(), '/');
+        $attributes = $matcher->match($uri);
         if (is_array($attributes['_controller'])) {
             list($controllerClass, $actionName) = $attributes['_controller'];
         } else {

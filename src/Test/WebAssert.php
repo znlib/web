@@ -35,7 +35,7 @@ class WebAssert extends BaseAssert
     public function assertUnauthorized()
     {
         $html = html_entity_decode($this->crawler->html());
-        $this->assertContains('Логин или телефон', $html);
+        $this->assertContains('Логин', $html);
         return $this;
     }
 

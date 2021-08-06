@@ -20,6 +20,6 @@ abstract class BaseWidget implements WidgetInterface
 
     protected function renderTemplate(string $templateCode, array $params)
     {
-        return TemplateHelper::renderTemplate($templateCode, $params);
+        return TemplateHelper::render($templateCode, $params);
     }
 }

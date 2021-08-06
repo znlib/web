@@ -90,7 +90,7 @@ class FormRender
             'input' => $this->input($name, $type, $options),
             'hint' => $this->hint($name),
         ];
-        return TemplateHelper::renderTemplate($this->rowTemplate, $params);
+        return TemplateHelper::render($this->rowTemplate, $params);
     }
 
     public function input(string $name, string $type = null, array $options = [])

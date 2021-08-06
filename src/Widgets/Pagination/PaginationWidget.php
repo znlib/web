@@ -118,7 +118,7 @@ class PaginationWidget extends BaseWidget2
 
     private function renderLayout(string $items)
     {
-        return TemplateHelper::renderTemplate($this->layoutTemplate, ['items' => $items]);
+        return TemplateHelper::render($this->layoutTemplate, ['items' => $items]);
     }
 
     private function renderPageSizeSelector()
@@ -132,12 +132,12 @@ class PaginationWidget extends BaseWidget2
             $queryParams['per-page'] = $size;
             $queryParams['page'] = 1;
             $queryString = '?' . http_build_query($queryParams);
-            $html .= TemplateHelper::renderTemplate($this->pageSizeItemTemplate, [
+            $html .= TemplateHelper::render($this->pageSizeItemTemplate, [
                 'url' => $queryString,
                 'size' => $size,
             ]);
         }
-        return TemplateHelper::renderTemplate($this->pageSizeWrapperTemplate, [
+        return TemplateHelper::render($this->pageSizeWrapperTemplate, [
             'pageSize' => $this->dataProviderEntity->getPageSize(),
             'items' => $html,
         ]);

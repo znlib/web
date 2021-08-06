@@ -27,7 +27,7 @@ class ArrayFormatter extends BaseFormatter implements FormatterInterface
     {
         $arr = [];
         foreach ($items as $key => $val) {
-            $arr[] = TemplateHelper::renderTemplate($this->indexedItemWrapper, ['value' => $val]);
+            $arr[] = TemplateHelper::render($this->indexedItemWrapper, ['value' => $val]);
         }
         return implode($this->indexedSplitter, $arr);
     }
@@ -36,12 +36,12 @@ class ArrayFormatter extends BaseFormatter implements FormatterInterface
     {
         $arr = [];
         foreach ($items as $key => $val) {
-            $arr[] = TemplateHelper::renderTemplate($this->assocItemWrapper, [
+            $arr[] = TemplateHelper::render($this->assocItemWrapper, [
                 'key' => $key,
                 'value' => $val,
             ]);
         }
         $itemsHtml = implode(' ', $arr);
-        return TemplateHelper::renderTemplate($this->assocWrapper, ['items' => $itemsHtml]);
+        return TemplateHelper::render($this->assocWrapper, ['items' => $itemsHtml]);
     }
 }

@@ -4,6 +4,7 @@ namespace ZnLib\Web\Widgets\Pagination;
 
 use Symfony\Component\HttpFoundation\Request;
 use ZnCore\Base\Helpers\StringHelper;
+use ZnCore\Base\Helpers\TemplateHelper;
 use ZnCore\Domain\Entities\DataProviderEntity;
 use ZnCore\Domain\Libs\DataProvider;
 use ZnLib\Web\Widgets\Base\BaseWidget2;
@@ -117,7 +118,7 @@ class PaginationWidget extends BaseWidget2
 
     private function renderLayout(string $items)
     {
-        return StringHelper::renderTemplate($this->layoutTemplate, ['items' => $items]);
+        return TemplateHelper::renderTemplate($this->layoutTemplate, ['items' => $items]);
     }
 
     private function renderPageSizeSelector()
@@ -131,15 +132,14 @@ class PaginationWidget extends BaseWidget2
             $queryParams['per-page'] = $size;
             $queryParams['page'] = 1;
             $queryString = '?' . http_build_query($queryParams);
-            $html .= StringHelper::renderTemplate($this->pageSizeItemTemplate, [
+            $html .= TemplateHelper::renderTemplate($this->pageSizeItemTemplate, [
                 'url' => $queryString,
                 'size' => $size,
             ]);
         }
-        return StringHelper::renderTemplate($this->pageSizeWrapperTemplate, [
+        return TemplateHelper::renderTemplate($this->pageSizeWrapperTemplate, [
             'pageSize' => $this->dataProviderEntity->getPageSize(),
             'items' => $html,
         ]);
     }
-
 }

@@ -3,6 +3,7 @@
 namespace ZnLib\Web\Widgets\Format\Formatters;
 
 use ZnCore\Base\Helpers\StringHelper;
+use ZnCore\Base\Helpers\TemplateHelper;
 use ZnCore\Base\Legacy\Yii\Helpers\ArrayHelper;
 
 class ArrayFormatter extends BaseFormatter implements FormatterInterface
@@ -26,7 +27,7 @@ class ArrayFormatter extends BaseFormatter implements FormatterInterface
     {
         $arr = [];
         foreach ($items as $key => $val) {
-            $arr[] = StringHelper::renderTemplate($this->indexedItemWrapper, ['value' => $val]);
+            $arr[] = TemplateHelper::renderTemplate($this->indexedItemWrapper, ['value' => $val]);
         }
         return implode($this->indexedSplitter, $arr);
     }
@@ -35,12 +36,12 @@ class ArrayFormatter extends BaseFormatter implements FormatterInterface
     {
         $arr = [];
         foreach ($items as $key => $val) {
-            $arr[] = StringHelper::renderTemplate($this->assocItemWrapper, [
+            $arr[] = TemplateHelper::renderTemplate($this->assocItemWrapper, [
                 'key' => $key,
                 'value' => $val,
             ]);
         }
         $itemsHtml = implode(' ', $arr);
-        return StringHelper::renderTemplate($this->assocWrapper, ['items' => $itemsHtml]);
+        return TemplateHelper::renderTemplate($this->assocWrapper, ['items' => $itemsHtml]);
     }
 }

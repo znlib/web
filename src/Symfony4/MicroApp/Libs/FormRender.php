@@ -4,6 +4,7 @@ namespace ZnLib\Web\Symfony4\MicroApp\Libs;
 
 use Symfony\Component\Form\FormView;
 use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
+use ZnCore\Base\Helpers\TemplateHelper;
 use ZnCore\Base\Legacy\Yii\Helpers\ArrayHelper;
 use ZnCore\Base\Legacy\Yii\Helpers\Html;
 use ZnCore\Base\Libs\DotEnv\DotEnv;
@@ -24,6 +25,7 @@ class FormRender
 {
 
     private $formOptions = [];
+    private $rowTemplate = '<div class="form-group required has-error">{label}{input}{hint}</div>';
     private $formView;
     private $tokenManager;
     private $renderDefinitions = [
@@ -46,6 +48,11 @@ class FormRender
     {
         $this->formView = $formView;
         $this->tokenManager = $tokenManager;
+    }
+
+    public function getFormView(): FormView
+    {
+        return $this->formView;
     }
 
     public function addFormOption(string $name, string $value = null)
@@ -74,6 +81,16 @@ class FormRender
     {
         $renderInstance = $this->createRender('formError');
         return $renderInstance->render();
+    }
+
+    public function row(string $name, string $type = null, array $options = [])
+    {
+        $params = [
+            'label' => $this->label($name),
+            'input' => $this->input($name, $type, $options),
+            'hint' => $this->hint($name),
+        ];
+        return TemplateHelper::renderTemplate($this->rowTemplate, $params);
     }
 
     public function input(string $name, string $type = null, array $options = [])

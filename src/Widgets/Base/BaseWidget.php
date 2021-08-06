@@ -4,6 +4,7 @@ namespace ZnLib\Web\Widgets\Base;
 
 use ZnCore\Base\Helpers\ClassHelper;
 use ZnCore\Base\Helpers\StringHelper;
+use ZnCore\Base\Helpers\TemplateHelper;
 use ZnLib\Web\Widgets\Interfaces\WidgetInterface;
 
 abstract class BaseWidget implements WidgetInterface
@@ -19,6 +20,6 @@ abstract class BaseWidget implements WidgetInterface
 
     protected function renderTemplate(string $templateCode, array $params)
     {
-        return StringHelper::renderTemplate($templateCode, $params);
+        return TemplateHelper::renderTemplate($templateCode, $params);
     }
 }

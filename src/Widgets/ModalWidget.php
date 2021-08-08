@@ -2,7 +2,6 @@
 
 namespace ZnLib\Web\Widgets;
 
-use ZnLib\Web\Widgets\Base\BaseWidget;
 use ZnLib\Web\Widgets\Base\BaseWidget2;
 
 class ModalWidget extends BaseWidget2

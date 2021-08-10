@@ -117,6 +117,8 @@ abstract class BaseWebController implements ControllerLayoutInterface
             $params = ArrayHelper::merge($this->getLayoutParams(), $params);
             $params['content'] = $pageContent;
             $content = $view->renderFile($this->layout, $params);
+        } else {
+            $content = $pageContent;
         }
         return new Response($content);
     }

@@ -182,9 +182,7 @@ class MicroApp
     private function callControllerAction(object $controllerInstance, string $actionName, Request $request, array $attributes = []): Response
     {
         if (isset($this->layout) && $controllerInstance instanceof ControllerLayoutInterface) {
-            //if(empty($controllerInstance->getLayout())) {
-                $controllerInstance->setLayout($this->layout);
-            //}
+            $controllerInstance->setLayout($this->layout);
             $controllerInstance->setLayoutParams($this->getLayoutParams());
         }
 

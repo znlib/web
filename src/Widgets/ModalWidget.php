@@ -2,6 +2,7 @@
 
 namespace ZnLib\Web\Widgets;
 
+use ZnCore\Base\Legacy\Yii\Helpers\Html;
 use ZnLib\Web\Widgets\Base\BaseWidget2;
 
 class ModalWidget extends BaseWidget2
@@ -10,6 +11,9 @@ class ModalWidget extends BaseWidget2
     public $tagId;
     public $header;
     public $body;
+    public $bodyOptions = [
+        'class' => 'modal-body',
+    ];
     public $footer;
     public $centered = false;
 
@@ -47,6 +51,9 @@ class ModalWidget extends BaseWidget2
 
     protected function generateHeaderHtml(): string
     {
+        if(empty($this->header)) {
+            return '';
+        }
         return '
             <div class="modal-header">
                 <h5 class="modal-title" id="' . $this->tagId . 'Label">
@@ -58,15 +65,22 @@ class ModalWidget extends BaseWidget2
 
     protected function generateBodyHtml(): string
     {
-        return '
+        if(empty($this->body)) {
+            return '';
+        }
+        return Html::tag('div', $this->body, $this->bodyOptions);
+        /*return '
             <div class="modal-body">
                 ' . $this->body . '
             </div>
-        ';
+        ';*/
     }
 
     protected function generateFooterHtml(): string
     {
+        if(empty($this->footer)) {
+            return '';
+        }
         return '
             <div class="modal-footer">
                 ' . $this->footer . '

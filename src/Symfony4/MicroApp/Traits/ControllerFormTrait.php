@@ -11,7 +11,9 @@ use Symfony\Component\HttpFoundation\Exception\BadRequestException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Csrf\CsrfToken;
 use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
+use Symfony\Component\Validator\ConstraintViolation;
 use ZnCore\Base\Libs\DotEnv\DotEnv;
+use ZnCore\Domain\Entities\ValidateErrorEntity;
 use ZnCore\Domain\Exceptions\UnprocessibleEntityException;
 use ZnCore\Domain\Helpers\ValidationHelper;
 use ZnLib\Web\Symfony4\MicroApp\Interfaces\BuildFormInterface;
@@ -88,9 +90,15 @@ trait ControllerFormTrait
     protected function setUnprocessableErrorsToForm(FormInterface $buildForm, UnprocessibleEntityException $e): void
     {
         foreach ($e->getErrorCollection() as $errorEntity) {
-            $cause = $errorEntity->getViolation();
+            /** @var ValidateErrorEntity $cause */
+            //$cause = $errorEntity->getViolation();
+            //$violation = new ConstraintViolation();
+            $violation = new ConstraintViolation($errorEntity->getMessage(), null, [], 'Root', $errorEntity->getField(), null, null, null, null, $e);
+
+            //$cause->setViolation($violation);
+            //dd($cause->getViolation());
 //          $cause = new ConstraintViolation('Error 1!', null, [], null, '', null, null, 'code1');
-            $formError = new FormError($errorEntity->getMessage(), null, [], null, $cause);
+            $formError = new FormError($errorEntity->getMessage(), null, [], null, $violation);
             $buildForm->addError($formError);
         }
     }

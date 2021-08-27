@@ -260,7 +260,7 @@ abstract class BaseWebCrudController extends BaseWebController
         $buildForm = $this->buildForm($form, $request);
         if ($buildForm->isSubmitted() && $buildForm->isValid()) {
             try {
-                $this->getService()->create(EntityHelper::toArray($form));
+                $this->runCreate($form);
                 $this->getToastrService()->success(['core', 'message.saved_success']);
                 return $this->redirect(Url::to([$this->getBaseUri()]));
             } catch (UnprocessibleEntityException $e) {
@@ -270,6 +270,10 @@ abstract class BaseWebCrudController extends BaseWebController
         return $this->render('form', [
             'formView' => $buildForm->createView(),
         ]);
+    }
+
+    protected function runCreate(object $form) {
+        $this->getService()->create(EntityHelper::toArray($form));
     }
 
     protected function buildForm(BuildFormInterface $form, Request $request): FormInterface

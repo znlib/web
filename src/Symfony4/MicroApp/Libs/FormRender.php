@@ -46,6 +46,12 @@ class FormRender
 
     public function __construct(FormView $formView, CsrfTokenManagerInterface $tokenManager)
     {
+        /** @var FormView $child */
+        foreach ($formView->children as $child) {
+            if(ArrayHelper::getValue($child->vars, 'type') == 'file') {
+                $this->addFormOption('enctype', 'multipart/form-data');
+            }
+        }
         $this->formView = $formView;
         $this->tokenManager = $tokenManager;
     }

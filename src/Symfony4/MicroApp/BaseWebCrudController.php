@@ -18,7 +18,6 @@ use ZnCore\Domain\Helpers\EntityHelper;
 use ZnCore\Domain\Helpers\QueryHelper;
 use ZnCore\Domain\Helpers\ValidationHelper;
 use ZnCore\Domain\Interfaces\Entity\EntityIdInterface;
-use ZnCore\Domain\Interfaces\Entity\ValidateEntityInterface;
 use ZnCore\Domain\Interfaces\Service\CrudServiceInterface;
 use ZnCore\Domain\Libs\Query;
 use ZnLib\Web\Symfony4\MicroApp\Enums\CrudControllerActionEnum;
@@ -115,7 +114,7 @@ abstract class BaseWebCrudController extends BaseWebController
     {
         $query = new Query();
         $with = $this->with();
-        if($with) {
+        if ($with) {
             $query->with($with);
         }
         return $query;
@@ -148,8 +147,9 @@ abstract class BaseWebCrudController extends BaseWebController
     /*protected function getFilterModelInstance(): ValidateEntityInterface {
         return ;
     }*/
-    
-    private function forgeFilterModel(Request $request): object {
+
+    private function forgeFilterModel(Request $request): object
+    {
 
         $filterAttributes = $request->query->get('filter');
 //            $filterAttributes = QueryHelper::getFilterParams($query);
@@ -168,9 +168,10 @@ abstract class BaseWebCrudController extends BaseWebController
         return $filterModel;
     }
 
-    private function removeEmptyParameters(array $filterAttributes): array {
+    private function removeEmptyParameters(array $filterAttributes): array
+    {
         foreach ($filterAttributes as $attribute => $value) {
-            if($value === '') {
+            if ($value === '') {
                 unset($filterAttributes[$attribute]);
             }
         }
@@ -202,6 +203,14 @@ abstract class BaseWebCrudController extends BaseWebController
         return EntityHelper::getAttribute($entity, $this->titleAttribute());
     }
 
+    protected function createFormInstance(): object
+    {
+        $form = ContainerHelper::getContainer()->get($this->formClass);
+//            $entityAttributes = EntityHelper::toArray($entity);
+//            $entityAttributes = ArrayHelper::extractByKeys($entityAttributes, EntityHelper::getAttributeNames($form));
+        return $form;
+    }
+
     public function update(Request $request): Response
     {
         $id = $request->query->get('id');
@@ -209,10 +218,8 @@ abstract class BaseWebCrudController extends BaseWebController
 
         $query = $this->prepareQuery(CrudControllerActionEnum::UPDATE, $request);
         $entity = $this->getService()->oneById($id, $query);
-        if(isset($this->formClass)) {
-            $form = ContainerHelper::getContainer()->get($this->formClass);
-//            $entityAttributes = EntityHelper::toArray($entity);
-//            $entityAttributes = ArrayHelper::extractByKeys($entityAttributes, EntityHelper::getAttributeNames($form));
+        if (isset($this->formClass)) {
+            $form = $this->createFormInstance();
             EntityHelper::setAttributesFromObject($form, $entity);
         } else {
             $form = $entity;
@@ -251,7 +258,7 @@ abstract class BaseWebCrudController extends BaseWebController
         $this->getBreadcrumbWidget()->add('create', Url::to([$this->getBaseUri() . '/create']));
         $this->getView()->addAttribute('title', 'create');
 
-        if(isset($this->formClass)) {
+        if (isset($this->formClass)) {
             $form = ContainerHelper::getContainer()->get($this->formClass);
         } else {
             $form = $this->getService()->createEntity();
@@ -272,7 +279,8 @@ abstract class BaseWebCrudController extends BaseWebController
         ]);
     }
 
-    protected function runCreate(object $form) {
+    protected function runCreate(object $form)
+    {
         $this->getService()->create(EntityHelper::toArray($form));
     }
 

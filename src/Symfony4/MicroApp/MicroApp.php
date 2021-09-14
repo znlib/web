@@ -51,6 +51,16 @@ class MicroApp
         $this->routingConfigurator = new RoutingConfigurator($this->routes, $fileLoader, __FILE__, __FILE__);
     }
 
+    public function getRoutes(): RouteCollection
+    {
+        return $this->routes;
+    }
+
+    public function setRoutes(RouteCollection $routes): void
+    {
+        $this->routes = $routes;
+    }
+
     public function getLayout(): ?string
     {
         return $this->layout;

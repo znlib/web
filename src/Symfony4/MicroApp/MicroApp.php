@@ -16,6 +16,7 @@ use Symfony\Component\Routing\Matcher\UrlMatcherInterface;
 use Symfony\Component\Routing\RequestContext;
 use Symfony\Component\Routing\RouteCollection;
 use ZnCore\Base\Exceptions\DeprecatedException;
+use ZnCore\Base\Helpers\ClassHelper;
 use ZnCore\Base\Helpers\InstanceHelper;
 use ZnCore\Base\Libs\Event\Traits\EventDispatcherTrait;
 use ZnLib\Web\Symfony4\MicroApp\Enums\ControllerEventEnum;
@@ -129,6 +130,7 @@ class MicroApp
 
     public function run(Request $request = null): Response
     {
+//        $request = $request ?: $this->container->get(Request::class);
         $request = $request ?: Request::createFromGlobals();
         $matcher = $this->createMatcher($this->routes, $request);
         try {
@@ -213,8 +215,11 @@ class MicroApp
 
     private function createMatcher(RouteCollection $routes, Request $request): UrlMatcherInterface
     {
-        $context = new RequestContext;
+        $context = $this->container->get(RequestContext::class); //new RequestContext;
         $context->fromRequest($request);
+//        dd($routes);
+        //dd($this->container->get(RouteCollection::class));
+//        $matcher = $this->container->get(UrlMatcher::class);
         $matcher = new UrlMatcher($routes, $context);
         return $matcher;
     }

@@ -203,9 +203,10 @@ abstract class BaseWebCrudController extends BaseWebController
         return EntityHelper::getAttribute($entity, $this->titleAttribute());
     }
 
-    protected function createFormInstance(): object
+    protected function createFormInstance($definition = null): object
     {
-        $form = ContainerHelper::getContainer()->get($this->formClass);
+        $definition = $definition ?: $this->formClass;
+        $form = ContainerHelper::getContainer()->get($definition);
 //            $entityAttributes = EntityHelper::toArray($entity);
 //            $entityAttributes = ArrayHelper::extractByKeys($entityAttributes, EntityHelper::getAttributeNames($form));
         return $form;

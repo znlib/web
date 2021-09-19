@@ -15,6 +15,7 @@ use ZnCore\Base\Libs\App\Helpers\ContainerHelper;
 use ZnLib\Rest\Web\Controller\BaseCrudWebController;
 use ZnLib\Web\Symfony4\MicroApp\Interfaces\ControllerLayoutInterface;
 use ZnLib\Web\Symfony4\MicroApp\Libs\FormManager;
+use ZnLib\Web\Symfony4\MicroApp\Libs\layoutManager;
 use ZnLib\Web\View\View;
 
 abstract class BaseWebController implements ControllerLayoutInterface
@@ -26,6 +27,7 @@ abstract class BaseWebController implements ControllerLayoutInterface
     protected $view;
     protected $fileExt = 'php';
     protected $formManager;
+    private $layoutManager;
     protected $baseUri;
 
     public function getBaseUri(): string
@@ -46,6 +48,16 @@ abstract class BaseWebController implements ControllerLayoutInterface
     public function setFormManager(FormManager $formManager): void
     {
         $this->formManager = $formManager;
+    }
+
+    public function getLayoutManager(): layoutManager
+    {
+        return $this->layoutManager;
+    }
+
+    public function setLayoutManager(layoutManager $layoutManager): void
+    {
+        $this->layoutManager = $layoutManager;
     }
 
     public function getLayout(): ?string

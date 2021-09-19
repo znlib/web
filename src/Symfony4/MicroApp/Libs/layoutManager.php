@@ -2,32 +2,26 @@
 
 namespace ZnLib\Web\Symfony4\MicroApp\Libs;
 
-use Symfony\Component\Form\FormFactoryInterface;
-use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use ZnBundle\Notify\Domain\Interfaces\Services\ToastrServiceInterface;
-use ZnLib\Rpc\Domain\Libs\RpcClient;
-use ZnLib\Web\Symfony4\MicroApp\Traits\ControllerFormTrait;
 use ZnLib\Web\Widgets\BreadcrumbWidget;
-use ZnSandbox\Sandbox\Rpc\Domain\Interfaces\Services\MethodServiceInterface;
-use ZnSandbox\Sandbox\RpcClient\Domain\Interfaces\Services\ClientServiceInterface;
-use ZnSandbox\Sandbox\RpcClient\Domain\Interfaces\Services\FavoriteServiceInterface;
 
 class layoutManager
 {
 
-   // use ControllerFormTrait;
-
     protected $toastrService;
     protected $breadcrumbWidget;
+    protected $urlGenerator;
 
     public function __construct(
         ToastrServiceInterface $toastrService,
-        BreadcrumbWidget $breadcrumbWidget
-        //UrlGeneratorInterface $urlGenerator
+        BreadcrumbWidget $breadcrumbWidget,
+        UrlGeneratorInterface $urlGenerator
     )
     {
         $this->setToastrService($toastrService);
         $this->setBreadcrumbWidget($breadcrumbWidget);
+        $this->urlGenerator = $urlGenerator;
     }
 
     public function getToastrService(): ToastrServiceInterface
@@ -48,5 +42,28 @@ class layoutManager
     public function setBreadcrumbWidget(BreadcrumbWidget $breadcrumbWidget): void
     {
         $this->breadcrumbWidget = $breadcrumbWidget;
+    }
+
+    public function addBreadcrumb(string $label, string $name, array $parameters = [], int $referenceType = UrlGeneratorInterface::ABSOLUTE_PATH): void
+    {
+        $url = $this->urlGenerator->generate($name, $parameters, $referenceType);
+        $this->getBreadcrumbWidget()->add($label, $url);
+    }
+
+    public function toastrSuccess($message, int $delay = null): void
+    {
+        $this->getToastrService()->success($message, $delay);
+    }
+
+    public function toastrInfo($message, int $delay = null) {
+        $this->getToastrService()->info($message, $delay);
+    }
+
+    public function toastrWarning($message, int $delay = null) {
+        $this->getToastrService()->warning($message, $delay);
+    }
+
+    public function toastrError($message, int $delay = null) {
+        $this->getToastrService()->error($message, $delay);
     }
 }

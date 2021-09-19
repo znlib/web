@@ -22,6 +22,8 @@ use ZnCore\Domain\Interfaces\Service\CrudServiceInterface;
 use ZnCore\Domain\Libs\Query;
 use ZnLib\Web\Symfony4\MicroApp\Enums\CrudControllerActionEnum;
 use ZnLib\Web\Symfony4\MicroApp\Interfaces\BuildFormInterface;
+use ZnLib\Web\Symfony4\MicroApp\Libs\FormManager;
+use ZnLib\Web\Symfony4\MicroApp\Libs\FormRender;
 use ZnLib\Web\Symfony4\MicroApp\Traits\ControllerFormTrait;
 use ZnLib\Web\Widgets\BreadcrumbWidget;
 use ZnUser\Rbac\Domain\Enums\Rbac\ExtraPermissionEnum;
@@ -34,7 +36,7 @@ abstract class BaseWebCrudController extends BaseWebController
     /** @var BaseCrudService */
     protected $service;
     protected $formClass;
-    protected $baseUri;
+
     protected $toastrService;
     protected $breadcrumbWidget;
     protected $filterModel;
@@ -47,16 +49,6 @@ abstract class BaseWebCrudController extends BaseWebController
     public function getService(): BaseCrudService
     {
         return $this->service;
-    }
-
-    public function getBaseUri(): string
-    {
-        return $this->baseUri;
-    }
-
-    public function setBaseUri(string $baseUri): void
-    {
-        $this->baseUri = $baseUri;
     }
 
     public function getToastrService(): ToastrServiceInterface
@@ -78,6 +70,15 @@ abstract class BaseWebCrudController extends BaseWebController
     {
         $this->breadcrumbWidget = $breadcrumbWidget;
     }
+
+    public function setFilterModel(?string $filterModel): void
+    {
+        $this->filterModel = $filterModel;
+    }
+
+    /*protected function getFilterModelInstance(): ValidateEntityInterface {
+        return ;
+    }*/
 
     protected function titleAttribute(): string
     {
@@ -110,6 +111,15 @@ abstract class BaseWebCrudController extends BaseWebController
         return [];
     }
 
+    protected function buildForm(BuildFormInterface $form, Request $request): FormInterface
+    {
+        $formBuilder = $this->createFormBuilder($form);
+        $formBuilder->add('save', SubmitType::class, [
+            'label' => I18Next::t('core', 'action.send')
+        ]);
+        return $this->formBuilderToForm($formBuilder, $request);
+    }
+
     protected function prepareQuery(string $action, Request $request): Query
     {
         $query = new Query();
@@ -119,34 +129,6 @@ abstract class BaseWebCrudController extends BaseWebController
         }
         return $query;
     }
-
-    public function index(Request $request): Response
-    {
-        $this->getView()->addAttribute('title', 'list');
-        $query = $this->prepareQuery(CrudControllerActionEnum::INDEX, $request);
-        $query = QueryHelper::getAllParams($request->query->all(), $query);
-        $query->removeParam(Query::WHERE);
-        $query->removeParam(Query::WHERE_NEW);
-        $dataProvider = $this->getService()->getDataProvider($query);
-        if ($this->filterModel) {
-            $filterModel = $this->forgeFilterModel($request);
-            $dataProvider->setFilterModel($filterModel);
-        }
-        return $this->render('index', [
-            'dataProvider' => $dataProvider,
-            'baseUri' => $this->getBaseUri(),
-//            'filterModel' => $filterModel,
-        ]);
-    }
-
-    public function setFilterModel(?string $filterModel): void
-    {
-        $this->filterModel = $filterModel;
-    }
-
-    /*protected function getFilterModelInstance(): ValidateEntityInterface {
-        return ;
-    }*/
 
     private function forgeFilterModel(Request $request): object
     {
@@ -178,6 +160,30 @@ abstract class BaseWebCrudController extends BaseWebController
         return $filterAttributes;
     }
 
+    protected function getTitleFromEntity(object $entity): string
+    {
+        return EntityHelper::getAttribute($entity, $this->titleAttribute());
+    }
+
+    public function index(Request $request): Response
+    {
+        $this->getView()->addAttribute('title', 'list');
+        $query = $this->prepareQuery(CrudControllerActionEnum::INDEX, $request);
+        $query = QueryHelper::getAllParams($request->query->all(), $query);
+        $query->removeParam(Query::WHERE);
+        $query->removeParam(Query::WHERE_NEW);
+        $dataProvider = $this->getService()->getDataProvider($query);
+        if ($this->filterModel) {
+            $filterModel = $this->forgeFilterModel($request);
+            $dataProvider->setFilterModel($filterModel);
+        }
+        return $this->render('index', [
+            'dataProvider' => $dataProvider,
+            'baseUri' => $this->getBaseUri(),
+//            'filterModel' => $filterModel,
+        ]);
+    }
+
     public function view(Request $request): Response
     {
         $query = $this->prepareQuery(CrudControllerActionEnum::VIEW, $request);
@@ -196,20 +202,6 @@ abstract class BaseWebCrudController extends BaseWebController
             'baseUri' => $this->getBaseUri(),
         ]);
         return $this->render('view', $params);
-    }
-
-    protected function getTitleFromEntity(object $entity): string
-    {
-        return EntityHelper::getAttribute($entity, $this->titleAttribute());
-    }
-
-    protected function createFormInstance($definition = null): object
-    {
-        $definition = $definition ?: $this->formClass;
-        $form = ContainerHelper::getContainer()->get($definition);
-//            $entityAttributes = EntityHelper::toArray($entity);
-//            $entityAttributes = ArrayHelper::extractByKeys($entityAttributes, EntityHelper::getAttributeNames($form));
-        return $form;
     }
 
     public function update(Request $request): Response
@@ -283,14 +275,5 @@ abstract class BaseWebCrudController extends BaseWebController
     protected function runCreate(object $form)
     {
         $this->getService()->create(EntityHelper::toArray($form));
-    }
-
-    protected function buildForm(BuildFormInterface $form, Request $request): FormInterface
-    {
-        $formBuilder = $this->createFormBuilder($form);
-        $formBuilder->add('save', SubmitType::class, [
-            'label' => I18Next::t('core', 'action.send')
-        ]);
-        return $this->formBuilderToForm($formBuilder, $request);
     }
 }

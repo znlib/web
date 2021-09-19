@@ -11,8 +11,10 @@ use ZnCore\Base\Enums\Http\HttpStatusCodeEnum;
 use ZnCore\Base\Helpers\LoadHelper;
 use ZnCore\Base\Legacy\Yii\Helpers\ArrayHelper;
 use ZnCore\Base\Legacy\Yii\Helpers\FileHelper;
+use ZnCore\Base\Libs\App\Helpers\ContainerHelper;
 use ZnLib\Rest\Web\Controller\BaseCrudWebController;
 use ZnLib\Web\Symfony4\MicroApp\Interfaces\ControllerLayoutInterface;
+use ZnLib\Web\Symfony4\MicroApp\Libs\FormManager;
 use ZnLib\Web\View\View;
 
 abstract class BaseWebController implements ControllerLayoutInterface
@@ -23,6 +25,28 @@ abstract class BaseWebController implements ControllerLayoutInterface
     protected $viewsDir;
     protected $view;
     protected $fileExt = 'php';
+    protected $formManager;
+    protected $baseUri;
+
+    public function getBaseUri(): string
+    {
+        return $this->baseUri;
+    }
+
+    public function setBaseUri(string $baseUri): void
+    {
+        $this->baseUri = $baseUri;
+    }
+
+    public function getFormManager(): FormManager
+    {
+        return $this->formManager;
+    }
+
+    public function setFormManager(FormManager $formManager): void
+    {
+        $this->formManager = $formManager;
+    }
 
     public function getLayout(): ?string
     {
@@ -57,6 +81,15 @@ abstract class BaseWebController implements ControllerLayoutInterface
     public function setViewsDir(string $viewsDir): void
     {
         $this->viewsDir = $viewsDir;
+    }
+
+    protected function createFormInstance($definition = null): object
+    {
+        $definition = $definition ?: $this->formClass;
+        $form = ContainerHelper::getContainer()->get($definition);
+//            $entityAttributes = EntityHelper::toArray($entity);
+//            $entityAttributes = ArrayHelper::extractByKeys($entityAttributes, EntityHelper::getAttributeNames($form));
+        return $form;
     }
 
     protected function renderTemplate(string $file, array $params = []): Response

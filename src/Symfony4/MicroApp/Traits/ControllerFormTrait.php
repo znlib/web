@@ -17,6 +17,7 @@ use ZnCore\Domain\Entities\ValidateErrorEntity;
 use ZnCore\Domain\Exceptions\UnprocessibleEntityException;
 use ZnCore\Domain\Helpers\ValidationHelper;
 use ZnLib\Web\Symfony4\MicroApp\Interfaces\BuildFormInterface;
+use ZnLib\Web\Symfony4\MicroApp\Libs\FormRender;
 
 trait ControllerFormTrait
 {
@@ -65,7 +66,12 @@ trait ControllerFormTrait
         $this->type = $type;
     }
 
-    protected function buildForm(BuildFormInterface $form, Request $request): FormInterface
+    public function createFormRender(FormInterface $buildForm): FormRender
+    {
+        return new FormRender($buildForm->createView(), $this->getTokenManager());
+    }
+
+    public function buildForm(BuildFormInterface $form, Request $request): FormInterface
     {
         $formBuilder = $this->createFormBuilder($form);
         /*if ($form instanceof BuildFormInterface) {

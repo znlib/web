@@ -4,6 +4,8 @@ namespace ZnLib\Web\View;
 
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use ZnCore\Base\Legacy\Yii\Helpers\ArrayHelper;
+use ZnCore\Base\Libs\I18Next\Facades\I18Next;
+use ZnCore\Base\Libs\I18Next\Interfaces\Services\TranslationServiceInterface;
 
 class View
 {
@@ -15,20 +17,20 @@ class View
     private $renderDirectory;
     private $attributes = [];
     private $urlGenerator;
+    private $translationService;
 
-    public function __construct(UrlGeneratorInterface $urlGenerator)
+    public function __construct(UrlGeneratorInterface $urlGenerator, TranslationServiceInterface $translationService)
     {
         $this->urlGenerator = $urlGenerator;
+        $this->translationService = $translationService;
     }
 
-    public function getUrlGenerator(): UrlGeneratorInterface
-    {
-        return $this->urlGenerator;
-    }
-
-    public function url(string $name, array $parameters = [], int $referenceType = self::ABSOLUTE_PATH) {
-
+    public function url(string $name, array $parameters = [], int $referenceType = UrlGeneratorInterface::ABSOLUTE_PATH) {
         return $this->urlGenerator->generate($name, $parameters, $referenceType);
+    }
+
+    public function translate(string $bundleName, string $key, array $variables = []) {
+        return $this->translationService->t($bundleName, $key, $variables);
     }
 
     public function addAttribute(string $name, $value) {

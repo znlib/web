@@ -2,6 +2,7 @@
 
 namespace ZnLib\Web\View;
 
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use ZnCore\Base\Legacy\Yii\Helpers\ArrayHelper;
 
 class View
@@ -13,6 +14,22 @@ class View
     private $jsFiles = [];
     private $renderDirectory;
     private $attributes = [];
+    private $urlGenerator;
+
+    public function __construct(UrlGeneratorInterface $urlGenerator)
+    {
+        $this->urlGenerator = $urlGenerator;
+    }
+
+    public function getUrlGenerator(): UrlGeneratorInterface
+    {
+        return $this->urlGenerator;
+    }
+
+    public function url(string $name, array $parameters = [], int $referenceType = self::ABSOLUTE_PATH) {
+
+        return $this->urlGenerator->generate($name, $parameters, $referenceType);
+    }
 
     public function addAttribute(string $name, $value) {
         $this->attributes[$name] = $value;

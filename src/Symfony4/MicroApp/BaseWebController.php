@@ -72,7 +72,8 @@ abstract class BaseWebController implements ControllerLayoutInterface
 
     protected function getView(): View {
         if(empty($this->view)) {
-            $this->view = new View();
+            $this->view = \ZnCore\Base\Libs\App\Helpers\ContainerHelper::getContainer()->get(View::class);
+//            $this->view = new View();
         }
         return $this->view;
     }

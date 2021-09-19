@@ -46,6 +46,7 @@ class MicroApp
         if ($container) {
             $this->container = $container;
         }
+        //dd($this->container->get(RouteCollection::class));
         $this->routes = $routes ?: $this->container->get(RouteCollection::class);
         $fileLocator = new FileLocator();
         $fileLoader = new PhpFileLoader($fileLocator);

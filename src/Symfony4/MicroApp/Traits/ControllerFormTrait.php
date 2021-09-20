@@ -80,20 +80,7 @@ trait ControllerFormTrait
         return $this->formBuilderToForm($formBuilder, $request);
     }
 
-    protected function formBuilderToForm(FormBuilderInterface $formBuilder, Request $request) {
-        $buildForm = $formBuilder->getForm();
-        $buildForm->handleRequest($request);
-        if ($buildForm->isSubmitted()) {
-            $this->validCsrfToken($this->tokenManager, $request);
-            $this->validate($buildForm);
-            /*if ($buildForm->isValid()) {
-
-            }*/
-        }
-        return $buildForm;
-    }
-
-    protected function setUnprocessableErrorsToForm(FormInterface $buildForm, UnprocessibleEntityException $e): void
+    public function setUnprocessableErrorsToForm(FormInterface $buildForm, UnprocessibleEntityException $e): void
     {
         foreach ($e->getErrorCollection() as $errorEntity) {
             /** @var ValidateErrorEntity $cause */
@@ -107,6 +94,19 @@ trait ControllerFormTrait
             $formError = new FormError($errorEntity->getMessage(), null, [], null, $violation);
             $buildForm->addError($formError);
         }
+    }
+
+    protected function formBuilderToForm(FormBuilderInterface $formBuilder, Request $request) {
+        $buildForm = $formBuilder->getForm();
+        $buildForm->handleRequest($request);
+        if ($buildForm->isSubmitted()) {
+            $this->validCsrfToken($this->tokenManager, $request);
+            $this->validate($buildForm);
+            /*if ($buildForm->isValid()) {
+
+            }*/
+        }
+        return $buildForm;
     }
 
     private function validate(FormInterface $buildForm)

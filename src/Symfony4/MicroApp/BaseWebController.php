@@ -16,10 +16,13 @@ use ZnLib\Rest\Web\Controller\BaseCrudWebController;
 use ZnLib\Web\Symfony4\MicroApp\Interfaces\ControllerLayoutInterface;
 use ZnLib\Web\Symfony4\MicroApp\Libs\FormManager;
 use ZnLib\Web\Symfony4\MicroApp\Libs\layoutManager;
+use ZnLib\Web\Symfony4\MicroApp\Traits\ControllerUrlGeneratorTrait;
 use ZnLib\Web\View\View;
 
 abstract class BaseWebController implements ControllerLayoutInterface
 {
+
+    use ControllerUrlGeneratorTrait;
 
     protected $layout = __DIR__ . '/layouts/main.php';
     protected $layoutParams = [];
@@ -191,8 +194,8 @@ abstract class BaseWebController implements ControllerLayoutInterface
         return new RedirectResponse($url, $status);
     }
 
-    protected function generateUrl(string $route, array $parameters = [], int $referenceType = UrlGeneratorInterface::ABSOLUTE_PATH): string
+    /*protected function generateUrl(string $route, array $parameters = [], int $referenceType = UrlGeneratorInterface::ABSOLUTE_PATH): string
     {
         return $this->container->get('router')->generate($route, $parameters, $referenceType);
-    }
+    }*/
 }

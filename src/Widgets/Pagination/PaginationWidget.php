@@ -3,7 +3,6 @@
 namespace ZnLib\Web\Widgets\Pagination;
 
 use Symfony\Component\HttpFoundation\Request;
-use ZnCore\Base\Helpers\StringHelper;
 use ZnCore\Base\Helpers\TemplateHelper;
 use ZnCore\Domain\Entities\DataProviderEntity;
 use ZnCore\Domain\Libs\DataProvider;
@@ -15,9 +14,11 @@ class PaginationWidget extends BaseWidget2
 
     /** @var DataProvider */
     public $dataProvider;
+    /** @var DataProviderEntity */
     private $dataProviderEntity;
     private $request;
     private $perPageOptions = [10, 20, 50];
+    private $showPages = 7;
 
     public $linkTemplate = '<a href="{url}" class="page-link {class}">{label}</a>';
     public $layoutTemplate = '
@@ -40,8 +41,19 @@ class PaginationWidget extends BaseWidget2
 
     public function __construct(DataProvider $dataProvider = null/*, Request $request = null*/)
     {
-        $request = /*$request ?: */Request::createFromGlobals();
+        $request = /*$request ?: */
+            Request::createFromGlobals();
         $this->request = $request;
+    }
+
+    public function getShowPages(): int
+    {
+        return $this->showPages;
+    }
+
+    public function setShowPages(int $showPages): void
+    {
+        $this->showPages = $showPages;
     }
 
     public function init()
@@ -58,7 +70,8 @@ class PaginationWidget extends BaseWidget2
         }
         $itemsHtml = $this->renderItems();
         $renderPageSizeSelector = $this->renderPageSizeSelector();
-        $itemsHtml .= $renderPageSizeSelector/* ? '<li class="page-item">' . $renderPageSizeSelector . '</li>' : ''*/;
+        $itemsHtml .= $renderPageSizeSelector/* ? '<li class="page-item">' . $renderPageSizeSelector . '</li>' : ''*/
+        ;
         return $this->renderLayout($itemsHtml);
     }
 
@@ -87,6 +100,35 @@ class PaginationWidget extends BaseWidget2
 
     private function renderItems()
     {
+
+        $spliter = [
+            'label' => '...',
+            'url' => '',
+            'encode' => false,
+            'options' => ['class' => 'page-item disabled'],
+        ];
+
+        $pageStart = 1;
+        $pageCount = $this->dataProviderEntity->getPageCount();
+        $pageEnd = $pageCount;
+
+        $showPages = $this->showPages % 2 == 0 ? $this->showPages + 1 : $this->showPages;
+
+        $jumpStep = $showPages;
+
+        $page = $this->dataProviderEntity->getPage();
+        $showPagesHalf = intval(floor($showPages / 2));
+
+        $pageStart = $page - $showPagesHalf;
+        if ($pageStart < 1) {
+            $pageStart = 1;
+        }
+
+        $pageEnd = $page + $showPagesHalf;
+        if ($pageEnd > $pageCount) {
+            $pageEnd = $pageCount;
+        }
+
         $items = [];
 
         $items[] = [
@@ -96,8 +138,63 @@ class PaginationWidget extends BaseWidget2
             'options' => ['class' => ($this->dataProviderEntity->isFirstPage() ? 'page-item disabled' : 'page-item')],
         ];
 
-        $its = $this->generateItemsData(1, $this->dataProviderEntity->getPageCount());
+        if ($pageStart > 1) {
+
+            $jumpPrev = $page - $jumpStep;
+            if ($jumpPrev <= 1) {
+                $jumpPrev = 2;
+            }
+
+            $items[] = [
+                'label' => '1',
+                'url' => $this->generateUrl(1),
+                'encode' => false,
+                //'options' => ['class' => ($this->dataProviderEntity->isFirstPage() ? 'page-item disabled' : 'page-item')],
+            ];
+
+            if ($pageStart > 2) {
+                //$items[] = $spliter;
+                $items[] = [
+                    'label' => '...',
+//                    'label' => '&laquo; ' . $jumpPrev . ' &raquo;',
+                    'url' => $this->generateUrl($jumpPrev),
+                    'encode' => false,
+                    //'options' => ['class' => ($this->dataProviderEntity->isFirstPage() ? 'page-item disabled' : 'page-item')],
+                ];
+                //$items[] = $spliter;
+            }
+
+            //dump($pageStart);
+        }
+
+        $its = $this->generateItemsData($pageStart, $pageEnd);
         $items = array_merge($items, $its);
+
+        if ($pageEnd < $pageCount) {
+
+            $jumpNext = $page + $jumpStep;
+            if ($jumpNext >= $pageCount) {
+                $jumpNext = $pageCount - 1;
+            }
+
+            if ($pageEnd < $pageCount - 1) {
+                $items[] = [
+                    'label' => '...',
+//                    'label' => '&laquo; ' . $jumpNext . ' &raquo;',
+                    'url' => $this->generateUrl($jumpNext),
+                    'encode' => false,
+                    //'options' => ['class' => ($this->dataProviderEntity->isFirstPage() ? 'page-item disabled' : 'page-item')],
+                ];
+            }
+
+            $items[] = [
+                'label' => $pageCount,
+                'url' => $this->generateUrl($pageCount),
+                'encode' => false,
+                //'options' => ['class' => ($this->dataProviderEntity->isFirstPage() ? 'page-item disabled' : 'page-item')],
+            ];
+            //dump($pageEnd);
+        }
 
         $items[] = [
             'label' => '&raquo;',

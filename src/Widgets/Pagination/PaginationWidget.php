@@ -19,6 +19,8 @@ class PaginationWidget extends BaseWidget2
     private $request;
     private $perPageOptions = [10, 20, 50];
     private $showPages = 7;
+    private $leftArrowHtml = '&laquo;';
+    private $rightArrowHtml = '&raquo;';
 
     public $linkTemplate = '<a href="{url}" class="page-link {class}">{label}</a>';
     public $layoutTemplate = '
@@ -53,6 +55,10 @@ class PaginationWidget extends BaseWidget2
 
     public function setShowPages(int $showPages): void
     {
+        $isEven = $showPages % 2 == 0;
+        if($isEven) {
+            $showPages = $showPages + 1;
+        }
         $this->showPages = $showPages;
     }
 
@@ -89,30 +95,46 @@ class PaginationWidget extends BaseWidget2
         $items = [];
         for ($page = $pageStart; $page <= $pageEnd; $page++) {
             $isActive = $this->dataProviderEntity->getPage() == $page;
-            $items[] = [
+            $items[] = $this->generateItem($page);
+            /*$items[] = [
                 'label' => $page,
                 'url' => $this->generateUrl($page),
                 'active' => $isActive ? 'active' : '',
-            ];
+            ];*/
         }
         return $items;
+    }
+
+    private function generateItem(int $page, $label = null, bool $isDisable = false): array
+    {
+        $isActive = $this->dataProviderEntity->getPage() == $page && $isDisable == false;
+        return [
+            'label' => $label ?: $page,
+            'url' => $this->generateUrl($page),
+            'encode' => false,
+            'active' => $isActive ? 'active' : '',
+            'options' => [
+                'class' => ($isDisable ? 'page-item disabled' : 'page-item'),
+                'title' => $page,
+            ],
+        ];
     }
 
     private function renderItems()
     {
 
-        $spliter = [
+        /*$spliter = [
             'label' => '...',
             'url' => '',
             'encode' => false,
             'options' => ['class' => 'page-item disabled'],
-        ];
+        ];*/
 
         $pageStart = 1;
         $pageCount = $this->dataProviderEntity->getPageCount();
         $pageEnd = $pageCount;
 
-        $showPages = $this->showPages % 2 == 0 ? $this->showPages + 1 : $this->showPages;
+        $showPages = $this->getShowPages();
 
         $jumpStep = $showPages;
 
@@ -131,12 +153,15 @@ class PaginationWidget extends BaseWidget2
 
         $items = [];
 
-        $items[] = [
+        $prevPage = $this->dataProviderEntity->getPrevPage() > 0 ? $this->dataProviderEntity->getPrevPage() : 1;
+        $items[] = $this->generateItem($prevPage, $this->leftArrowHtml, $this->dataProviderEntity->isFirstPage());
+
+        /*$items[] = [
             'label' => '&laquo;',
             'url' => $this->generateUrl($this->dataProviderEntity->getPrevPage()),
             'encode' => false,
             'options' => ['class' => ($this->dataProviderEntity->isFirstPage() ? 'page-item disabled' : 'page-item')],
-        ];
+        ];*/
 
         if ($pageStart > 1) {
 
@@ -145,26 +170,23 @@ class PaginationWidget extends BaseWidget2
                 $jumpPrev = 2;
             }
 
-            $items[] = [
+            $items[] = $this->generateItem(1);
+
+            /*$items[] = [
                 'label' => '1',
                 'url' => $this->generateUrl(1),
                 'encode' => false,
-                //'options' => ['class' => ($this->dataProviderEntity->isFirstPage() ? 'page-item disabled' : 'page-item')],
-            ];
+            ];*/
 
             if ($pageStart > 2) {
-                //$items[] = $spliter;
-                $items[] = [
+                $items[] = $this->generateItem($jumpPrev, '...');
+                /*$items[] = [
                     'label' => '...',
 //                    'label' => '&laquo; ' . $jumpPrev . ' &raquo;',
                     'url' => $this->generateUrl($jumpPrev),
                     'encode' => false,
-                    //'options' => ['class' => ($this->dataProviderEntity->isFirstPage() ? 'page-item disabled' : 'page-item')],
-                ];
-                //$items[] = $spliter;
+                ];*/
             }
-
-            //dump($pageStart);
         }
 
         $its = $this->generateItemsData($pageStart, $pageEnd);
@@ -178,30 +200,36 @@ class PaginationWidget extends BaseWidget2
             }
 
             if ($pageEnd < $pageCount - 1) {
-                $items[] = [
+                $items[] = $this->generateItem($jumpNext, '...');
+                /*$items[] = [
                     'label' => '...',
 //                    'label' => '&laquo; ' . $jumpNext . ' &raquo;',
                     'url' => $this->generateUrl($jumpNext),
                     'encode' => false,
-                    //'options' => ['class' => ($this->dataProviderEntity->isFirstPage() ? 'page-item disabled' : 'page-item')],
-                ];
+                    'options' => [
+                        'title' => $jumpNext,
+                    ],
+                ];*/
             }
 
-            $items[] = [
+            $items[] = $this->generateItem($pageCount);
+
+            /*$items[] = [
                 'label' => $pageCount,
                 'url' => $this->generateUrl($pageCount),
                 'encode' => false,
-                //'options' => ['class' => ($this->dataProviderEntity->isFirstPage() ? 'page-item disabled' : 'page-item')],
-            ];
-            //dump($pageEnd);
+            ];*/
         }
 
-        $items[] = [
+        $nextPage = $this->dataProviderEntity->getNextPage() < $pageCount ? $this->dataProviderEntity->getNextPage() : $pageCount;
+        $items[] = $this->generateItem($nextPage, $this->rightArrowHtml, $this->dataProviderEntity->isLastPage());
+
+        /*$items[] = [
             'label' => '&raquo;',
             'url' => $this->generateUrl($this->dataProviderEntity->getNextPage()),
             'encode' => false,
             'options' => ['class' => ($this->dataProviderEntity->isLastPage() ? 'page-item disabled' : 'page-item')],
-        ];
+        ];*/
 
         $menuWidget = new MenuWidget();
         $menuWidget->items = $items;

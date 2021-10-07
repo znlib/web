@@ -6,7 +6,6 @@
  * @var string $contentClass
  */
 
-use Incloud\Packages\Company\Domain\Entities\PositionEntity;
 use ZnLib\Web\View\View;
 
 ?>

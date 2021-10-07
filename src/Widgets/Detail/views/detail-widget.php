@@ -2,13 +2,11 @@
 
 /**
  * @var View $this
- * @var PositionEntity $entity
  * @var AttributeEntity[] $attributes
  * @var string $tableClass
  * @var FormatEncoder $formatter
  */
 
-use Incloud\Packages\Company\Domain\Entities\PositionEntity;
 use ZnCore\Base\Libs\I18Next\Facades\I18Next;
 use ZnLib\Web\View\View;
 use ZnLib\Web\Widgets\Format\Entities\AttributeEntity;

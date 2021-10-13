@@ -9,6 +9,7 @@ use ZnLib\Web\Widgets\Format\Formatters\Actions\UpdateAction;
 use ZnCore\Base\Enums\StatusEnum;
 use ZnCore\Base\Helpers\ClassHelper;
 use ZnCore\Base\Legacy\Yii\Helpers\ArrayHelper;
+use ZnLib\Web\Widgets\Format\Formatters\Actions\ViewAction;
 
 class ActionFormatter extends BaseFormatter implements FormatterInterface
 {
@@ -50,6 +51,9 @@ class ActionFormatter extends BaseFormatter implements FormatterInterface
     private function defaultActionDefinitions(): array
     {
         return [
+            'view' => [
+                'class' => ViewAction::class,
+            ],
             'update' => [
                 'class' => UpdateAction::class,
             ],

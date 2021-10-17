@@ -16,7 +16,6 @@ use Symfony\Component\Routing\Matcher\UrlMatcherInterface;
 use Symfony\Component\Routing\RequestContext;
 use Symfony\Component\Routing\RouteCollection;
 use ZnCore\Base\Exceptions\DeprecatedException;
-use ZnCore\Base\Helpers\ClassHelper;
 use ZnCore\Base\Helpers\InstanceHelper;
 use ZnCore\Base\Libs\Event\Traits\EventDispatcherTrait;
 use ZnLib\Web\Symfony4\MicroApp\Enums\ControllerEventEnum;
@@ -46,11 +45,8 @@ class MicroApp
         if ($container) {
             $this->container = $container;
         }
-        //dd($this->container->get(RouteCollection::class));
         $this->routes = $routes ?: $this->container->get(RouteCollection::class);
-        $fileLocator = new FileLocator();
-        $fileLoader = new PhpFileLoader($fileLocator);
-        $this->routingConfigurator = new RoutingConfigurator($this->routes, $fileLoader, __FILE__, __FILE__);
+        $this->routingConfigurator = $this->createRoutingConfigurator($this->routes);
     }
 
     public function getRoutes(): RouteCollection
@@ -150,6 +146,13 @@ class MicroApp
     public function setErrorController($errorController): void
     {
         $this->errorController = $errorController;
+    }
+
+    private function createRoutingConfigurator(RouteCollection $routes): RoutingConfigurator
+    {
+        $fileLocator = new FileLocator();
+        $fileLoader = new PhpFileLoader($fileLocator);
+        return new RoutingConfigurator($routes, $fileLoader, __FILE__, __FILE__);
     }
 
     private function errorHandler(Request $request, \Throwable $e): Response

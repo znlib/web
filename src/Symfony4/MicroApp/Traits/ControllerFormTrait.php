@@ -100,7 +100,9 @@ trait ControllerFormTrait
         $buildForm = $formBuilder->getForm();
         $buildForm->handleRequest($request);
         if ($buildForm->isSubmitted()) {
-            $this->validCsrfToken($this->tokenManager, $request);
+            if (isset($this->tokenManager)) {
+                $this->validCsrfToken($this->tokenManager, $request);
+            }
             $this->validate($buildForm);
             /*if ($buildForm->isValid()) {
 

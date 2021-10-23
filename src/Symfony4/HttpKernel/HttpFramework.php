@@ -3,26 +3,20 @@
 namespace ZnLib\Web\Symfony4\HttpKernel;
 
 use Psr\Container\ContainerInterface;
-use Symfony\Component\EventDispatcher\EventDispatcher;
+use Symfony\Component\HttpFoundation;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Controller\ControllerResolverInterface;
+use Symfony\Component\HttpKernel;
 use Symfony\Component\HttpKernel\Event\ControllerArgumentsEvent;
 use Symfony\Component\HttpKernel\Event\RequestEvent;
 use Symfony\Component\HttpKernel\Event\ViewEvent;
 use Symfony\Component\HttpKernel\Exception\ControllerDoesNotReturnResponseException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\Routing;
-use Symfony\Component\HttpFoundation;
-use Symfony\Component\HttpKernel;
-use Symfony\Component\Routing\Matcher\UrlMatcherInterface;
 use Symfony\Component\Routing\RouteCollection;
-use ZnCore\Base\Helpers\InstanceHelper;
 use ZnCore\Base\Libs\Container\ContainerAwareTrait;
 use ZnCore\Base\Libs\Event\Traits\EventDispatcherTrait;
-use ZnLib\Web\Symfony4\HttpKernel\ControllerResolver;
 use ZnLib\Web\Symfony4\MicroApp\Enums\ControllerEventEnum;
 use ZnLib\Web\Symfony4\MicroApp\Events\ControllerEvent;
 use ZnLib\Web\Symfony4\MicroApp\Interfaces\ControllerLayoutInterface;
@@ -77,13 +71,6 @@ class HttpFramework implements HttpKernel\HttpKernelInterface
     }
 
     /**
-     * HttpFramework constructor.
-     * @param RouteCollection $routes
-     * @param ContainerInterface $container
-     * @param HttpFoundation\RequestStack $requestStack
-     * @param Routing\Matcher\UrlMatcher $matcher
-     * @param \ZnLib\Web\Symfony4\HttpKernel\ControllerResolver $resolver
-     * @param HttpKernel\Controller\ArgumentResolver $argumentResolver
      * @todo конф контейнера и использование интерфейсов
      */
     public function __construct(
@@ -123,36 +110,31 @@ class HttpFramework implements HttpKernel\HttpKernelInterface
 
     public function handle(Request $request, int $type = self::MAIN_REQUEST, bool $catch = true): Response
     {
-        // @var ControllerResolver $controllerResolver */
-//        $controllerResolver = $this->getContainer()->get(ControllerResolver::class);
-
-        //$this->argumentResolver = $this->container->get(HttpKernel\Controller\ArgumentResolver::class);
-
         try {
             $this->prepareRequest($request);
             $controller = $this->resolver->getController($request);
-            return $this->callAction($request, $controller);
+            $arguments = $this->argumentResolver->getArguments($request, $controller);
+            return $this->callAction($request, $controller, $arguments);
         } catch (\Throwable $e) {
-//            dd($this->getErrorController());
             $controllerInstance = $this->getContainer()->get($this->getErrorController());
             $controller = [$controllerInstance, 'handleError'];
-//            dd($e);
-//            $response = $this->errorHandler($request, $e);
             return $this->callAction($request, $controller, [$request, $e]);
         }
     }
 
-    private function callAction(Request $request, callable $controller, array $arguments = null): Response {
-        if($arguments === null) {
+    private function callAction(Request $request, callable $controller, array $arguments = null): Response
+    {
+        /*if ($arguments === null) {
             $arguments = $this->argumentResolver->getArguments($request, $controller);
-        }
+        }*/
         list($controllerInstance, $actionName) = $controller;
         $this->prepareController($controllerInstance, $actionName, $request);
         $response = $controller(...$arguments);
         return $response;
     }
 
-    private function prepareRequest(Request $request): void {
+    private function prepareRequest(Request $request): void
+    {
 //        $matcher = $this->getContainer()->get(Routing\Matcher\UrlMatcher::class);
         $uri = rtrim($request->getPathInfo(), '/');
         $attributes = $this->matcher->match($uri);
@@ -166,7 +148,8 @@ class HttpFramework implements HttpKernel\HttpKernelInterface
         $request->attributes->set('_action', $actionName);
     }
 
-    private function prepareController(object $controllerInstance, string $actionName, Request $request) {
+    private function prepareController(object $controllerInstance, string $actionName, Request $request)
+    {
         if (isset($this->layout) && $controllerInstance instanceof ControllerLayoutInterface) {
             $controllerInstance->setLayout($this->layout);
             $controllerInstance->setLayoutParams($this->getLayoutParams());

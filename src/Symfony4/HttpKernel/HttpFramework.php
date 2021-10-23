@@ -83,29 +83,11 @@ class HttpFramework implements HttpKernel\HttpKernelInterface
     )
     {
         $this->setContainer($container);
-
         $this->resolver = $resolver;
         $this->argumentResolver = $argumentResolver;
         $this->requestStack = $requestStack;
         $this->matcher = $matcher;
         $this->dispatcher = $this->getEventDispatcher();
-
-        /*$context = $container->get(Routing\RequestContext::class);
-        $matcher = $container->get(Routing\Matcher\UrlMatcher::class);
-        $requestStack = $container->get(HttpFoundation\RequestStack::class);
-        $controllerResolver = $container->get(HttpKernel\Controller\ControllerResolver::class);
-        $argumentResolver = $container->get(HttpKernel\Controller\ArgumentResolver::class);*/
-
-        /*$context = new Routing\RequestContext();
-        $matcher = new Routing\Matcher\UrlMatcher($routes, $context);
-        $requestStack = new HttpFoundation\RequestStack();
-        $controllerResolver = new HttpKernel\Controller\ControllerResolver();
-        $argumentResolver = new HttpKernel\Controller\ArgumentResolver();*/
-
-        /*$dispatcher = $container->get(EventDispatcher::class);
-        $dispatcher->addSubscriber(new HttpKernel\EventListener\RouterListener($matcher, $requestStack));
-        $dispatcher->addSubscriber(new HttpKernel\EventListener\ResponseListener('UTF-8'));
-        parent::__construct($dispatcher, $controllerResolver, $requestStack, $argumentResolver);*/
     }
 
     public function handle(Request $request, int $type = self::MAIN_REQUEST, bool $catch = true): Response

@@ -17,12 +17,15 @@ use Symfony\Component\Routing\Matcher\UrlMatcherInterface;
 use Symfony\Component\Routing\RequestContext;
 use Symfony\Component\Routing\RouteCollection;
 use ZnCore\Base\Exceptions\DeprecatedException;
+use ZnCore\Base\Helpers\DeprecateHelper;
 use ZnCore\Base\Helpers\InstanceHelper;
 use ZnCore\Base\Libs\Event\Traits\EventDispatcherTrait;
 use ZnLib\Web\Symfony4\HttpKernel\HttpFramework;
 use ZnLib\Web\Symfony4\MicroApp\Enums\ControllerEventEnum;
 use ZnLib\Web\Symfony4\MicroApp\Events\ControllerEvent;
 use ZnLib\Web\Symfony4\MicroApp\Interfaces\ControllerLayoutInterface;
+
+DeprecateHelper::hardThrow();
 
 class MicroApp2
 {

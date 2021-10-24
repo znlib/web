@@ -4,14 +4,21 @@ namespace ZnLib\Web\Symfony4\HttpKernel;
 
 use Psr\Container\ContainerInterface;
 use Symfony\Component\HttpFoundation;
+use Symfony\Component\HttpFoundation\Exception\RequestExceptionInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel;
 use Symfony\Component\HttpKernel\Event\ControllerArgumentsEvent;
+use Symfony\Component\HttpKernel\Event\ExceptionEvent;
+use Symfony\Component\HttpKernel\Event\FinishRequestEvent;
 use Symfony\Component\HttpKernel\Event\RequestEvent;
+use Symfony\Component\HttpKernel\Event\ResponseEvent;
 use Symfony\Component\HttpKernel\Event\ViewEvent;
+use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\ControllerDoesNotReturnResponseException;
+use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\Routing;
 use Symfony\Component\Routing\RouteCollection;
@@ -90,7 +97,7 @@ class HttpFramework implements HttpKernel\HttpKernelInterface
         $this->dispatcher = $this->getEventDispatcher();
     }
 
-    public function handle(Request $request, int $type = self::MAIN_REQUEST, bool $catch = true): Response
+    /*public function handle(Request $request, int $type = self::MAIN_REQUEST, bool $catch = true): Response
     {
         try {
             $this->prepareRequest($request);
@@ -102,7 +109,28 @@ class HttpFramework implements HttpKernel\HttpKernelInterface
             $controller = [$controllerInstance, 'handleError'];
             return $this->callAction($request, $controller, [$request, $e]);
         }
+    }*/
+
+    public function handle(Request $request, int $type = HttpKernelInterface::MAIN_REQUEST, bool $catch = true)
+    {
+        $request->headers->set('X-Php-Ob-Level', (string) ob_get_level());
+
+        try {
+            return $this->handleRaw($request, $type);
+        } catch (\Exception $e) {
+            if ($e instanceof RequestExceptionInterface) {
+                $e = new BadRequestHttpException($e->getMessage(), $e);
+            }
+            if (false === $catch) {
+                $this->finishRequest($request, $type);
+
+                throw $e;
+            }
+
+            return $this->handleThrowable($e, $request, $type);
+        }
     }
+
 
     private function callAction(Request $request, callable $controller, array $arguments = null): Response
     {
@@ -115,7 +143,7 @@ class HttpFramework implements HttpKernel\HttpKernelInterface
         return $response;
     }
 
-    private function prepareRequest(Request $request): void
+    /*private function prepareRequest(Request $request): void
     {
 //        $matcher = $this->getContainer()->get(Routing\Matcher\UrlMatcher::class);
         $uri = rtrim($request->getPathInfo(), '/');
@@ -128,7 +156,7 @@ class HttpFramework implements HttpKernel\HttpKernelInterface
         }
         $request->attributes->set('_controller', $controllerClass);
         $request->attributes->set('_action', $actionName);
-    }
+    }*/
 
     private function prepareController(object $controllerInstance, string $actionName, Request $request)
     {
@@ -143,14 +171,13 @@ class HttpFramework implements HttpKernel\HttpKernelInterface
     private function handleRaw(Request $request, int $type = self::MAIN_REQUEST): Response
     {
         $this->requestStack->push($request);
-
         // request
         $event = new RequestEvent($this, $request, $type);
         $this->dispatcher->dispatch($event, KernelEvents::REQUEST);
 
-        if ($event->hasResponse()) {
+        /*if ($event->hasResponse()) {
             return $this->filterResponse($event->getResponse(), $request, $type);
-        }
+        }*/
 
         // load controller
         if (false === $controller = $this->resolver->getController($request)) {
@@ -169,8 +196,12 @@ class HttpFramework implements HttpKernel\HttpKernelInterface
         $controller = $event->getController();
         $arguments = $event->getArguments();
 
+//        dd($arguments);
+
         // call controller
         $response = $controller(...$arguments);
+
+//        dd($response);
 
         // view
         if (!$response instanceof Response) {
@@ -192,5 +223,69 @@ class HttpFramework implements HttpKernel\HttpKernelInterface
         }
 
         return $this->filterResponse($response, $request, $type);
+    }
+
+    /**
+     * Filters a response object.
+     *
+     * @throws \RuntimeException if the passed object is not a Response instance
+     */
+    private function filterResponse(Response $response, Request $request, int $type): Response
+    {
+        $event = new ResponseEvent($this, $request, $type, $response);
+
+        $this->dispatcher->dispatch($event, KernelEvents::RESPONSE);
+
+        $this->finishRequest($request, $type);
+
+        return $event->getResponse();
+    }
+
+    private function handleThrowable(\Throwable $e, Request $request, int $type): Response
+    {
+        $event = new ExceptionEvent($this, $request, $type, $e);
+        $this->dispatcher->dispatch($event, KernelEvents::EXCEPTION);
+
+        // a listener might have replaced the exception
+        $e = $event->getThrowable();
+
+        if (!$event->hasResponse()) {
+            $this->finishRequest($request, $type);
+
+            throw $e;
+        }
+
+        $response = $event->getResponse();
+
+        // the developer asked for a specific status code
+        if (!$event->isAllowingCustomResponseCode() && !$response->isClientError() && !$response->isServerError() && !$response->isRedirect()) {
+            // ensure that we actually have an error response
+            if ($e instanceof HttpExceptionInterface) {
+                // keep the HTTP status code and headers
+                $response->setStatusCode($e->getStatusCode());
+                $response->headers->add($e->getHeaders());
+            } else {
+                $response->setStatusCode(500);
+            }
+        }
+
+        try {
+            return $this->filterResponse($response, $request, $type);
+        } catch (\Exception $e) {
+            return $response;
+        }
+    }
+
+    /**
+     * Publishes the finish request event, then pop the request from the stack.
+     *
+     * Note that the order of the operations is important here, otherwise
+     * operations such as {@link RequestStack::getParentRequest()} can lead to
+     * weird results.
+     */
+    private function finishRequest(Request $request, int $type)
+    {
+        $this->dispatcher->dispatch(new FinishRequestEvent($this, $request, $type), KernelEvents::FINISH_REQUEST);
+        $this->requestStack->pop();
     }
 }

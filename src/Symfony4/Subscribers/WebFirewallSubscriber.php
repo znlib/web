@@ -12,9 +12,13 @@ use Symfony\Component\Security\Core\Security;
 use ZnBundle\User\Domain\Enums\WebCookieEnum;
 use ZnBundle\User\Domain\Interfaces\Services\AuthServiceInterface;
 use ZnBundle\User\Domain\Interfaces\Services\IdentityServiceInterface;
+use ZnCore\Base\Exceptions\InvalidConfigException;
+use ZnCore\Base\Legacy\Yii\Helpers\ArrayHelper;
 use ZnCore\Base\Libs\DotEnv\DotEnv;
 use ZnCore\Domain\Helpers\EntityHelper;
+use ZnLib\Web\Symfony4\MicroApp\Interfaces\ControllerAccessInterface;
 use ZnLib\Web\Symfony4\MicroApp\Libs\CookieValue;
+use ZnUser\Rbac\Domain\Interfaces\Services\ManagerServiceInterface;
 
 class WebFirewallSubscriber implements EventSubscriberInterface
 {
@@ -23,16 +27,19 @@ class WebFirewallSubscriber implements EventSubscriberInterface
     private $identityService;
     private $session;
     private $security;
+    private $managerService;
 
     public function __construct(
         AuthServiceInterface $authService,
         IdentityServiceInterface $identityService,
+        ManagerServiceInterface $managerService,
         Security $security,
         SessionInterface $session
     )
     {
         $this->authService = $authService;
         $this->identityService = $identityService;
+        $this->managerService = $managerService;
         $this->security = $security;
         $this->session = $session;
     }
@@ -41,7 +48,28 @@ class WebFirewallSubscriber implements EventSubscriberInterface
     {
         return [
             KernelEvents::REQUEST => ['onKernelRequest', 128],
+            KernelEvents::CONTROLLER => 'onKernelController',
         ];
+    }
+
+    public function onKernelController(\Symfony\Component\HttpKernel\Event\ControllerEvent $event)
+    {
+        $controller = $event->getController();
+        list($controllerInstance, $actionName) = $controller;
+
+        if (!$controllerInstance instanceof ControllerAccessInterface) {
+            //throw new InvalidConfigException('Controller not instance of "ControllerAccessInterface".');
+        }
+        if ($controllerInstance instanceof ControllerAccessInterface) {
+            $access = $controllerInstance->access();
+            $actionPermissions = ArrayHelper::getValue($access, $actionName);
+            if (empty($actionPermissions)) {
+                throw new InvalidConfigException('Empty permissions.');
+            }
+            if ($actionPermissions) {
+                $this->managerService->checkMyAccess($actionPermissions);
+            }
+        }
     }
 
     public function onKernelRequest(RequestEvent $event)

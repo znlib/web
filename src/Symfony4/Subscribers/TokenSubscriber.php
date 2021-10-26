@@ -15,15 +15,12 @@ class TokenSubscriber implements EventSubscriberInterface
 {
 
     private $managerService;
-//    private $authService;
 
     public function __construct(
         ManagerServiceInterface $managerService
-//        AuthServiceInterface $authService
     )
     {
         $this->managerService = $managerService;
-//        $this->authService = $authService;
     }
 
     public static function getSubscribedEvents()

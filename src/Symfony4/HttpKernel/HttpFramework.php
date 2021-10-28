@@ -22,12 +22,20 @@ use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\Routing;
 use Symfony\Component\Routing\RouteCollection;
+use ZnCore\Base\Helpers\DeprecateHelper;
 use ZnCore\Base\Libs\Container\ContainerAwareTrait;
 use ZnCore\Base\Libs\Event\Traits\EventDispatcherTrait;
 use ZnLib\Web\Symfony4\MicroApp\Enums\ControllerEventEnum;
 use ZnLib\Web\Symfony4\MicroApp\Events\ControllerEvent;
 use ZnLib\Web\Symfony4\MicroApp\Interfaces\ControllerLayoutInterface;
 
+DeprecateHelper::hardThrow();
+
+/**
+ * Class HttpFramework
+ * @package ZnLib\Web\Symfony4\HttpKernel
+ * @deprecated 
+ */
 class HttpFramework implements HttpKernel\HttpKernelInterface
 {
 

@@ -6,7 +6,7 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use ZnBundle\Notify\Domain\Interfaces\Services\ToastrServiceInterface;
 use ZnLib\Web\Widgets\BreadcrumbWidget;
 
-class layoutManager
+class LayoutManager
 {
 
     protected $toastrService;

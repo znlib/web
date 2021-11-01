@@ -15,7 +15,7 @@ use ZnCore\Base\Libs\App\Helpers\ContainerHelper;
 use ZnLib\Rest\Web\Controller\BaseCrudWebController;
 use ZnLib\Web\Symfony4\MicroApp\Interfaces\ControllerLayoutInterface;
 use ZnLib\Web\Symfony4\MicroApp\Libs\FormManager;
-use ZnLib\Web\Symfony4\MicroApp\Libs\layoutManager;
+use ZnLib\Web\Symfony4\MicroApp\Libs\LayoutManager;
 use ZnLib\Web\Symfony4\MicroApp\Traits\ControllerUrlGeneratorTrait;
 use ZnLib\Web\View\View;
 
@@ -53,12 +53,12 @@ abstract class BaseWebController implements ControllerLayoutInterface
         $this->formManager = $formManager;
     }
 
-    public function getLayoutManager(): layoutManager
+    public function getLayoutManager(): LayoutManager
     {
         return $this->layoutManager;
     }
 
-    public function setLayoutManager(layoutManager $layoutManager): void
+    public function setLayoutManager(LayoutManager $layoutManager): void
     {
         $this->layoutManager = $layoutManager;
     }

@@ -17,5 +17,4 @@ class NavbarWidget extends BaseWidget2
             'rightMenu' => $this->rightMenu,
         ]);
     }
-
 }

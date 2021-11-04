@@ -10,6 +10,7 @@ class NavbarMenuWidget extends BaseWidget2
 {
 
     public $menuConfigFile;
+    public $submenuTemplate = '<ul class="nav nav-treeview">{items}</ul>';
 
     private $menuService;
 
@@ -54,7 +55,7 @@ class NavbarMenuWidget extends BaseWidget2
                     {badge}
                 </p>
             </a>';*/
-        $nav->submenuTemplate = '<ul class="nav nav-treeview">{items}</ul>';
+        $nav->submenuTemplate = $this->submenuTemplate;
         return $nav;
     }
 }

@@ -180,6 +180,7 @@ abstract class BaseWebCrudController extends BaseWebController
         return $this->render('index', [
             'dataProvider' => $dataProvider,
             'baseUri' => $this->getBaseUri(),
+            'baseRoute' => $this->getBaseRoute(),
 //            'filterModel' => $filterModel,
         ]);
     }
@@ -200,6 +201,7 @@ abstract class BaseWebCrudController extends BaseWebController
         $params = ArrayHelper::merge($params, [
             'entity' => $entity,
             'baseUri' => $this->getBaseUri(),
+            'baseRoute' => $this->getBaseRoute(),
         ]);
         return $this->render('view', $params);
     }
@@ -235,6 +237,7 @@ abstract class BaseWebCrudController extends BaseWebController
         return $this->render('form', [
             'formView' => $buildForm->createView(),
             'baseUri' => $this->getBaseUri(),
+            'baseRoute' => $this->getBaseRoute(),
         ]);
     }
 

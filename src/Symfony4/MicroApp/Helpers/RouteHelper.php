@@ -11,25 +11,25 @@ class RouteHelper
     public static function generateCrud(RoutingConfigurator $routes, string $controllerClass, string $basePath)
     {
         $controllerClassName = ClassHelper::getClassOfClassName($controllerClass);
-        //dd($class);
+        $baseRoute = trim($basePath, '/');
         $routes
-            ->add($controllerClassName . '_index', $basePath)
+            ->add($baseRoute . '/index', $basePath)
             ->controller([$controllerClass, 'index'])
             ->methods(['GET', 'POST']);
         $routes
-            ->add($controllerClassName . '_view', $basePath . '/view')
+            ->add($baseRoute . '/view', $basePath . '/view')
             ->controller([$controllerClass, 'view'])
             ->methods(['GET', 'POST']);
         $routes
-            ->add($controllerClassName . '_update', $basePath . '/update')
+            ->add($baseRoute . '/update', $basePath . '/update')
             ->controller([$controllerClass, 'update'])
             ->methods(['GET', 'POST']);
         $routes
-            ->add($controllerClassName . '_delete', $basePath . '/delete')
+            ->add($baseRoute . '/delete', $basePath . '/delete')
             ->controller([$controllerClass, 'delete'])
             ->methods(['GET', 'POST']);
         $routes
-            ->add($controllerClassName . '_create', $basePath . '/create')
+            ->add($baseRoute . '/create', $basePath . '/create')
             ->controller([$controllerClass, 'create'])
             ->methods(['GET', 'POST']);
     }

@@ -219,6 +219,7 @@ class MicroApp
 
     private function createMatcher(RouteCollection $routes, Request $request): UrlMatcherInterface
     {
+        /** @var RequestContext $context */
         $context = $this->container->get(RequestContext::class); //new RequestContext;
         $context->fromRequest($request);
 //        dd($routes);

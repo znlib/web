@@ -33,6 +33,11 @@ abstract class BaseWebController implements ControllerLayoutInterface
     private $layoutManager;
     protected $baseUri;
 
+    public function getBaseRoute(): string
+    {
+        return trim($this->baseUri, '/');
+    }
+
     public function getBaseUri(): string
     {
         return $this->baseUri;

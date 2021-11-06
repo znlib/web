@@ -3,7 +3,7 @@
 namespace ZnLib\Web\Symfony4\MicroApp\Widgets\Layout;
 
 use ZnBundle\Notify\Domain\Interfaces\Services\ToastrServiceInterface;
-use ZnLib\Web\View\Js;
+use ZnLib\Web\View\Resources\Js;
 use ZnLib\Web\Widgets\Base\BaseWidget2;
 
 class ScriptWidget extends BaseWidget2

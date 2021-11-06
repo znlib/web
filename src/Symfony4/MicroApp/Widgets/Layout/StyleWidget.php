@@ -2,7 +2,7 @@
 
 namespace ZnLib\Web\Symfony4\MicroApp\Widgets\Layout;
 
-use ZnLib\Web\View\Css;
+use ZnLib\Web\View\Resources\Css;
 use ZnLib\Web\Widgets\Base\BaseWidget2;
 
 class StyleWidget extends BaseWidget2

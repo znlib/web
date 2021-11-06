@@ -7,6 +7,8 @@ use ZnCore\Base\Legacy\Yii\Helpers\ArrayHelper;
 use ZnCore\Base\Libs\I18Next\Facades\I18Next;
 use ZnCore\Base\Libs\I18Next\Interfaces\Services\TranslationServiceInterface;
 use ZnLib\Web\View\Helpers\RenderHelper;
+use ZnLib\Web\View\Resources\Css;
+use ZnLib\Web\View\Resources\Js;
 
 class View
 {

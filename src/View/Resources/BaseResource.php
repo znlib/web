@@ -1,12 +1,12 @@
 <?php
 
-namespace ZnLib\Web\View;
+namespace ZnLib\Web\View\Resources;
 
-class Css
+abstract class BaseResource
 {
 
-    private $code = '';
-    private $files = [];
+    protected $code = '';
+    protected $files = [];
 
     public function registerFile(string $file, array $options = [])
     {

@@ -2,7 +2,7 @@
 
 /**
  * @var View $this
- * @var \ZnLib\Web\View\Css $css
+ * @var \ZnLib\Web\View\Resources\Css $css
  */
 
 use ZnLib\Web\View\View;

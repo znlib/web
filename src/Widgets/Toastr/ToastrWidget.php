@@ -9,7 +9,7 @@ use ZnBundle\Notify\Domain\Interfaces\Services\ToastrServiceInterface;
 use ZnCore\Base\Helpers\ClassHelper;
 use ZnCore\Base\Legacy\Yii\Helpers\ArrayHelper;
 use ZnCore\Domain\Helpers\EntityHelper;
-use ZnLib\Web\View\Js;
+use ZnLib\Web\View\Resources\Js;
 use ZnLib\Web\Widgets\Base\BaseWidget2;
 
 class ToastrWidget extends BaseWidget2
@@ -67,7 +67,7 @@ class ToastrWidget extends BaseWidget2
         if ($collection->isEmpty()) {
             return;
         }
-        $propertyAccessor = PropertyAccess::createPropertyAccessor();
+//        $propertyAccessor = PropertyAccess::createPropertyAccessor();
         /** @var ToastrEntity $entity */
         foreach ($collection as $entity) {
             $type = $entity->getType();

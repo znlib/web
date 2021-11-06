@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @var \ZnLib\Web\View\Js $js
+ * @var \ZnLib\Web\View\Resources\Js $js
  */
 
 foreach ($js->getFiles() as $item) {

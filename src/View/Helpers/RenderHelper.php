@@ -15,4 +15,10 @@ class RenderHelper
         $viewsDirectory = $classDirectory . DIRECTORY_SEPARATOR . $viewPath;
         return $viewsDirectory;
     }
+
+    public static function includeRender(string $viewFile, array $__params = [])
+    {
+        extract($__params);
+        include $viewFile;
+    }
 }

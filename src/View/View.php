@@ -6,23 +6,40 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use ZnCore\Base\Legacy\Yii\Helpers\ArrayHelper;
 use ZnCore\Base\Libs\I18Next\Facades\I18Next;
 use ZnCore\Base\Libs\I18Next\Interfaces\Services\TranslationServiceInterface;
+use ZnLib\Web\View\Helpers\RenderHelper;
 
 class View
 {
 
-    private $jsCode = '';
-    private $cssCode = '';
-    private $cssFiles = [];
-    private $jsFiles = [];
+    private $js;
+    private $css;
+
     private $renderDirectory;
     private $attributes = [];
     private $urlGenerator;
     private $translationService;
 
-    public function __construct(UrlGeneratorInterface $urlGenerator, TranslationServiceInterface $translationService)
+    public function __construct(
+        UrlGeneratorInterface $urlGenerator,
+        TranslationServiceInterface $translationService,
+        Js $js,
+        Css $css
+    )
     {
         $this->urlGenerator = $urlGenerator;
         $this->translationService = $translationService;
+        $this->js = $js;
+        $this->css = $css;
+    }
+
+    public function getJs(): Js
+    {
+        return $this->js;
+    }
+
+    public function getCss(): Css
+    {
+        return $this->css;
     }
 
     public function url(string $name, array $parameters = [], int $referenceType = UrlGeneratorInterface::ABSOLUTE_PATH) {
@@ -41,76 +58,74 @@ class View
         return $this->attributes[$name] ?? $default;
     }
 
+
+
+
+
     public function registerCssFile(string $file, array $options = []) {
-        $this->cssFiles[] = [
-            'file' => $file,
-            'options' => $options,
-        ];
+        $this->css->registerFile($file, $options);
     }
 
     public function getCssFiles(): array
     {
-        return $this->cssFiles;
+        return $this->css->getFiles();
     }
 
     public function resetCssFiles()
     {
-        $this->cssFiles = [];
+        $this->css->resetFiles();
     }
 
     public function registerCss(string $code) {
-        $this->cssCode .= PHP_EOL . $code . PHP_EOL;
+        $this->css->registerCode($code);
     }
 
     public function getCssCode(): string
     {
-        return $this->cssCode;
+        return $this->css->getCode();
     }
 
     public function resetCssCode()
     {
-        $this->cssCode = '';
+        $this->css->resetCode();
     }
 
+
+
+
+
     public function registerJsFile(string $file, array $options = []) {
-        $this->jsFiles[] = [
-            'file' => $file,
-            'options' => $options,
-        ];
+        $this->js->registerFile($file, $options);
     }
 
     public function getJsFiles(): array
     {
-        return $this->jsFiles;
+        return $this->js->getFiles();
     }
 
     public function resetJsFiles()
     {
-        $this->jsFiles = [];
+        $this->js->getFiles();
     }
 
     public function registerJs(string $code) {
-        $this->jsCode .= PHP_EOL . $code . PHP_EOL;
+        $this->js->registerCode($code);
     }
 
     public function registerJsVar(string $name, $value) {
-        if(is_object($value)) {
-            $value = ArrayHelper::toArray($value);
-        }
-        $json = json_encode($value);
-        $code = "$name = ".$json.";";
-        $this->registerJs($code);
+        $this->js->registerVar($name, $value);
     }
 
     public function getJsCode(): string
     {
-        return $this->jsCode;
+        return $this->js->getCode();
     }
 
     public function resetJsCode()
     {
-        $this->jsCode = '';
+        $this->js->resetCode();
     }
+
 
     public function getRenderDirectory(): string
     {
@@ -156,6 +171,7 @@ class View
     protected function includeRender(string $viewFile, array $__params = [])
     {
         extract($__params);
+        $view = $this;
         include $viewFile;
     }
 }

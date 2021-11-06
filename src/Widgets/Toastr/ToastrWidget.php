@@ -9,6 +9,7 @@ use ZnBundle\Notify\Domain\Interfaces\Services\ToastrServiceInterface;
 use ZnCore\Base\Helpers\ClassHelper;
 use ZnCore\Base\Legacy\Yii\Helpers\ArrayHelper;
 use ZnCore\Domain\Helpers\EntityHelper;
+use ZnLib\Web\View\Js;
 use ZnLib\Web\Widgets\Base\BaseWidget2;
 
 class ToastrWidget extends BaseWidget2
@@ -32,9 +33,12 @@ class ToastrWidget extends BaseWidget2
     public $showMethod = "fadeIn";
     public $hideMethod = "fadeOut";
 
-    public function __construct(ToastrServiceInterface $toastrService)
+    private $js;
+
+    public function __construct(ToastrServiceInterface $toastrService, Js $js)
     {
         $this->toastrService = $toastrService;
+        $this->js = $js;
     }
 
     public function assets(): array
@@ -55,7 +59,7 @@ class ToastrWidget extends BaseWidget2
     protected function registerAssets()
     {
         parent::registerAssets();
-        $this->getView()->registerJsVar('toastr.options', $this);
+        $this->js->registerVar('toastr.options', $this);
     }
 
     private function generateHtml(Collection $collection)
@@ -69,7 +73,7 @@ class ToastrWidget extends BaseWidget2
             $type = $entity->getType();
             $type = str_replace('alert-', '', $type);
             $content = $entity->getContent();
-            $this->getView()->registerJs("toastr.{$type}('{$content}'); \n");
+            $this->js->registerCode("toastr.{$type}('{$content}'); \n");
         }
         $this->toastrService->clear();
     }

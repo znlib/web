@@ -44,9 +44,9 @@ class LayoutManager
         $this->breadcrumbWidget = $breadcrumbWidget;
     }
 
-    public function addBreadcrumb(string $label, string $name, array $parameters = [], int $referenceType = UrlGeneratorInterface::ABSOLUTE_PATH): void
+    public function addBreadcrumb(string $label, string $routeName, array $parameters = [], int $referenceType = UrlGeneratorInterface::ABSOLUTE_PATH): void
     {
-        $url = $this->urlGenerator->generate($name, $parameters, $referenceType);
+        $url = $this->urlGenerator->generate($routeName, $parameters, $referenceType);
         $this->getBreadcrumbWidget()->add($label, $url);
     }
 

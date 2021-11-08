@@ -31,14 +31,11 @@ use ZnUser\Rbac\Domain\Enums\Rbac\ExtraPermissionEnum;
 abstract class BaseWebCrudController extends BaseWebController
 {
 
-    use ControllerFormTrait;
+//    use ControllerFormTrait;
 
     /** @var BaseCrudService */
     protected $service;
     protected $formClass;
-
-    protected $toastrService;
-    protected $breadcrumbWidget;
     protected $filterModel;
 
     protected function setService(CrudServiceInterface $service)
@@ -49,26 +46,6 @@ abstract class BaseWebCrudController extends BaseWebController
     public function getService(): BaseCrudService
     {
         return $this->service;
-    }
-
-    public function getToastrService(): ToastrServiceInterface
-    {
-        return $this->toastrService;
-    }
-
-    public function setToastrService(ToastrServiceInterface $toastrService): void
-    {
-        $this->toastrService = $toastrService;
-    }
-
-    public function getBreadcrumbWidget(): BreadcrumbWidget
-    {
-        return $this->breadcrumbWidget;
-    }
-
-    public function setBreadcrumbWidget(BreadcrumbWidget $breadcrumbWidget): void
-    {
-        $this->breadcrumbWidget = $breadcrumbWidget;
     }
 
     public function setFilterModel(?string $filterModel): void
@@ -109,15 +86,6 @@ abstract class BaseWebCrudController extends BaseWebController
     public function with(): array
     {
         return [];
-    }
-
-    protected function buildForm(BuildFormInterface $form, Request $request): FormInterface
-    {
-        $formBuilder = $this->createFormBuilder($form);
-        $formBuilder->add('save', SubmitType::class, [
-            'label' => I18Next::t('core', 'action.send')
-        ]);
-        return $this->formBuilderToForm($formBuilder, $request);
     }
 
     protected function prepareQuery(string $action, Request $request): Query

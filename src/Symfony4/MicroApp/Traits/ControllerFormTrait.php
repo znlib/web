@@ -17,6 +17,7 @@ use ZnCore\Domain\Entities\ValidateErrorEntity;
 use ZnCore\Domain\Exceptions\UnprocessibleEntityException;
 use ZnCore\Domain\Helpers\ValidationHelper;
 use ZnLib\Web\Symfony4\MicroApp\Interfaces\BuildFormInterface;
+use ZnLib\Web\Symfony4\MicroApp\Libs\FormManager;
 use ZnLib\Web\Symfony4\MicroApp\Libs\FormRender;
 
 trait ControllerFormTrait
@@ -24,6 +25,7 @@ trait ControllerFormTrait
 
     private $tokenManager;
     private $formFactory;
+    protected $formManager;
     private $type = FormType::class;
 
     // Внедрите зависимости в контроллер
@@ -38,7 +40,7 @@ trait ControllerFormTrait
 
     protected function getTokenManager(): CsrfTokenManagerInterface
     {
-        return $this->tokenManager;
+        return $this->tokenManager ?? $this->getFormManager()->getTokenManager();
     }
 
     protected function setTokenManager(CsrfTokenManagerInterface $tokenManager): void
@@ -46,14 +48,24 @@ trait ControllerFormTrait
         $this->tokenManager = $tokenManager;
     }
 
-    protected function getFormFactory(): FormFactoryInterface
+    public function getFormFactory(): FormFactoryInterface
     {
-        return $this->formFactory;
+        return $this->formFactory ?? $this->getFormManager()->getFormFactory();
     }
 
-    protected function setFormFactory(FormFactoryInterface $formFactory): void
+    public function setFormFactory(FormFactoryInterface $formFactory): void
     {
         $this->formFactory = $formFactory;
+    }
+
+    public function getFormManager(): FormManager
+    {
+        return $this->formManager;
+    }
+
+    public function setFormManager(FormManager $formManager): void
+    {
+        $this->formManager = $formManager;
     }
 
     protected function getType(): string

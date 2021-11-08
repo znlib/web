@@ -4,8 +4,10 @@ namespace ZnLib\Web\Symfony4\MicroApp\Libs\Renders;
 
 use Symfony\Component\Form\FormError;
 use Symfony\Component\Validator\ConstraintViolation;
+use ZnCore\Base\Legacy\Yii\Helpers\ArrayHelper;
 use ZnCore\Base\Legacy\Yii\Helpers\Html;
 use ZnCore\Base\Legacy\Yii\Helpers\Inflector;
+use ZnCore\Base\Libs\I18Next\Facades\I18Next;
 use ZnLib\Web\Symfony4\MicroApp\Helpers\FormErrorHelper;
 
 class FormErrorRender extends BaseRender
@@ -23,8 +25,13 @@ class FormErrorRender extends BaseRender
                 /** @var ConstraintViolation $cause */
                 $cause = $formError->getCause();
                 if ($cause) {
-                    /*$label = $error['view']->vars['label'];
-                    $message = $label . ': ' . $cause->getMessage();*/
+//                    $label = $error['view']->vars['label'];
+                    $label = ArrayHelper::getValue($error, 'view.vars.label');
+                    if($label) {
+                        $message = $label . ': ' . $cause->getMessage();
+                    } else {
+                        $message = $cause->getMessage();
+                    }
                 } else {
                     $message = $formError->getMessage();
                 }
@@ -42,7 +49,11 @@ class FormErrorRender extends BaseRender
         }
 
         if($errorMessages) {
-            return Html::tag('div', implode('<br/>', $errorMessages), [
+            $errorMessageText = implode('<br/>', $errorMessages);
+            $content =
+                '<h4 class="alert-heading">'.I18Next::t('core', 'message.errors_found').'</h4>' .
+                $errorMessageText;
+            return Html::tag('div', $content, [
                 'class' => 'alert alert-danger',
                 'role' => 'alert',
             ]);

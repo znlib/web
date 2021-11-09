@@ -4,6 +4,7 @@ namespace ZnLib\Web\Symfony4\MicroApp\Libs;
 
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use ZnBundle\Notify\Domain\Interfaces\Services\ToastrServiceInterface;
+use ZnCore\Base\Libs\I18Next\Interfaces\Services\TranslationServiceInterface;
 use ZnLib\Web\Widgets\BreadcrumbWidget;
 
 class LayoutManager
@@ -12,16 +13,19 @@ class LayoutManager
     protected $toastrService;
     protected $breadcrumbWidget;
     protected $urlGenerator;
+    protected $translator;
 
     public function __construct(
         ToastrServiceInterface $toastrService,
         BreadcrumbWidget $breadcrumbWidget,
-        UrlGeneratorInterface $urlGenerator
+        UrlGeneratorInterface $urlGenerator,
+        TranslationServiceInterface $translator
     )
     {
-        $this->setToastrService($toastrService);
-        $this->setBreadcrumbWidget($breadcrumbWidget);
+        $this->toastrService = $toastrService;
+        $this->breadcrumbWidget = $breadcrumbWidget;
         $this->urlGenerator = $urlGenerator;
+        $this->translator = $translator;
     }
 
     public function getToastrService(): ToastrServiceInterface
@@ -29,25 +33,30 @@ class LayoutManager
         return $this->toastrService;
     }
 
-    public function setToastrService(ToastrServiceInterface $toastrService): void
+    /*public function setToastrService(ToastrServiceInterface $toastrService): void
     {
         $this->toastrService = $toastrService;
-    }
+    }*/
 
     public function getBreadcrumbWidget(): BreadcrumbWidget
     {
         return $this->breadcrumbWidget;
     }
 
-    public function setBreadcrumbWidget(BreadcrumbWidget $breadcrumbWidget): void
+    /*public function setBreadcrumbWidget(BreadcrumbWidget $breadcrumbWidget): void
     {
         $this->breadcrumbWidget = $breadcrumbWidget;
-    }
+    }*/
 
     public function addBreadcrumb(string $label, string $routeName, array $parameters = [], int $referenceType = UrlGeneratorInterface::ABSOLUTE_PATH): void
     {
         $url = $this->urlGenerator->generate($routeName, $parameters, $referenceType);
         $this->getBreadcrumbWidget()->add($label, $url);
+    }
+
+    public function getTranslator(): TranslationServiceInterface
+    {
+        return $this->translator;
     }
 
     public function toastrSuccess($message, int $delay = null): void
@@ -65,5 +74,14 @@ class LayoutManager
 
     public function toastrError($message, int $delay = null) {
         $this->getToastrService()->error($message, $delay);
+    }
+
+    public function translate(string $bundleName, string $key, array $variables = []) {
+        $this->translator->t($bundleName, $key, $variables);
+    }
+
+    public function generateUrl(string $name, array $parameters = [], int $referenceType = UrlGeneratorInterface::ABSOLUTE_PATH): string
+    {
+        return $this->urlGenerator->generate($name, $parameters, $referenceType);
     }
 }

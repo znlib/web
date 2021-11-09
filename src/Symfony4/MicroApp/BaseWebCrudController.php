@@ -181,12 +181,14 @@ abstract class BaseWebCrudController extends BaseWebController
 
         $query = $this->prepareQuery(CrudControllerActionEnum::UPDATE, $request);
         $entity = $this->getService()->oneById($id, $query);
-        if (isset($this->formClass)) {
+        $form = $this->createFormInstance($this->formClass, $entity);
+
+        /*if (isset($this->formClass)) {
             $form = $this->createFormInstance();
             EntityHelper::setAttributesFromObject($form, $entity);
         } else {
             $form = $entity;
-        }
+        }*/
 
         $this->getBreadcrumbWidget()->add('update', Url::to([$this->getBaseUri() . '/update', 'id' => $id]));
         //$title = EntityHelper::getAttribute($form, $this->titleAttribute());
@@ -222,11 +224,13 @@ abstract class BaseWebCrudController extends BaseWebController
         $this->getBreadcrumbWidget()->add('create', Url::to([$this->getBaseUri() . '/create']));
         $this->getView()->addAttribute('title', 'create');
 
-        if (isset($this->formClass)) {
+        $form = $this->createFormInstance($this->formClass);
+
+        /*if (isset($this->formClass)) {
             $form = ContainerHelper::getContainer()->get($this->formClass);
         } else {
             $form = $this->getService()->createEntity();
-        }
+        }*/
 
         $buildForm = $this->buildForm($form, $request);
         if ($buildForm->isSubmitted() && $buildForm->isValid()) {

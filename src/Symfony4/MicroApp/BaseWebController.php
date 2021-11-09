@@ -16,6 +16,7 @@ use ZnCore\Base\Legacy\Yii\Helpers\ArrayHelper;
 use ZnCore\Base\Legacy\Yii\Helpers\FileHelper;
 use ZnCore\Base\Libs\App\Helpers\ContainerHelper;
 use ZnCore\Base\Libs\I18Next\Facades\I18Next;
+use ZnCore\Domain\Helpers\EntityHelper;
 use ZnLib\Rest\Web\Controller\BaseCrudWebController;
 use ZnLib\Web\Symfony4\MicroApp\Interfaces\BuildFormInterface;
 use ZnLib\Web\Symfony4\MicroApp\Interfaces\ControllerLayoutInterface;
@@ -152,10 +153,20 @@ abstract class BaseWebController implements ControllerLayoutInterface
         return $this->formBuilderToForm($formBuilder, $request);
     }
 
-    protected function createFormInstance($definition = null): object
+    protected function createFormInstance($definition = null, object $entity = null): object
     {
         $definition = $definition ?: $this->formClass;
-        $form = ContainerHelper::getContainer()->get($definition);
+        if (isset($definition)) {
+            $form = ContainerHelper::getContainer()->get($definition);
+            if(isset($entity)) {
+                EntityHelper::setAttributesFromObject($form, $entity);
+            }
+        } elseif(isset($entity)) {
+            $form = $entity;
+        } else {
+            $form = $this->getService()->createEntity();
+        }
+
 //            $entityAttributes = EntityHelper::toArray($entity);
 //            $entityAttributes = ArrayHelper::extractByKeys($entityAttributes, EntityHelper::getAttributeNames($form));
         return $form;

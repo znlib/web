@@ -159,7 +159,7 @@ abstract class BaseWebController implements ControllerLayoutInterface
         if (isset($definition)) {
             $form = ContainerHelper::getContainer()->get($definition);
             if(isset($entity)) {
-                EntityHelper::setAttributesFromObject($form, $entity);
+                EntityHelper::setAttributesFromObject($entity, $form);
             }
         } elseif(isset($entity)) {
             $form = $entity;

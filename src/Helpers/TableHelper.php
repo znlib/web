@@ -56,7 +56,7 @@ class TableHelper
         return implode(PHP_EOL, $trList);
     }
 
-    public static function render(array $body, array $headers = [])
+    public static function render(array $body, array $headers = [], string $tableClass = 'table table-bordered table-condensed table-sm')
     {
         $headers = self::prepareHeaders($headers);
         $headerHtml = self::generateHeaderHtml($headers);
@@ -64,7 +64,7 @@ class TableHelper
 
         $html = '
 <small>
-<table class="table table-bordered table-condensed table-sm">
+<table class="' . $tableClass . '">
     ' . $headerHtml . '
     ' . $bodyHtml . '
 </table>

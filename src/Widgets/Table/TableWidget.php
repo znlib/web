@@ -14,15 +14,13 @@ class TableWidget extends BaseWidget2
 
     public function run(): string
     {
-        $headers = TableWidgetHelper::prepareHeaders($this->header);
-//        $headerHtml = TableWidgetHelper::generateHeaderHtml($headers);
-        $body = TableWidgetHelper::prepareBody($this->body);
-//        $bodyHtml = TableWidgetHelper::generateBodyHtml($body);
-
+        if (empty($this->body) && empty($this->header)) {
+            return '';
+        }
+        $headers = TableWidgetHelper::prepareHeaders($this->header ?: []);
+        $body = TableWidgetHelper::prepareBody($this->body ?: []);
         return $this->render('table-widget', [
             'tableClass' => $this->tableClass,
-//            'headerHtml' => $headerHtml,
-//            'bodyHtml' => $bodyHtml,
             'headerRow' => $headers,
             'bodyRows' => $body,
         ]);

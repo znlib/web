@@ -10,7 +10,7 @@ trait ControllerUrlGeneratorTrait
     private $urlGenerator;
     private $baseRoute;
 
-    public function getUrlGenerator(): UrlGeneratorInterface
+    public function getUrlGenerator(): ?UrlGeneratorInterface
     {
         return $this->urlGenerator;
     }
@@ -32,6 +32,11 @@ trait ControllerUrlGeneratorTrait
 
     public function generateUrl(string $name, array $parameters = [], int $referenceType = UrlGeneratorInterface::ABSOLUTE_PATH): string
     {
-        return $this->getUrlGenerator()->generate($name, $parameters, $referenceType);
+        if($this->getUrlGenerator()) {
+            return $this->getUrlGenerator()->generate($name, $parameters, $referenceType);
+        }
+        if($this->getLayoutManager()) {
+            return $this->getLayoutManager()->generateUrl($name, $parameters, $referenceType);
+        }
     }
 }

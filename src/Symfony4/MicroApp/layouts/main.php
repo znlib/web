@@ -7,6 +7,7 @@
 
 <div class="container">
     <div class="row">
+        <?= \ZnLib\Web\Widgets\Alert\AlertWidget::widget() ?>
         <?= $content ?>
     </div>
 </div>

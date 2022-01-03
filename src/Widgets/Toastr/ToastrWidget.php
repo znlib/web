@@ -73,7 +73,8 @@ class ToastrWidget extends BaseWidget2
             $type = $entity->getType();
             $type = str_replace('alert-', '', $type);
             $content = $entity->getContent();
-            $this->js->registerCode("toastr.{$type}('{$content}'); \n");
+            $content = str_replace([PHP_EOL, '"'], ['\n', '\"'], $content);
+            $this->js->registerCode("toastr.{$type}(\"{$content}\"); \n");
         }
         $this->toastrService->clear();
     }

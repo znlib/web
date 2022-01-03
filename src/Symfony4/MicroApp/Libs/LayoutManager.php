@@ -5,6 +5,7 @@ namespace ZnLib\Web\Symfony4\MicroApp\Libs;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use ZnBundle\Notify\Domain\Interfaces\Services\ToastrServiceInterface;
 use ZnCore\Base\Libs\I18Next\Interfaces\Services\TranslationServiceInterface;
+use ZnLib\Web\Widgets\Alert\AlertWidget;
 use ZnLib\Web\Widgets\BreadcrumbWidget;
 
 class LayoutManager
@@ -52,6 +53,11 @@ class LayoutManager
     {
         $url = $this->urlGenerator->generate($routeName, $parameters, $referenceType);
         $this->getBreadcrumbWidget()->add($label, $url);
+    }
+
+    public function addAlert(string $message, string $type = null): void
+    {
+        AlertWidget::add($message, $type);
     }
 
     public function getTranslator(): TranslationServiceInterface

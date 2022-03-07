@@ -6,7 +6,7 @@
  * @var string $userMenuHtml
  */
 
-use ZnBundle\User\Domain\Interfaces\Entities\IdentityEntityInterface;
+use ZnCore\Contract\User\Interfaces\Entities\IdentityEntityInterface;
 use ZnCore\Base\Legacy\Yii\Helpers\Html;
 use ZnCore\Base\Libs\I18Next\Facades\I18Next;
 use ZnLib\Web\View\View;

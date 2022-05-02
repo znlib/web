@@ -35,7 +35,7 @@ class AuthenticationSubscriber implements EventSubscriberInterface
 
     public function onKernelException(ExceptionEvent $event)
     {
-        if ($event->getThrowable() instanceof \ZnBundle\User\Domain\Exceptions\UnauthorizedException) {
+        if ($event->getThrowable() instanceof \ZnCore\Contract\User\Exceptions\UnauthorizedException) {
             $currentUrl = $event->getRequest()->getRequestUri();
             $this->session->set(WebUserEnum::UNAUTHORIZED_URL_SESSION_KEY, $currentUrl);
             $authUrl = $this->urlGenerator->generate($this->authUrl);

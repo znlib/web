@@ -89,23 +89,6 @@ class MicroApp
         $this->container = $container;
     }
 
-    /**
-     * @param int|null $level
-     * @deprecated
-     * @see EnvHelper::setErrorVisible()
-     */
-    public function setErrorLevel(int $level = null)
-    {
-        throw new DeprecatedException();
-        if ($level === null) {
-            error_reporting(0);
-            ini_set('display_errors', '0');
-        } else {
-            error_reporting($level);
-            ini_set('display_errors', '1');
-        }
-    }
-
     public function addModules(array $modulesConfig)
     {
         foreach ($modulesConfig as $moduleClass) {

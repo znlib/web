@@ -2,11 +2,10 @@
 
 namespace ZnLib\Web\Symfony4\WebBundle\Twig;
 
-use ZnCore\Domain\Entities\DataProviderEntity;
-use ZnLib\Web\Widgets\PaginationWidget;
 use Symfony\Component\HttpFoundation\Request;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
+use ZnCore\Domain\Entities\DataProviderEntity;
 
 class PaginationExtension extends AbstractExtension
 {
@@ -20,8 +19,8 @@ class PaginationExtension extends AbstractExtension
 
     public function pagination(DataProviderEntity $dataProviderEntity, Request $request)
     {
-        $widgetInstance = new PaginationWidget($dataProviderEntity, $request);
-        return $widgetInstance->render();
+//        $widgetInstance = new PaginationWidget($dataProviderEntity, $request);
+//        return $widgetInstance->render();
     }
 
 }

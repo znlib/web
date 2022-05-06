@@ -15,7 +15,6 @@ use Symfony\Component\Routing\Matcher\UrlMatcher;
 use Symfony\Component\Routing\Matcher\UrlMatcherInterface;
 use Symfony\Component\Routing\RequestContext;
 use Symfony\Component\Routing\RouteCollection;
-use ZnCore\Base\Exceptions\DeprecatedException;
 use ZnCore\Base\Helpers\InstanceHelper;
 use ZnCore\Base\Libs\Event\Traits\EventDispatcherTrait;
 use ZnLib\Web\Symfony4\MicroApp\Enums\ControllerEventEnum;

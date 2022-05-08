@@ -15,7 +15,7 @@ use ZnCore\Base\Helpers\LoadHelper;
 use ZnCore\Base\Helpers\TemplateHelper;
 use ZnCore\Base\Legacy\Yii\Helpers\ArrayHelper;
 use ZnCore\Base\Legacy\Yii\Helpers\FileHelper;
-use ZnCore\Base\Libs\App\Helpers\ContainerHelper;
+use ZnCore\Base\Libs\Container\Helpers\ContainerHelper;
 use ZnCore\Base\Libs\I18Next\Facades\I18Next;
 use ZnCore\Domain\Helpers\EntityHelper;
 use ZnLib\Rest\Web\Controller\BaseCrudWebController;
@@ -186,7 +186,7 @@ abstract class BaseWebController implements ControllerLayoutInterface
 
     protected function getView(): View {
         if(empty($this->view)) {
-            $this->view = \ZnCore\Base\Libs\App\Helpers\ContainerHelper::getContainer()->get(View::class);
+            $this->view = \ZnCore\Base\Libs\Container\Helpers\ContainerHelper::getContainer()->get(View::class);
 //            $this->view = new View();
         }
         return $this->view;

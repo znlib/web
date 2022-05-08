@@ -5,6 +5,7 @@ namespace ZnLib\Web\Symfony4\WebBundle\Twig;
 use ZnCore\Base\Legacy\Yii\Helpers\FileHelper;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
+use ZnCore\Base\Libs\FileSystem\Helpers\FilePathHelper;
 
 class AssetExtension extends AbstractExtension
 {
@@ -37,7 +38,7 @@ class AssetExtension extends AbstractExtension
     {
         if (empty($type)) {
             $urlInfo = parse_url($path);
-            $extension = FileHelper::fileExt($urlInfo['path']);
+            $extension = FilePathHelper::fileExt($urlInfo['path']);
             $type = $this->types[$extension];
         }
         $this->{$type}[] = [

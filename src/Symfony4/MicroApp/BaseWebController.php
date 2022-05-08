@@ -12,6 +12,7 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use ZnBundle\Notify\Domain\Interfaces\Services\ToastrServiceInterface;
 use ZnCore\Base\Enums\Http\HttpStatusCodeEnum;
 use ZnCore\Base\Helpers\LoadHelper;
+use ZnCore\Base\Helpers\TemplateHelper;
 use ZnCore\Base\Legacy\Yii\Helpers\ArrayHelper;
 use ZnCore\Base\Legacy\Yii\Helpers\FileHelper;
 use ZnCore\Base\Libs\App\Helpers\ContainerHelper;
@@ -174,11 +175,11 @@ abstract class BaseWebController implements ControllerLayoutInterface
 
     protected function renderTemplate(string $file, array $params = []): Response
     {
-        $content = LoadHelper::loadTemplate($this->viewsDir . '/' . $file . '.' . $this->fileExt, $params);
+        $content = TemplateHelper::loadTemplate($this->viewsDir . '/' . $file . '.' . $this->fileExt, $params);
         if (isset($this->layout)) {
             $params = ArrayHelper::merge($this->getLayoutParams(), $params);
             $params['content'] = $content;
-            $content = LoadHelper::loadTemplate($this->layout, $params);
+            $content = TemplateHelper::loadTemplate($this->layout, $params);
         }
         return new Response($content);
     }

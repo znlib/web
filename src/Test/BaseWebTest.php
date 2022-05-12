@@ -26,7 +26,7 @@ abstract class BaseWebTest extends TestCase
     protected function setUp(): void
     {
         $this->setBaseUrl($_ENV['WEB_URL']);
-        $this->initFixtureProvider($_ENV['API_URL']);
+        $this->initFixtureProvider($_ENV['RPC_URL']);
         parent::setUp();
     }
 

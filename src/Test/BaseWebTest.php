@@ -7,7 +7,6 @@ use Symfony\Component\BrowserKit\HttpBrowser;
 use Symfony\Component\DomCrawler\Crawler;
 use Symfony\Component\HttpClient\HttpClient;
 use Tests\Enums\UserEnum;
-use Tests\Helpers\FixtureHelper;
 use ZnTool\Test\Traits\BaseUrlTrait;
 use ZnTool\Test\Traits\FixtureTrait;
 

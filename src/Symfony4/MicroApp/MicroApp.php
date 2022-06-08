@@ -16,6 +16,7 @@ use Symfony\Component\Routing\Matcher\UrlMatcherInterface;
 use Symfony\Component\Routing\RequestContext;
 use Symfony\Component\Routing\RouteCollection;
 use ZnCore\Base\Helpers\InstanceHelper;
+use ZnCore\Base\Libs\Code\InstanceResolver;
 use ZnCore\Base\Libs\Event\Traits\EventDispatcherTrait;
 use ZnLib\Web\Symfony4\MicroApp\Enums\ControllerEventEnum;
 use ZnLib\Web\Symfony4\MicroApp\Events\ControllerEvent;
@@ -194,7 +195,10 @@ class MicroApp
         $this->getEventDispatcher()->dispatch($controllerEvent, ControllerEventEnum::BEFORE_ACTION);
 
 //        $response = $this->container->call([$controllerInstance, $actionName], $attributes);
-        $response = InstanceHelper::callMethod($controllerInstance, $actionName, $attributes);
+        $instanceResolver = new InstanceResolver($this->container);
+        $response = $instanceResolver->callMethod($controllerInstance, $actionName, $attributes);
+
+//        $response = InstanceHelper::callMethod($controllerInstance, $actionName, $attributes, $this->container);
 
         return $response;
     }

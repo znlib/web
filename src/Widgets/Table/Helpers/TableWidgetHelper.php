@@ -12,14 +12,14 @@ class TableWidgetHelper
     {
         if ($headers && !ArrayHelper::isIndexed($headers)) {
             $newValue = [];
-            foreach ($value as $row) {
+            /*foreach ($value as $row) {
                 $newRow = [];
                 foreach ($headers as $headerName => $headerValue) {
                     $newRow[] = $row[$headerName];
                 }
                 $newValue[] = $newRow;
             }
-            $value = $newValue;
+            $value = $newValue;*/
             $headers = array_values($headers);
         }
         return $headers;

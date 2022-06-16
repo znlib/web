@@ -7,6 +7,8 @@ use Psr\Container\ContainerInterface;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Event\ControllerEvent;
+use Symfony\Component\HttpKernel\HttpKernel;
 use Symfony\Component\Routing\Exception\NoConfigurationException;
 use Symfony\Component\Routing\Exception\ResourceNotFoundException;
 use Symfony\Component\Routing\Loader\Configurator\RoutingConfigurator;
@@ -15,11 +17,9 @@ use Symfony\Component\Routing\Matcher\UrlMatcher;
 use Symfony\Component\Routing\Matcher\UrlMatcherInterface;
 use Symfony\Component\Routing\RequestContext;
 use Symfony\Component\Routing\RouteCollection;
-use ZnCore\Base\Helpers\InstanceHelper;
 use ZnCore\Base\Libs\Code\InstanceResolver;
 use ZnCore\Base\Libs\Event\Traits\EventDispatcherTrait;
 use ZnLib\Web\Symfony4\MicroApp\Enums\ControllerEventEnum;
-use ZnLib\Web\Symfony4\MicroApp\Events\ControllerEvent;
 use ZnLib\Web\Symfony4\MicroApp\Interfaces\ControllerLayoutInterface;
 
 class MicroApp
@@ -191,8 +191,12 @@ class MicroApp
         /*$params = $request->query->all();
         $params[] = $request;*/
 
-        $controllerEvent = new ControllerEvent($controllerInstance, $actionName, $request);
+        $kernel = $this->container->get(HttpKernel::class);
+        $controllerEvent = new ControllerEvent($kernel, [$controllerInstance, $actionName], $request, HttpKernel::MAIN_REQUEST);
         $this->getEventDispatcher()->dispatch($controllerEvent, ControllerEventEnum::BEFORE_ACTION);
+
+//        $controllerEvent = new ControllerEvent($controllerInstance, $actionName, $request);
+//        $this->getEventDispatcher()->dispatch($controllerEvent, ControllerEventEnum::BEFORE_ACTION);
 
 //        $response = $this->container->call([$controllerInstance, $actionName], $attributes);
         $instanceResolver = new InstanceResolver($this->container);

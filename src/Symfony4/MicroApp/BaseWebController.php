@@ -34,7 +34,7 @@ abstract class BaseWebController implements ControllerLayoutInterface
     use ControllerUrlGeneratorTrait;
     use ControllerFormTrait;
 
-    protected $layout = __DIR__ . '/layouts/main.php';
+//    protected $layout = __DIR__ . '/layouts/main.php';
     protected $layoutParams = [];
     protected $viewsDir;
     protected $view;

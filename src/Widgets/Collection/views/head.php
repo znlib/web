@@ -18,7 +18,7 @@ use ZnLib\Web\View\View;
         <th>
             <?php
             if ($attributeEntity->getSortAttribute()) {
-                echo \ZnLib\Web\Widgets\Collection\CollectionWidgetHelper::sortByField($attributeEntity->getLabel(), $attributeEntity->getSortAttribute(), $baseUrl, $queryParams);
+                echo \ZnLib\Web\Widgets\Collection\Helpers\CollectionWidgetHelper::sortByField($attributeEntity->getLabel(), $attributeEntity->getSortAttribute(), $baseUrl, $queryParams);
             } else {
                 echo $attributeEntity->getLabel();
             }

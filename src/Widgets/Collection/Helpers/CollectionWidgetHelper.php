@@ -1,6 +1,6 @@
 <?php
 
-namespace ZnLib\Web\Widgets\Collection;
+namespace ZnLib\Web\Widgets\Collection\Helpers;
 
 use ZnCore\Base\Legacy\Yii\Helpers\ArrayHelper;
 use ZnCore\Base\Legacy\Yii\Helpers\Html;

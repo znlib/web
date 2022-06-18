@@ -32,7 +32,6 @@ abstract class BaseHttpKernel implements HttpKernelInterface, TerminableInterfac
 
     use EventDispatcherTrait;
 
-//    protected $dispatcher;
     protected $resolver;
     protected $requestStack;
     protected $argumentResolver;
@@ -45,7 +44,6 @@ abstract class BaseHttpKernel implements HttpKernelInterface, TerminableInterfac
     )
     {
         $this->setEventDispatcher($dispatcher);
-//        $this->dispatcher = $dispatcher;
         $this->resolver = $resolver;
         $this->requestStack = $requestStack ?? new RequestStack();
         $this->argumentResolver = $argumentResolver ?? new ArgumentResolver();

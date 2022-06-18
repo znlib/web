@@ -5,9 +5,8 @@ namespace ZnLib\Web\Symfony4\HttpKernel;
 use Psr\Container\ContainerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Controller\ControllerResolverInterface;
-use Symfony\Component\Routing;
-use ZnCore\Base\Libs\Container\Traits\ContainerAwareTrait;
 use Symfony\Component\Routing\Matcher\UrlMatcher;
+use ZnCore\Base\Libs\Container\Traits\ContainerAwareTrait;
 
 class ControllerResolver implements ControllerResolverInterface
 {

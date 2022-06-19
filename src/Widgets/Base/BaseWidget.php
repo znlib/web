@@ -3,7 +3,7 @@
 namespace ZnLib\Web\Widgets\Base;
 
 use ZnCore\Base\Helpers\ClassHelper;
-use ZnCore\Base\Libs\Text\Helpers\StringHelper;
+
 use ZnCore\Base\Libs\Text\Helpers\TemplateHelper;
 use ZnLib\Web\Widgets\Interfaces\WidgetInterface;
 

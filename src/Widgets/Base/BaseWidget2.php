@@ -4,7 +4,7 @@ namespace ZnLib\Web\Widgets\Base;
 
 use ReflectionClass;
 use ZnCore\Base\Helpers\ClassHelper;
-use ZnCore\Base\Libs\Text\Helpers\StringHelper;
+
 use ZnLib\Web\View\Helpers\RenderHelper;
 use ZnLib\Web\View\View;
 use ZnLib\Web\Widgets\Interfaces\WidgetInterface2;

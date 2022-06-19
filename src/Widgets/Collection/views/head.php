@@ -8,7 +8,7 @@
  */
 
 use ZnLib\Web\Widgets\Format\Entities\AttributeEntity;
-use ZnCore\Base\Helpers\HtmlHelper;
+use ZnLib\Web\Helpers\HtmlHelper;
 use ZnLib\Web\View\View;
 
 ?>

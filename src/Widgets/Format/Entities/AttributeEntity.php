@@ -4,6 +4,7 @@ namespace ZnLib\Web\Widgets\Format\Entities;
 
 use Symfony\Component\PropertyAccess\Exception\UnexpectedTypeException;
 use ZnCore\Base\Helpers\PhpHelper;
+use ZnCore\Base\Helpers\TypeHelper;
 use ZnCore\Domain\Helpers\EntityHelper;
 
 class AttributeEntity
@@ -119,7 +120,7 @@ class AttributeEntity
                     $value = null;
                 }
             }
-        } elseif (PhpHelper::isCallable($this->value)) {
+        } elseif (TypeHelper::isCallable($this->value)) {
             $value = call_user_func($this->value, $this->entity);
         } else {
             $value = $this->value;

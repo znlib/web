@@ -3,8 +3,8 @@
 namespace ZnLib\Web\Widgets\Base;
 
 use ZnCore\Base\Helpers\ClassHelper;
-use ZnCore\Base\Helpers\StringHelper;
-use ZnCore\Base\Helpers\TemplateHelper;
+use ZnCore\Base\Libs\Text\Helpers\StringHelper;
+use ZnCore\Base\Libs\Text\Helpers\TemplateHelper;
 use ZnLib\Web\Widgets\Interfaces\WidgetInterface;
 
 abstract class BaseWidget implements WidgetInterface

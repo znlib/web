@@ -3,7 +3,7 @@
 namespace ZnLib\Web\Widgets\Pagination;
 
 use Symfony\Component\HttpFoundation\Request;
-use ZnCore\Base\Helpers\TemplateHelper;
+use ZnCore\Base\Libs\Text\Helpers\TemplateHelper;
 use ZnCore\Domain\Entities\DataProviderEntity;
 use ZnCore\Domain\Libs\DataProvider;
 use ZnLib\Web\Widgets\Base\BaseWidget2;

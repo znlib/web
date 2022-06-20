@@ -4,6 +4,7 @@ namespace ZnLib\Web\Widgets\Collection;
 
 use Symfony\Component\HttpFoundation\Request;
 use ZnCore\Base\Legacy\Yii\Helpers\Url;
+use ZnCore\Base\Libs\Entity\Helpers\CollectionHelper;
 use ZnCore\Base\Libs\Entity\Helpers\EntityHelper;
 use ZnLib\Web\Widgets\Base\BaseWidget2;
 use ZnLib\Web\Widgets\Format\Entities\AttributeEntity;
@@ -44,7 +45,7 @@ class CollectionWidget extends BaseWidget2
 
     private function prepareAttributes()
     {
-        $this->attributes = EntityHelper::createEntityCollection(AttributeEntity::class, $this->attributes);
+        $this->attributes = CollectionHelper::create(AttributeEntity::class, $this->attributes);
         foreach ($this->attributes as $attributeEntity) {
             $attributeEntity->setEntity($this->collection);
         }

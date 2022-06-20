@@ -3,6 +3,7 @@
 namespace ZnLib\Web\Widgets\Detail;
 
 use DateTime;
+use ZnCore\Base\Libs\Entity\Helpers\CollectionHelper;
 use ZnLib\Web\Widgets\Format\Entities\AttributeEntity;
 use ZnLib\Web\Widgets\Format\Enums\TypeEnum;
 use ZnLib\Web\Widgets\Format\Formatters\ArrayFormatter;
@@ -48,7 +49,7 @@ class DetailWidget extends BaseWidget2
 
     private function prepareAttributes()
     {
-        $this->attributes = EntityHelper::createEntityCollection(AttributeEntity::class, $this->attributes);
+        $this->attributes = CollectionHelper::create(AttributeEntity::class, $this->attributes);
         foreach ($this->attributes as $attributeEntity) {
             $attributeEntity->setEntity($this->entity);
         }

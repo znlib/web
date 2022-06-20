@@ -2,6 +2,7 @@
 
 namespace ZnLib\Web\Widgets\AdminLte3\Sidebar;
 
+use ZnCore\Base\Libs\Entity\Helpers\CollectionHelper;
 use ZnSandbox\Sandbox\Layout\Domain\Interfaces\Services\MenuServiceInterface;
 use ZnCore\Base\Libs\Entity\Helpers\EntityHelper;
 use ZnLib\Web\Widgets\Base\BaseWidget2;
@@ -22,7 +23,7 @@ class SidebarWidget extends BaseWidget2
     public function run(): string
     {
         $collection = $this->menuService->allByFileName($this->menuConfigFile);
-        $items = EntityHelper::collectionToArray($collection);
+        $items = CollectionHelper::toArray($collection);
         $items = $this->prepareIcon($items);
         $nav = $this->createWidget($items);
         return $nav->render();

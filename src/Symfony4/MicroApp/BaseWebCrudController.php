@@ -15,11 +15,12 @@ use ZnCore\Base\Libs\I18Next\Facades\I18Next;
 use ZnCore\Domain\Base\BaseCrudService;
 use ZnCore\Base\Libs\Validation\Exceptions\UnprocessibleEntityException;
 use ZnCore\Base\Libs\Entity\Helpers\EntityHelper;
-use ZnCore\Domain\Helpers\QueryHelper;
+use ZnCore\Base\Libs\Query\Helpers\QueryHelper;
 use ZnCore\Base\Libs\Validation\Helpers\ValidationHelper;
 use ZnCore\Contract\Domain\Interfaces\Entities\EntityIdInterface;
 use ZnCore\Domain\Interfaces\Service\CrudServiceInterface;
-use ZnCore\Domain\Libs\Query;
+use ZnCore\Base\Libs\Query\Entities\Query;
+use ZnLib\Web\Helpers\WebQueryHelper;
 use ZnLib\Web\Symfony4\MicroApp\Enums\CrudControllerActionEnum;
 use ZnLib\Web\Symfony4\MicroApp\Interfaces\BuildFormInterface;
 use ZnLib\Web\Symfony4\MicroApp\Libs\FormManager;
@@ -137,7 +138,7 @@ abstract class BaseWebCrudController extends BaseWebController
     {
         $this->getView()->addAttribute('title', 'list');
         $query = $this->prepareQuery(CrudControllerActionEnum::INDEX, $request);
-        $query = QueryHelper::getAllParams($request->query->all(), $query);
+        $query = WebQueryHelper::getAllParams($request->query->all(), $query);
         $query->removeParam(Query::WHERE);
         $query->removeParam(Query::WHERE_NEW);
         $dataProvider = $this->getService()->getDataProvider($query);

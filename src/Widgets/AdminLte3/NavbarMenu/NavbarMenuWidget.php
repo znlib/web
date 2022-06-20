@@ -3,7 +3,7 @@
 namespace ZnLib\Web\Widgets\AdminLte3\NavbarMenu;
 
 use ZnSandbox\Sandbox\Layout\Domain\Interfaces\Services\MenuServiceInterface;
-use ZnCore\Domain\Helpers\EntityHelper;
+use ZnCore\Base\Libs\Entity\Helpers\EntityHelper;
 use ZnLib\Web\Widgets\Base\BaseWidget2;
 
 class NavbarMenuWidget extends BaseWidget2

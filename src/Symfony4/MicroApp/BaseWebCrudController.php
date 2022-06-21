@@ -17,7 +17,7 @@ use ZnCore\Base\Libs\Validation\Exceptions\UnprocessibleEntityException;
 use ZnCore\Base\Libs\Entity\Helpers\EntityHelper;
 use ZnCore\Base\Libs\Query\Helpers\QueryHelper;
 use ZnCore\Base\Libs\Validation\Helpers\ValidationHelper;
-use ZnCore\Contract\Domain\Interfaces\Entities\EntityIdInterface;
+use ZnCore\Base\Libs\Entity\Interfaces\EntityIdInterface;
 use ZnCore\Base\Libs\Service\Interfaces\CrudServiceInterface;
 use ZnCore\Base\Libs\Query\Entities\Query;
 use ZnLib\Web\Helpers\WebQueryHelper;

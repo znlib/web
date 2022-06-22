@@ -2,7 +2,7 @@
 
 namespace ZnLib\Web\Symfony4\MicroApp\Libs;
 
-use ZnCore\Base\Libs\DotEnv\DotEnv;
+use ZnCore\Base\Libs\DotEnv\Domain\Libs\DotEnv;
 use ZnCrypt\Base\Domain\Enums\HashAlgoEnum;
 
 class CookieValue

@@ -4,8 +4,8 @@ namespace ZnLib\Web\Widgets\Pagination;
 
 use Symfony\Component\HttpFoundation\Request;
 use ZnCore\Base\Libs\Text\Helpers\TemplateHelper;
-use ZnCore\Base\Libs\DataProvider\Entities\DataProviderEntity;
-use ZnCore\Base\Libs\DataProvider\Libs\DataProvider;
+use ZnCore\Domain\DataProvider\Entities\DataProviderEntity;
+use ZnCore\Domain\DataProvider\Libs\DataProvider;
 use ZnLib\Web\Widgets\Base\BaseWidget2;
 use ZnLib\Web\Widgets\MenuWidget;
 

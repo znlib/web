@@ -2,8 +2,8 @@
 
 namespace ZnLib\Web\Helpers;
 
-use ZnCore\Base\Libs\Query\Entities\Query;
-use ZnCore\Base\Libs\Query\Entities\Where;
+use ZnCore\Domain\Query\Entities\Query;
+use ZnCore\Domain\Query\Entities\Where;
 
 /**
  *

@@ -3,7 +3,7 @@
 namespace ZnLib\Web\Widgets\Format\Formatters;
 
 use ZnCore\Base\Legacy\Yii\Helpers\Html;
-use ZnCore\Base\Libs\Entity\Helpers\EntityHelper;
+use ZnCore\Domain\Entity\Helpers\EntityHelper;
 use ZnLib\Web\Widgets\Format\Entities\AttributeEntity;
 
 class ImageFormatter extends LinkFormatter implements FormatterInterface

@@ -5,8 +5,8 @@ namespace ZnLib\Web\Widgets\Format\Formatters\Actions;
 use ZnCore\Base\Legacy\Yii\Helpers\Html;
 use ZnCore\Base\Legacy\Yii\Helpers\Url;
 use ZnCore\Base\Libs\I18Next\Facades\I18Next;
-use ZnCore\Base\Libs\Entity\Helpers\EntityHelper;
-use ZnCore\Base\Libs\Entity\Interfaces\EntityIdInterface;
+use ZnCore\Domain\Entity\Helpers\EntityHelper;
+use ZnCore\Domain\Entity\Interfaces\EntityIdInterface;
 
 class BaseAction
 {

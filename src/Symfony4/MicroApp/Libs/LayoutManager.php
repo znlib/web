@@ -4,7 +4,7 @@ namespace ZnLib\Web\Symfony4\MicroApp\Libs;
 
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use ZnBundle\Notify\Domain\Interfaces\Services\ToastrServiceInterface;
-use ZnCore\Base\Libs\I18Next\Interfaces\Services\TranslationServiceInterface;
+use ZnCore\Base\I18Next\Interfaces\Services\TranslationServiceInterface;
 use ZnLib\Web\Widgets\Alert\AlertWidget;
 use ZnLib\Web\Widgets\BreadcrumbWidget;
 

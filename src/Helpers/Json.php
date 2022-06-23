@@ -7,7 +7,7 @@
 
 namespace ZnLib\Web\Helpers;
 
-use ZnCore\Base\Libs\Arr\Helpers\ArrayHelper;
+use ZnCore\Base\Arr\Helpers\ArrayHelper;
 use ZnCore\Contract\Common\Exceptions\InvalidArgumentException;
 use ZnCore\Base\Legacy\Yii\Base\Model;
 

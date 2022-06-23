@@ -3,8 +3,8 @@
 namespace ZnLib\Web\Widgets\Format\Formatters;
 
 
-use ZnCore\Base\Libs\Text\Helpers\TemplateHelper;
-use ZnCore\Base\Libs\Arr\Helpers\ArrayHelper;
+use ZnCore\Base\Text\Helpers\TemplateHelper;
+use ZnCore\Base\Arr\Helpers\ArrayHelper;
 
 class ArrayFormatter extends BaseFormatter implements FormatterInterface
 {

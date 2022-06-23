@@ -2,7 +2,7 @@
 
 namespace ZnLib\Web\Widgets\Format\Formatters;
 
-use ZnCore\Base\Libs\Enum\Helpers\EnumHelper;
+use ZnCore\Base\Enum\Helpers\EnumHelper;
 
 class EnumFormatter extends BaseFormatter implements FormatterInterface
 {

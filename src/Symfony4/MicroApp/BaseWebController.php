@@ -10,11 +10,11 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use ZnBundle\Notify\Domain\Interfaces\Services\ToastrServiceInterface;
 use ZnCore\Base\Helpers\LoadHelper;
-use ZnCore\Base\Libs\Arr\Helpers\ArrayHelper;
-use ZnCore\Base\Libs\Container\Helpers\ContainerHelper;
-use ZnCore\Base\Libs\Http\Enums\HttpStatusCodeEnum;
-use ZnCore\Base\Libs\I18Next\Facades\I18Next;
-use ZnCore\Base\Libs\Text\Helpers\TemplateHelper;
+use ZnCore\Base\Arr\Helpers\ArrayHelper;
+use ZnCore\Base\Container\Helpers\ContainerHelper;
+use ZnCore\Base\Http\Enums\HttpStatusCodeEnum;
+use ZnCore\Base\I18Next\Facades\I18Next;
+use ZnCore\Base\Text\Helpers\TemplateHelper;
 use ZnCore\Domain\Entity\Helpers\EntityHelper;
 use ZnLib\Rest\Web\Controller\BaseCrudWebController;
 use ZnLib\Web\Symfony4\MicroApp\Interfaces\BuildFormInterface;
@@ -184,7 +184,7 @@ abstract class BaseWebController implements ControllerLayoutInterface
     protected function getView(): View
     {
         if (empty($this->view)) {
-            $this->view = \ZnCore\Base\Libs\Container\Helpers\ContainerHelper::getContainer()->get(View::class);
+            $this->view = \ZnCore\Base\Container\Helpers\ContainerHelper::getContainer()->get(View::class);
 //            $this->view = new View();
         }
         return $this->view;

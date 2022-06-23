@@ -3,7 +3,7 @@
 namespace ZnLib\Web\Widgets\Base;
 
 use ReflectionClass;
-use ZnCore\Base\Libs\Instance\Helpers\ClassHelper;
+use ZnCore\Base\Instance\Helpers\ClassHelper;
 
 use ZnLib\Web\View\Helpers\RenderHelper;
 use ZnLib\Web\View\View;
@@ -22,7 +22,7 @@ abstract class BaseWidget2 implements WidgetInterface2
     public function getView(): View
     {
         if($this->view == null) {
-            $this->view = \ZnCore\Base\Libs\Container\Helpers\ContainerHelper::getContainer()->get(View::class);
+            $this->view = \ZnCore\Base\Container\Helpers\ContainerHelper::getContainer()->get(View::class);
             //$this->view = new View();
         }
         return $this->view;

@@ -7,7 +7,7 @@
 foreach ($js->getFiles() as $item) {
     $options = $item['options'];
     $options['src'] = $item['file'];
-    if (\ZnCore\Base\Libs\DotEnv\Domain\Libs\DotEnv::get('ASSET_FORCE_RELOAD', false)) {
+    if (\ZnCore\Base\DotEnv\Domain\Libs\DotEnv::get('ASSET_FORCE_RELOAD', false)) {
         $options['src'] .= '?timestamp=' . time();
     }
     echo \ZnLib\Web\Helpers\Html::tag('script', '', $options);

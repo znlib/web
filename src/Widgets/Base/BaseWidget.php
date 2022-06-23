@@ -2,9 +2,9 @@
 
 namespace ZnLib\Web\Widgets\Base;
 
-use ZnCore\Base\Libs\Instance\Helpers\ClassHelper;
+use ZnCore\Base\Instance\Helpers\ClassHelper;
 
-use ZnCore\Base\Libs\Text\Helpers\TemplateHelper;
+use ZnCore\Base\Text\Helpers\TemplateHelper;
 use ZnLib\Web\Widgets\Interfaces\WidgetInterface;
 
 abstract class BaseWidget implements WidgetInterface

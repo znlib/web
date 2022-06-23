@@ -7,7 +7,7 @@
  * @var FormatEncoder $formatter
  */
 
-use ZnCore\Base\Libs\I18Next\Facades\I18Next;
+use ZnCore\Base\I18Next\Facades\I18Next;
 use ZnLib\Web\View\View;
 use ZnLib\Web\Widgets\Format\Entities\AttributeEntity;
 use ZnLib\Web\Widgets\Format\Libs\FormatEncoder;

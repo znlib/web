@@ -7,8 +7,8 @@
  */
 
 use Symfony\Component\PropertyAccess\PropertyAccess;
-use ZnCore\Base\Libs\Instance\Helpers\ClassHelper;
-use ZnCore\Base\Libs\Text\Helpers\Inflector;
+use ZnCore\Base\Instance\Helpers\ClassHelper;
+use ZnCore\Base\Text\Helpers\Inflector;
 use ZnLib\Web\Helpers\Url;
 use ZnLib\Web\View\View;
 use ZnLib\Web\Widgets\Filter\FilterGenerator;

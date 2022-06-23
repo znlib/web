@@ -6,7 +6,7 @@ use Symfony\Component\Config\FileLocator;
 use Symfony\Component\Routing\Loader\Configurator\RoutingConfigurator;
 use Symfony\Component\Routing\Loader\PhpFileLoader;
 use Symfony\Component\Routing\RouteCollection;
-use ZnCore\Base\Libs\App\Loaders\BundleLoaders\BaseLoader;
+use ZnCore\Base\App\Loaders\BundleLoaders\BaseLoader;
 
 class SymfonyRoutesLoader extends BaseLoader
 {

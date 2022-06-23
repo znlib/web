@@ -2,7 +2,7 @@
 
 namespace ZnLib\Web\Widgets\Format\Formatters;
 
-use ZnCore\Base\Libs\I18Next\Facades\I18Next;
+use ZnCore\Base\I18Next\Facades\I18Next;
 
 class BooleanFormatter extends BaseFormatter implements FormatterInterface
 {

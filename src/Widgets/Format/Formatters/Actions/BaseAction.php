@@ -4,7 +4,7 @@ namespace ZnLib\Web\Widgets\Format\Formatters\Actions;
 
 use ZnLib\Web\Helpers\Html;
 use ZnLib\Web\Helpers\Url;
-use ZnCore\Base\Libs\I18Next\Facades\I18Next;
+use ZnCore\Base\I18Next\Facades\I18Next;
 use ZnCore\Domain\Entity\Helpers\EntityHelper;
 use ZnCore\Domain\Entity\Interfaces\EntityIdInterface;
 

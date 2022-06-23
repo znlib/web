@@ -3,7 +3,7 @@
 namespace ZnLib\Web\Widgets;
 
 use Closure;
-use ZnCore\Base\Libs\Arr\Helpers\ArrayHelper;
+use ZnCore\Base\Arr\Helpers\ArrayHelper;
 use ZnLib\Web\Helpers\Html;
 use ZnLib\Web\Widgets\Base\BaseWidget;
 

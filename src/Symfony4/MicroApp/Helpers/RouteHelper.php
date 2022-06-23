@@ -3,7 +3,7 @@
 namespace ZnLib\Web\Symfony4\MicroApp\Helpers;
 
 use Symfony\Component\Routing\Loader\Configurator\RoutingConfigurator;
-use ZnCore\Base\Helpers\ClassHelper;
+use ZnCore\Base\Libs\Instance\Helpers\ClassHelper;
 
 class RouteHelper
 {

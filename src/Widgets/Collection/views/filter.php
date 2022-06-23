@@ -7,7 +7,7 @@
  */
 
 use Symfony\Component\PropertyAccess\PropertyAccess;
-use ZnCore\Base\Helpers\ClassHelper;
+use ZnCore\Base\Libs\Instance\Helpers\ClassHelper;
 use ZnCore\Base\Legacy\Yii\Helpers\Inflector;
 use ZnCore\Base\Legacy\Yii\Helpers\Url;
 use ZnLib\Web\View\View;

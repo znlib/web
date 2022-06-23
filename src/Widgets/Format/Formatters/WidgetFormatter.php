@@ -2,8 +2,8 @@
 
 namespace ZnLib\Web\Widgets\Format\Formatters;
 
-use ZnCore\Base\Helpers\ClassHelper;
-use ZnCore\Base\Helpers\PhpHelper;
+use ZnCore\Base\Libs\Instance\Helpers\ClassHelper;
+use ZnCore\Base\Libs\Php\Helpers\PhpHelper;
 
 class WidgetFormatter extends BaseFormatter implements FormatterInterface
 {

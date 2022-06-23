@@ -3,7 +3,7 @@
 namespace ZnLib\Web\Widgets\Format\Libs;
 
 use DateTime;
-use ZnCore\Base\Helpers\ClassHelper;
+use ZnCore\Base\Libs\Instance\Helpers\ClassHelper;
 use ZnCore\Base\Legacy\Yii\Helpers\ArrayHelper;
 use ZnLib\Web\Widgets\Format\Entities\AttributeEntity;
 use ZnLib\Web\Widgets\Format\Enums\TypeEnum;

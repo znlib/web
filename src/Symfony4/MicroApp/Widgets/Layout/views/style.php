@@ -14,7 +14,7 @@ foreach ($css->getFiles() as $item) {
     if (\ZnCore\Base\Libs\DotEnv\Domain\Libs\DotEnv::get('ASSET_FORCE_RELOAD', false)) {
         $options['href'] .= '?timestamp=' . time();
     }
-    echo \ZnCore\Base\Legacy\Yii\Helpers\Html::tag('link', '', $options);
+    echo \ZnLib\Web\Helpers\Html::tag('link', '', $options);
 }
 $css->resetFiles();
 ?>

@@ -2,7 +2,7 @@
 
 namespace ZnLib\Web\Symfony4\MicroApp\Libs\Renders;
 
-use ZnCore\Base\Legacy\Yii\Helpers\Html;
+use ZnLib\Web\Helpers\Html;
 
 class CheckboxRender extends BaseInputRender
 {

@@ -2,7 +2,7 @@
 
 namespace ZnLib\Web\Widgets\Table;
 
-use ZnCore\Base\Legacy\Yii\Helpers\ArrayHelper;
+use ZnCore\Base\Libs\Arr\Helpers\ArrayHelper;
 use ZnLib\Web\Widgets\Base\BaseWidget2;
 use ZnLib\Web\Widgets\Table\Helpers\TableWidgetHelper;
 

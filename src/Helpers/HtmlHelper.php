@@ -2,9 +2,9 @@
 
 namespace ZnLib\Web\Helpers;
 
-use ZnCore\Base\Legacy\Yii\Helpers\ArrayHelper;
-use ZnCore\Base\Legacy\Yii\Helpers\Html;
-use ZnCore\Base\Legacy\Yii\Helpers\Url;
+use ZnCore\Base\Libs\Arr\Helpers\ArrayHelper;
+use ZnLib\Web\Helpers\Html;
+use ZnLib\Web\Helpers\Url;
 
 /**
  * Работа с HTML

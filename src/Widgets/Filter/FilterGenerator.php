@@ -6,7 +6,7 @@ use ZnLib\Web\Widgets\Filter\Widgets\Number\NumberFilterWidget;
 use ZnLib\Web\Widgets\Filter\Widgets\Select\SelectFilterWidget;
 use ZnLib\Web\Widgets\Filter\Widgets\Text\TextFilterWidget;
 use ZnCore\Base\Libs\Instance\Helpers\ClassHelper;
-use ZnCore\Base\Legacy\Yii\Helpers\ArrayHelper;
+use ZnCore\Base\Libs\Arr\Helpers\ArrayHelper;
 
 class FilterGenerator
 {

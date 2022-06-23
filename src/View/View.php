@@ -3,7 +3,7 @@
 namespace ZnLib\Web\View;
 
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
-use ZnCore\Base\Legacy\Yii\Helpers\ArrayHelper;
+use ZnCore\Base\Libs\Arr\Helpers\ArrayHelper;
 use ZnCore\Base\Libs\I18Next\Facades\I18Next;
 use ZnCore\Base\Libs\I18Next\Interfaces\Services\TranslationServiceInterface;
 use ZnLib\Web\View\Helpers\RenderHelper;

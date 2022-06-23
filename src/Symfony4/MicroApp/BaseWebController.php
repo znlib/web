@@ -8,20 +8,17 @@ use Symfony\Component\HttpFoundation\HeaderUtils;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use ZnBundle\Notify\Domain\Interfaces\Services\ToastrServiceInterface;
-use ZnCore\Base\Libs\Http\Enums\HttpStatusCodeEnum;
 use ZnCore\Base\Helpers\LoadHelper;
-use ZnCore\Base\Libs\Text\Helpers\TemplateHelper;
-use ZnCore\Base\Legacy\Yii\Helpers\ArrayHelper;
-use ZnCore\Base\Legacy\Yii\Helpers\FileHelper;
+use ZnCore\Base\Libs\Arr\Helpers\ArrayHelper;
 use ZnCore\Base\Libs\Container\Helpers\ContainerHelper;
+use ZnCore\Base\Libs\Http\Enums\HttpStatusCodeEnum;
 use ZnCore\Base\Libs\I18Next\Facades\I18Next;
+use ZnCore\Base\Libs\Text\Helpers\TemplateHelper;
 use ZnCore\Domain\Entity\Helpers\EntityHelper;
 use ZnLib\Rest\Web\Controller\BaseCrudWebController;
 use ZnLib\Web\Symfony4\MicroApp\Interfaces\BuildFormInterface;
 use ZnLib\Web\Symfony4\MicroApp\Interfaces\ControllerLayoutInterface;
-use ZnLib\Web\Symfony4\MicroApp\Libs\FormManager;
 use ZnLib\Web\Symfony4\MicroApp\Libs\LayoutManager;
 use ZnLib\Web\Symfony4\MicroApp\Traits\ControllerFormTrait;
 use ZnLib\Web\Symfony4\MicroApp\Traits\ControllerUrlGeneratorTrait;
@@ -159,10 +156,10 @@ abstract class BaseWebController implements ControllerLayoutInterface
         $definition = $definition ?: $this->formClass;
         if (isset($definition)) {
             $form = ContainerHelper::getContainer()->get($definition);
-            if(isset($entity)) {
+            if (isset($entity)) {
                 EntityHelper::setAttributesFromObject($entity, $form);
             }
-        } elseif(isset($entity)) {
+        } elseif (isset($entity)) {
             $form = $entity;
         } else {
             $form = $this->getService()->createEntity();
@@ -184,8 +181,9 @@ abstract class BaseWebController implements ControllerLayoutInterface
         return new Response($content);
     }
 
-    protected function getView(): View {
-        if(empty($this->view)) {
+    protected function getView(): View
+    {
+        if (empty($this->view)) {
             $this->view = \ZnCore\Base\Libs\Container\Helpers\ContainerHelper::getContainer()->get(View::class);
 //            $this->view = new View();
         }

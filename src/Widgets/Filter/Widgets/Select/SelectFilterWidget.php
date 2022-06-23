@@ -3,7 +3,7 @@
 namespace ZnLib\Web\Widgets\Filter\Widgets\Select;
 
 use ZnLib\Web\Widgets\Filter\Widgets\BaseFilterWidget;
-use ZnCore\Base\Legacy\Yii\Helpers\Html;
+use ZnLib\Web\Helpers\Html;
 
 class SelectFilterWidget extends BaseFilterWidget
 {

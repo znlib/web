@@ -8,8 +8,8 @@
 
 use Symfony\Component\PropertyAccess\PropertyAccess;
 use ZnCore\Base\Libs\Instance\Helpers\ClassHelper;
-use ZnCore\Base\Legacy\Yii\Helpers\Inflector;
-use ZnCore\Base\Legacy\Yii\Helpers\Url;
+use ZnCore\Base\Libs\Text\Helpers\Inflector;
+use ZnLib\Web\Helpers\Url;
 use ZnLib\Web\View\View;
 use ZnLib\Web\Widgets\Filter\FilterGenerator;
 use ZnLib\Web\Widgets\Format\Entities\AttributeEntity;

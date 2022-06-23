@@ -7,7 +7,7 @@
  */
 
 use ZnCore\Contract\User\Interfaces\Entities\IdentityEntityInterface;
-use ZnCore\Base\Legacy\Yii\Helpers\Html;
+use ZnLib\Web\Helpers\Html;
 use ZnCore\Base\Libs\I18Next\Facades\I18Next;
 use ZnLib\Web\View\View;
 

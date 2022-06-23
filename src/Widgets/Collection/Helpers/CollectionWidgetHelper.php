@@ -2,8 +2,8 @@
 
 namespace ZnLib\Web\Widgets\Collection\Helpers;
 
-use ZnCore\Base\Legacy\Yii\Helpers\ArrayHelper;
-use ZnCore\Base\Legacy\Yii\Helpers\Html;
+use ZnCore\Base\Libs\Arr\Helpers\ArrayHelper;
+use ZnLib\Web\Helpers\Html;
 
 class CollectionWidgetHelper
 {

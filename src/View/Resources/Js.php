@@ -2,7 +2,7 @@
 
 namespace ZnLib\Web\View\Resources;
 
-use ZnCore\Base\Legacy\Yii\Helpers\ArrayHelper;
+use ZnCore\Base\Libs\Arr\Helpers\ArrayHelper;
 
 class Js extends BaseResource
 {

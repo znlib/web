@@ -20,7 +20,7 @@ use ZnLib\Web\Widgets\Format\Formatters\StringFormatter;
 use ZnLib\Web\Widgets\Format\Formatters\TimeFormatter;
 use ZnLib\Web\Widgets\Format\Formatters\UnknownTypeFormatter;
 use ZnLib\Web\Widgets\Format\Libs\FormatEncoder;
-use ZnCore\Base\Legacy\Yii\Helpers\ArrayHelper;
+use ZnCore\Base\Libs\Arr\Helpers\ArrayHelper;
 use ZnCore\Domain\Entity\Helpers\EntityHelper;
 use ZnLib\Web\Widgets\Base\BaseWidget2;
 

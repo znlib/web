@@ -3,8 +3,8 @@
 namespace ZnLib\Web\Widgets;
 
 use Closure;
-use ZnCore\Base\Legacy\Yii\Helpers\ArrayHelper;
-use ZnCore\Base\Legacy\Yii\Helpers\Html;
+use ZnCore\Base\Libs\Arr\Helpers\ArrayHelper;
+use ZnLib\Web\Helpers\Html;
 use ZnLib\Web\Widgets\Base\BaseWidget;
 
 class MenuWidget extends BaseWidget

@@ -10,7 +10,7 @@ foreach ($js->getFiles() as $item) {
     if (\ZnCore\Base\Libs\DotEnv\Domain\Libs\DotEnv::get('ASSET_FORCE_RELOAD', false)) {
         $options['src'] .= '?timestamp=' . time();
     }
-    echo \ZnCore\Base\Legacy\Yii\Helpers\Html::tag('script', '', $options);
+    echo \ZnLib\Web\Helpers\Html::tag('script', '', $options);
 }
 $js->resetFiles();
 

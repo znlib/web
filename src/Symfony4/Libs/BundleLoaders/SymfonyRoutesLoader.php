@@ -13,7 +13,6 @@ class SymfonyRoutesLoader extends BaseLoader
 
     private function createRoutingConfigurator($routes): RoutingConfigurator
     {
-
         $fileLocator = new FileLocator();
         $fileLoader = new PhpFileLoader($fileLocator);
         $routingConfigurator = new RoutingConfigurator($routes, $fileLoader, __FILE__, __FILE__);
@@ -34,9 +33,6 @@ class SymfonyRoutesLoader extends BaseLoader
                 }
             }
         }
-
-//        $config['routeCollection'] = $routes;
-//        $this->getConfigManager()->set('routeCollection', $routes);
         return [];
     }
 }

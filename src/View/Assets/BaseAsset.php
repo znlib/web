@@ -4,7 +4,7 @@ namespace ZnLib\Web\View\Assets;
 
 use ZnLib\Web\View\View;
 
-class BaseAsset implements AssetInterface
+abstract class BaseAsset implements AssetInterface
 {
 
     public function jsFiles(View $view)

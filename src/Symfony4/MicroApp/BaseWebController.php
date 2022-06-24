@@ -9,30 +9,28 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use ZnBundle\Notify\Domain\Interfaces\Services\ToastrServiceInterface;
-use ZnCore\Base\Helpers\LoadHelper;
-use ZnCore\Base\Arr\Helpers\ArrayHelper;
 use ZnCore\Base\Container\Helpers\ContainerHelper;
+use ZnCore\Base\Helpers\LoadHelper;
 use ZnCore\Base\Http\Enums\HttpStatusCodeEnum;
 use ZnCore\Base\I18Next\Facades\I18Next;
 use ZnCore\Base\Text\Helpers\TemplateHelper;
 use ZnCore\Domain\Entity\Helpers\EntityHelper;
 use ZnLib\Rest\Web\Controller\BaseCrudWebController;
 use ZnLib\Web\Symfony4\MicroApp\Interfaces\BuildFormInterface;
-use ZnLib\Web\Symfony4\MicroApp\Interfaces\ControllerLayoutInterface;
 use ZnLib\Web\Symfony4\MicroApp\Libs\LayoutManager;
 use ZnLib\Web\Symfony4\MicroApp\Traits\ControllerFormTrait;
 use ZnLib\Web\Symfony4\MicroApp\Traits\ControllerUrlGeneratorTrait;
 use ZnLib\Web\View\View;
 use ZnLib\Web\Widgets\BreadcrumbWidget;
 
-abstract class BaseWebController implements ControllerLayoutInterface
+abstract class BaseWebController //implements ControllerLayoutInterface
 {
 
     use ControllerUrlGeneratorTrait;
     use ControllerFormTrait;
 
 //    protected $layout = __DIR__ . '/layouts/main.php';
-    protected $layoutParams = [];
+//    protected $layoutParams = [];
     protected $viewsDir;
     protected $view;
     protected $fileExt = 'php';
@@ -67,30 +65,30 @@ abstract class BaseWebController implements ControllerLayoutInterface
         $this->layoutManager = $layoutManager;
     }
 
-    public function getLayout(): ?string
+    /*public function getLayout(): ?string
     {
         return $this->layout;
-    }
+    }*/
 
-    public function setLayout(?string $layout): void
+    /*public function setLayout(?string $layout): void
     {
         $this->layout = $layout;
-    }
+    }*/
 
-    public function getLayoutParams(): array
+    /*public function getLayoutParams(): array
     {
         return $this->layoutParams;
-    }
+    }*/
 
-    public function setLayoutParams(array $layoutParams): void
+    /*public function setLayoutParams(array $layoutParams): void
     {
         $this->layoutParams = $layoutParams;
-    }
+    }*/
 
-    public function addLayoutParam(string $name, $value): void
+    /*public function addLayoutParam(string $name, $value): void
     {
         $this->layoutParams[$name] = $value;
-    }
+    }*/
 
     public function getViewsDir(): ?string
     {
@@ -173,11 +171,11 @@ abstract class BaseWebController implements ControllerLayoutInterface
     protected function renderTemplate(string $file, array $params = []): Response
     {
         $content = TemplateHelper::loadTemplate($this->viewsDir . '/' . $file . '.' . $this->fileExt, $params);
-        if (isset($this->layout)) {
-            $params = ArrayHelper::merge($this->getLayoutParams(), $params);
+        /*if (isset($this->layout)) {
+//            $params = ArrayHelper::merge($this->getLayoutParams(), $params);
             $params['content'] = $content;
             $content = TemplateHelper::loadTemplate($this->layout, $params);
-        }
+        }*/
         return new Response($content);
     }
 
@@ -195,11 +193,11 @@ abstract class BaseWebController implements ControllerLayoutInterface
         $view = $this->getView();
         $view->setRenderDirectory($this->viewsDir);
         $pageContent = $view->renderFile($file, $params);
-        if (isset($this->layout)) {
-            $params = ArrayHelper::merge($this->getLayoutParams(), $params);
+        /*if (isset($this->layout)) {
+//            $params = ArrayHelper::merge($this->getLayoutParams(), $params);
             $params['content'] = $pageContent;
             $content = $view->renderFile($this->layout, $params);
-        }
+        }*/
         return new Response($content);
     }
 
@@ -226,13 +224,14 @@ abstract class BaseWebController implements ControllerLayoutInterface
         $view = $this->getView();
         $view->setRenderDirectory($this->viewsDir);
         $pageContent = $view->render($file, $params);
-        if (isset($this->layout)) {
-            $params = ArrayHelper::merge($this->getLayoutParams(), $params);
+        /*if (isset($this->layout)) {
+//            $params = ArrayHelper::merge($this->getLayoutParams(), $params);
             $params['content'] = $pageContent;
             $content = $view->renderFile($this->layout, $params);
         } else {
             $content = $pageContent;
-        }
+        }*/
+        $content = $pageContent;
         return new Response($content);
     }
 

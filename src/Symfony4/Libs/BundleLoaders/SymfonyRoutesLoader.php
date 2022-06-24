@@ -19,7 +19,7 @@ class SymfonyRoutesLoader extends BaseLoader
         return $routingConfigurator;
     }
 
-    public function loadAll(array $bundles): array
+    public function loadAll(array $bundles): void
     {
         $routes = $this->container->get(RouteCollection::class); //new RouteCollection();
         $routingConfigurator = $this->createRoutingConfigurator($routes);
@@ -33,6 +33,5 @@ class SymfonyRoutesLoader extends BaseLoader
                 }
             }
         }
-        return [];
     }
 }

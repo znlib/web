@@ -7,7 +7,7 @@
  */
 
 use yii\helpers\Html;
-use ZnCore\Base\I18Next\Facades\I18Next;
+use ZnLib\Components\I18Next\Facades\I18Next;
 use ZnCore\Domain\Entity\Helpers\EntityHelper;
 use ZnLib\Web\View\View;
 

@@ -7,7 +7,7 @@ use Symfony\Component\Validator\ConstraintViolation;
 use ZnCore\Base\Arr\Helpers\ArrayHelper;
 use ZnLib\Web\Helpers\Html;
 use ZnCore\Base\Text\Helpers\Inflector;
-use ZnCore\Base\I18Next\Facades\I18Next;
+use ZnLib\Components\I18Next\Facades\I18Next;
 use ZnLib\Web\Symfony4\MicroApp\Helpers\FormErrorHelper;
 
 class FormErrorRender extends BaseRender

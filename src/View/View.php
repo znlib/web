@@ -4,8 +4,8 @@ namespace ZnLib\Web\View;
 
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use ZnCore\Base\Arr\Helpers\ArrayHelper;
-use ZnCore\Base\I18Next\Facades\I18Next;
-use ZnCore\Base\I18Next\Interfaces\Services\TranslationServiceInterface;
+use ZnLib\Components\I18Next\Facades\I18Next;
+use ZnLib\Components\I18Next\Interfaces\Services\TranslationServiceInterface;
 use ZnLib\Web\View\Helpers\RenderHelper;
 use ZnLib\Web\View\Resources\Css;
 use ZnLib\Web\View\Resources\Js;

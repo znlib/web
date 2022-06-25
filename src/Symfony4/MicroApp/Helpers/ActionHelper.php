@@ -2,11 +2,11 @@
 
 namespace ZnLib\Web\Symfony4\MicroApp\Helpers;
 
-use ZnCore\Base\Status\Enums\StatusEnum;
+use ZnLib\Components\Status\Enums\StatusEnum;
 use ZnCore\Base\Arr\Helpers\ArrayHelper;
 use ZnLib\Web\Helpers\Html;
 use ZnLib\Web\Helpers\Url;
-use ZnCore\Base\I18Next\Facades\I18Next;
+use ZnLib\Components\I18Next\Facades\I18Next;
 use ZnCore\Domain\Entity\Interfaces\EntityIdInterface;
 
 class ActionHelper

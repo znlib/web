@@ -11,7 +11,7 @@ use Illuminate\Support\Collection;
 use ZnLib\Web\Widgets\Format\Entities\AttributeEntity;
 use ZnLib\Web\Widgets\Format\Libs\FormatEncoder;
 use ZnLib\Web\View\View;
-use ZnCore\Base\I18Next\Facades\I18Next;
+use ZnLib\Components\I18Next\Facades\I18Next;
 
 ?>
 

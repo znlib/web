@@ -14,7 +14,7 @@
  */
 
 use Illuminate\Support\Collection;
-use ZnCore\Base\I18Next\Facades\I18Next;
+use ZnLib\Components\I18Next\Facades\I18Next;
 use ZnCore\Domain\DataProvider\Libs\DataProvider;
 use ZnLib\Web\View\View;
 use ZnLib\Web\Widgets\Format\Entities\AttributeEntity;

@@ -5,7 +5,7 @@
  * @var string $loginUrl
  */
 
-use ZnCore\Base\I18Next\Facades\I18Next;
+use ZnLib\Components\I18Next\Facades\I18Next;
 use ZnLib\Web\Helpers\Url;
 use ZnLib\Web\View\View;
 

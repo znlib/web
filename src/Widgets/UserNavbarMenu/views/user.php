@@ -8,7 +8,7 @@
 
 use ZnCore\Contract\User\Interfaces\Entities\IdentityEntityInterface;
 use ZnLib\Web\Helpers\Html;
-use ZnCore\Base\I18Next\Facades\I18Next;
+use ZnLib\Components\I18Next\Facades\I18Next;
 use ZnLib\Web\View\View;
 
 ?>

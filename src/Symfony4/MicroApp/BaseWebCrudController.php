@@ -11,7 +11,7 @@ use ZnBundle\Notify\Domain\Interfaces\Services\ToastrServiceInterface;
 use ZnCore\Base\Arr\Helpers\ArrayHelper;
 use ZnLib\Web\Helpers\Url;
 use ZnCore\Base\Container\Helpers\ContainerHelper;
-use ZnCore\Base\I18Next\Facades\I18Next;
+use ZnLib\Components\I18Next\Facades\I18Next;
 use ZnCore\Domain\Service\Base\BaseCrudService;
 use ZnCore\Base\Validation\Exceptions\UnprocessibleEntityException;
 use ZnCore\Domain\Entity\Helpers\EntityHelper;

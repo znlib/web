@@ -6,7 +6,7 @@ use ZnLib\Web\Widgets\Format\Formatters\Actions\BaseAction;
 use ZnLib\Web\Widgets\Format\Formatters\Actions\DeleteAction;
 use ZnLib\Web\Widgets\Format\Formatters\Actions\RestoreAction;
 use ZnLib\Web\Widgets\Format\Formatters\Actions\UpdateAction;
-use ZnCore\Base\Status\Enums\StatusEnum;
+use ZnLib\Components\Status\Enums\StatusEnum;
 use ZnCore\Base\Instance\Helpers\ClassHelper;
 use ZnCore\Base\Arr\Helpers\ArrayHelper;
 use ZnLib\Web\Widgets\Format\Formatters\Actions\ViewAction;

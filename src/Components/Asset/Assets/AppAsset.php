@@ -12,7 +12,7 @@ class AppAsset extends BaseAsset
     {
         (new \ZnLib\Web\Components\Asset\Assets\Jquery3Asset())->register($view);
         (new \ZnLib\Web\Components\Asset\Assets\AjaxLoaderAsset())->register($view);
-        (new \ZnLib\Web\Components\Asset\Assets\Bootstrap4Asset())->register($view);
+        (new \ZnLib\Web\Components\TwBootstrap\Assets\Bootstrap4Asset())->register($view);
         (new \ZnLib\Web\Components\Asset\Assets\PopperAsset())->register($view);
         (new \ZnLib\Web\Components\Asset\Assets\Fontawesome5Asset())->register($view);
     }

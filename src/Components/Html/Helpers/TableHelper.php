@@ -2,7 +2,7 @@
 
 namespace ZnLib\Web\Components\Html\Helpers;
 
-use ZnLib\Web\Components\Widget\Widgets\Table\TableWidget;
+use ZnLib\Web\Components\TwBootstrap\Widgets\Table\TableWidget;
 
 class TableHelper
 {

@@ -10,7 +10,7 @@ use Symfony\Component\HttpKernel\Event\ResponseEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
 use ZnLib\Components\Http\Enums\HttpStatusCodeEnum;
 use ZnLib\Web\Components\View\Libs\View;
-use ZnLib\Web\Components\Widget\Widgets\Alert\AlertWidget;
+use ZnLib\Web\Components\TwBootstrap\Widgets\Alert\AlertWidget;
 use ZnLib\Web\Components\Widget\Widgets\BreadcrumbWidget;
 
 class SetLayoutSubscriber implements EventSubscriberInterface

@@ -2,7 +2,7 @@
 
 namespace ZnLib\Web\Helpers;
 
-use ZnLib\Web\Widgets\Table\TableWidget;
+use ZnLib\Web\Components\Widget\Widgets\Table\TableWidget;
 
 class TableHelper
 {

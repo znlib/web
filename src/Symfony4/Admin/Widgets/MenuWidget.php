@@ -2,7 +2,7 @@
 
 namespace ZnLib\Web\Symfony4\Admin\Widgets;
 
-use ZnLib\Web\Widgets\MenuWidget as BaseMenuWidget;
+use ZnLib\Web\Components\Widget\Widgets\MenuWidget as BaseMenuWidget;
 
 class MenuWidget extends BaseMenuWidget
 {

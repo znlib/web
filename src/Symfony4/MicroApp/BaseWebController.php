@@ -17,11 +17,11 @@ use ZnCore\Base\Text\Helpers\TemplateHelper;
 use ZnCore\Domain\Entity\Helpers\EntityHelper;
 use ZnLib\Rest\Web\Controller\BaseCrudWebController;
 use ZnLib\Web\Components\Form\Interfaces\BuildFormInterface;
-use ZnLib\Web\Symfony4\MicroApp\Libs\LayoutManager;
+use ZnLib\Web\Components\Layout\Libs\LayoutManager;
 use ZnLib\Web\Components\Form\Traits\ControllerFormTrait;
 use ZnLib\Web\Symfony4\MicroApp\Traits\ControllerUrlGeneratorTrait;
-use ZnLib\Web\View\View;
-use ZnLib\Web\Widgets\BreadcrumbWidget;
+use ZnLib\Web\Components\View\Libs\View;
+use ZnLib\Web\Components\Widget\Widgets\BreadcrumbWidget;
 
 abstract class BaseWebController //implements ControllerLayoutInterface
 {

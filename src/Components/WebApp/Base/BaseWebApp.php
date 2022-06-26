@@ -11,7 +11,7 @@ use ZnCore\Base\App\Base\BaseApp;
 use ZnCore\Base\Container\Interfaces\ContainerConfiguratorInterface;
 use ZnCore\Base\EventDispatcher\Interfaces\EventDispatcherConfiguratorInterface;
 use ZnLib\Web\Components\View\Libs\View;
-use ZnSf\Web\Domain\Subscribers\FindRouteSubscriber;
+use ZnLib\Web\Components\WebApp\Subscribers\FindRouteSubscriber;
 use ZnLib\Web\Components\WebApp\Subscribers\WebDetectTestEnvSubscriber;
 use ZnLib\Web\Components\WebApp\Subscribers\WebFirewallSubscriber;
 

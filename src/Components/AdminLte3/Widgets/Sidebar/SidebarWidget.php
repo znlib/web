@@ -6,7 +6,7 @@ use ZnCore\Domain\Entity\Helpers\CollectionHelper;
 use ZnSandbox\Sandbox\Layout\Domain\Interfaces\Services\MenuServiceInterface;
 use ZnCore\Domain\Entity\Helpers\EntityHelper;
 use ZnLib\Web\Components\Widget\Base\BaseWidget2;
-use ZnLib\Web\Components\Widget\Widgets\NavbarMenuWidget;
+use ZnLib\Web\Components\TwBootstrap\Widgets\NavbarMenu\NavbarMenuWidget;
 
 class SidebarWidget extends BaseWidget2
 {

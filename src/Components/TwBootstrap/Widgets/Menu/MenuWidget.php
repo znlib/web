@@ -1,6 +1,6 @@
 <?php
 
-namespace ZnLib\Web\Components\Widget\Widgets;
+namespace ZnLib\Web\Components\TwBootstrap\Widgets\Menu;
 
 use Closure;
 use ZnCore\Base\Arr\Helpers\ArrayHelper;

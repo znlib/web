@@ -1,6 +1,6 @@
 <?php
 
-namespace ZnLib\Web\Components\Widget\Widgets;
+namespace ZnLib\Web\Components\TwBootstrap\Widgets\Modal;
 
 use ZnLib\Web\Components\Html\Helpers\Html;
 use ZnLib\Web\Components\Widget\Base\BaseWidget2;

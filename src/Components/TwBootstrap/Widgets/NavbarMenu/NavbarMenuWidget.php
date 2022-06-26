@@ -1,6 +1,8 @@
 <?php
 
-namespace ZnLib\Web\Components\Widget\Widgets;
+namespace ZnLib\Web\Components\TwBootstrap\Widgets\NavbarMenu;
+
+use ZnLib\Web\Components\TwBootstrap\Widgets\Menu\MenuWidget;
 
 class NavbarMenuWidget extends MenuWidget
 {

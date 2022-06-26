@@ -7,7 +7,7 @@ use ZnCore\Base\Text\Helpers\TemplateHelper;
 use ZnCore\Domain\DataProvider\Entities\DataProviderEntity;
 use ZnCore\Domain\DataProvider\Libs\DataProvider;
 use ZnLib\Web\Components\Widget\Base\BaseWidget2;
-use ZnLib\Web\Components\Widget\Widgets\MenuWidget;
+use ZnLib\Web\Components\TwBootstrap\Widgets\Menu\MenuWidget;
 
 class PaginationWidget extends BaseWidget2
 {

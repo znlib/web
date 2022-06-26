@@ -26,7 +26,7 @@ use ZnLib\Web\Components\Form\Interfaces\BuildFormInterface;
 use ZnLib\Web\Components\Form\Libs\FormManager;
 use ZnLib\Web\Components\Form\Libs\FormRender;
 use ZnLib\Web\Components\Form\Traits\ControllerFormTrait;
-use ZnLib\Web\Components\Widget\Widgets\BreadcrumbWidget;
+use ZnLib\Web\Components\TwBootstrap\Widgets\Breadcrumb\BreadcrumbWidget;
 use ZnUser\Rbac\Domain\Enums\Rbac\ExtraPermissionEnum;
 
 abstract class BaseWebCrudController extends BaseWebController

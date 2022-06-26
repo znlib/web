@@ -40,9 +40,9 @@ class NavbarMenuWidget extends BaseWidget2
         return $items;
     }
 
-    private function createWidget(array $items): \ZnLib\Web\Components\Widget\Widgets\NavbarMenuWidget
+    private function createWidget(array $items): \ZnLib\Web\Components\TwBootstrap\Widgets\NavbarMenu\NavbarMenuWidget
     {
-        $nav = new \ZnLib\Web\Components\Widget\Widgets\NavbarMenuWidget($items);
+        $nav = new \ZnLib\Web\Components\TwBootstrap\Widgets\NavbarMenu\NavbarMenuWidget($items);
         /*$nav->itemOptions = [
             'class' => 'nav-item',
             'tag' => 'li',

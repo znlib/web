@@ -1,6 +1,6 @@
 <?php
 
-namespace ZnLib\Web\Components\WebApp\Subscribers;
+namespace ZnLib\Web\Components\Layout\Subscribers;
 
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -9,9 +9,9 @@ use Symfony\Component\HttpKernel\Event\ControllerEvent;
 use Symfony\Component\HttpKernel\Event\ResponseEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
 use ZnLib\Components\Http\Enums\HttpStatusCodeEnum;
-use ZnLib\Web\Components\View\Libs\View;
 use ZnLib\Web\Components\TwBootstrap\Widgets\Alert\AlertWidget;
-use ZnLib\Web\Components\Widget\Widgets\BreadcrumbWidget;
+use ZnLib\Web\Components\TwBootstrap\Widgets\Breadcrumb\BreadcrumbWidget;
+use ZnLib\Web\Components\View\Libs\View;
 
 class SetLayoutSubscriber implements EventSubscriberInterface
 {

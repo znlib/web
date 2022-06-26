@@ -21,7 +21,7 @@ use ZnLib\Web\Components\Layout\Libs\LayoutManager;
 use ZnLib\Web\Components\Form\Traits\ControllerFormTrait;
 use ZnLib\Web\Components\Controller\Traits\ControllerUrlGeneratorTrait;
 use ZnLib\Web\Components\View\Libs\View;
-use ZnLib\Web\Components\Widget\Widgets\BreadcrumbWidget;
+use ZnLib\Web\Components\TwBootstrap\Widgets\Breadcrumb\BreadcrumbWidget;
 
 abstract class BaseWebController //implements ControllerLayoutInterface
 {

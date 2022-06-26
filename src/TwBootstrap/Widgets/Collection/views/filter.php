@@ -9,11 +9,11 @@
 use Symfony\Component\PropertyAccess\PropertyAccess;
 use ZnCore\Base\Instance\Helpers\ClassHelper;
 use ZnCore\Base\Text\Helpers\Inflector;
-use ZnLib\Web\Url\Helpers\Url;
-use ZnLib\Web\View\Libs\View;
+use ZnLib\Components\Http\Helpers\UrlHelper;
 use ZnLib\Web\TwBootstrap\Widgets\Filter\FilterGenerator;
 use ZnLib\Web\TwBootstrap\Widgets\Format\Entities\AttributeEntity;
 use ZnLib\Web\TwBootstrap\Widgets\Format\Formatters\ActionFormatter;
+use ZnLib\Web\View\Libs\View;
 
 $propertyAccessor = PropertyAccess::createPropertyAccessor();
 
@@ -28,7 +28,7 @@ foreach ($attributes as $attributeEntity) {
 
 ?>
 
-<?php if($isExists): ?>
+<?php if ($isExists): ?>
 
     <form id="collection-filter-form" action="" method="get">
         <tr>
@@ -46,7 +46,7 @@ foreach ($attributes as $attributeEntity) {
                                 <i class="fas fa-filter"></i>
                             </a>
                             &nbsp;
-                            <a class="text-decoration-none text-danger" href="' . Url::getBaseUrl() . '" title="Clean filter parameters">
+                            <a class="text-decoration-none text-danger" href="' . UrlHelper::requestUri() . '" title="Clean filter parameters">
                                 <i class="fas fa-times"></i>
                             </a>
                         </div>';

@@ -14,7 +14,7 @@ use ZnCore\Contract\Common\Exceptions\InvalidArgumentException;
 use ZnCore\Base\FileSystem\Helpers\FileStorageHelper;
 use ZnCore\Base\FileSystem\Helpers\MimeTypeHelper;
 use ZnCore\Base\Legacy\Yii\Base\Model;
-use ZnLib\Web\Url\Helpers\Url;
+use ZnLib\Web\Html\Helpers\Url;
 
 /**
  * Html provides a set of static methods for generating commonly used HTML tags.
@@ -518,7 +518,7 @@ class Html
      * If a value is null, the corresponding attribute will not be rendered.
      * See [[renderTagAttributes()]] for details on how attributes are being rendered.
      * @return string the generated hyperlink
-     * @see \ZnLib\Web\Url\Helpers\Url::to()
+     * @see \ZnLib\Web\Html\Helpers\Url::to()
      */
     public static function a($text, $url = null, $options = [])
     {

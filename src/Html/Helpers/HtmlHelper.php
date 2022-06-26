@@ -4,7 +4,7 @@ namespace ZnLib\Web\Html\Helpers;
 
 use ZnCore\Base\Arr\Helpers\ArrayHelper;
 use ZnLib\Web\Html\Helpers\Html;
-use ZnLib\Web\Url\Helpers\Url;
+use ZnLib\Web\Html\Helpers\Url;
 
 /**
  * Работа с HTML

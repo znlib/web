@@ -16,7 +16,7 @@ use ZnCore\Domain\Service\Interfaces\CrudServiceInterface;
 use ZnLib\Web\Controller\Enums\CrudControllerActionEnum;
 use ZnLib\Web\Controller\Helpers\WebQueryHelper;
 use ZnLib\Web\Form\Interfaces\BuildFormInterface;
-use ZnLib\Web\Url\Helpers\Url;
+use ZnLib\Web\Html\Helpers\Url;
 use ZnUser\Rbac\Domain\Enums\Rbac\ExtraPermissionEnum;
 
 abstract class BaseWebCrudController extends BaseWebController

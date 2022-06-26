@@ -5,7 +5,7 @@ namespace ZnLib\Web\Controller\Helpers;
 use ZnLib\Components\Status\Enums\StatusEnum;
 use ZnCore\Base\Arr\Helpers\ArrayHelper;
 use ZnLib\Web\Html\Helpers\Html;
-use ZnLib\Web\Url\Helpers\Url;
+use ZnLib\Web\Html\Helpers\Url;
 use ZnLib\Components\I18Next\Facades\I18Next;
 use ZnCore\Domain\Entity\Interfaces\EntityIdInterface;
 

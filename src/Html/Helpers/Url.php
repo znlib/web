@@ -5,7 +5,7 @@
  * @license http://www.yiiframework.com/license/
  */
 
-namespace ZnLib\Web\Url\Helpers;
+namespace ZnLib\Web\Html\Helpers;
 
 use Symfony\Component\HttpFoundation\Request;
 use ZnCore\Contract\Common\Exceptions\InvalidArgumentException;
@@ -21,18 +21,29 @@ use ZnCore\Contract\Common\Exceptions\InvalidArgumentException;
 class Url
 {
 
-    /**
+    /*
      * @var \yii\web\UrlManager URL manager to use for creating URLs
      * @since 2.0.8
      */
-    public static $urlManager;
+//    public static $urlManager;
 
-    public static function getBaseUrl(): string
+    /*public static function getBaseUrl(): string
     {
 //        return self::getRequest()->getRequestUri();
         global $_SERVER;
         $baseUrl = explode('?', $_SERVER['REQUEST_URI'])[0];
         return $baseUrl;
+    }*/
+
+
+    private static $request;
+
+    private static function getRequest(): Request
+    {
+        if (!isset(self::$request)) {
+            self::$request = Request::createFromGlobals();
+        }
+        return self::$request;
     }
 
     /**
@@ -97,10 +108,16 @@ class Url
      * @return string the generated URL
      * @throws InvalidArgumentException a relative route is given while there is no active controller
      */
-    public static function to($url = '', $scheme = false)
+    public static function to($url = ''/*, $scheme = false*/): string
     {
+        if(is_string($url)) {
+            $url = [
+                $url
+            ];
+        }
         $basePath = self::getRequest()->getBaseUrl();
-        if (is_array($url)) {
+//        dump($basePath);
+//        if (is_array($url)) {
             $path = array_splice($url, 0, 1)[0];
             $query = http_build_query($url);
             $url = $basePath . $path;
@@ -109,36 +126,26 @@ class Url
             }
             return $url;
 //            return static::toRoute($url, $scheme);
-        }
+//        }
 
 //        $url = \ZnCore\Base\FileSystem\Helpers\FileHelper::getAlias($url);
-        if ($url === '') {
+        /*if ($url === '') {
             $url = Yii::$app->getRequest()->getUrl();
-        }
+        }*/
 
-        if ($scheme === false) {
+        /*if ($scheme === false) {
             return $url;
-        }
+        }*/
 
-        if (static::isRelative($url)) {
+        /*if (static::isRelative($url)) {
             // turn relative URL into absolute
             $url = static::getUrlManager()->getHostInfo() . '/' . ltrim($url, '/');
-        }
+        }*/
 
-        return static::ensureScheme($url, $scheme);
+//        return static::ensureScheme($url, $scheme);
     }
 
-    private static $request;
-
-    private static function getRequest(): Request
-    {
-        if (!isset(self::$request)) {
-            self::$request = Request::createFromGlobals();
-        }
-        return self::$request;
-    }
-
-    /**
+    /*
      * Normalize URL by ensuring that it use specified scheme.
      *
      * If URL is relative or scheme is not string, normalization is skipped.
@@ -149,7 +156,7 @@ class Url
      * @return string the processed URL
      * @since 2.0.11
      */
-    protected static function ensureScheme($url, $scheme)
+    /*protected static function ensureScheme($url, $scheme)
     {
         if (static::isRelative($url) || !is_string($scheme)) {
             return $url;
@@ -169,27 +176,16 @@ class Url
         }
 
         return $url;
-    }
+    }*/
 
-    /**
-     * Returns a value indicating whether a URL is relative.
-     * A relative URL does not have host info part.
-     * @param string $url the URL to be checked
-     * @return bool whether the URL is relative
-     */
-    protected static function isRelative($url)
-    {
-        return strncmp($url, '//', 2) && strpos($url, '://') === false;
-    }
-
-    /**
+    /*
      * @return \yii\web\UrlManager URL manager used to create URLs
      * @since 2.0.8
      */
-    protected static function getUrlManager()
+    /*protected static function getUrlManager()
     {
         return static::$urlManager ?: Yii::$app->getUrlManager();
-    }
+    }*/
 
     /*
      * Creates a URL for the given route.

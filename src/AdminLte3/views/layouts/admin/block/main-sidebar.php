@@ -8,13 +8,13 @@
  */
 
 use App\User\Domain\Entities\IdentityEntity;
-use ZnLib\Web\Url\Helpers\Url;
+use ZnLib\Web\Html\Helpers\Url;
 use ZnLib\Web\View\Libs\View;
 use ZnLib\Web\AdminLte3\Widgets\Sidebar\SidebarWidget;
 
 ?>
 <!-- Brand Logo -->
-<a href="<?= Url::to('/admin') ?>" class="brand-link">
+<a href="<?= Url::to(['/admin']) ?>" class="brand-link">
     <img src="/static/img/icon/cloud-network.png" alt="Logo" class="brand-image img-circle <!--elevation-3-->"
          style="opacity: .8">
     <span class="brand-text font-weight-light">Admin panel</span>

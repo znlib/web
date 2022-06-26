@@ -2,7 +2,7 @@
 
 namespace ZnLib\Web\Components\Widget\Widgets\Filter\Widgets;
 
-use ZnLib\Web\Helpers\Html;
+use ZnLib\Web\Components\Html\Helpers\Html;
 use ZnLib\Web\Components\Widget\Base\BaseWidget2;
 
 class BaseFilterWidget extends BaseWidget2

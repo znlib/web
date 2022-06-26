@@ -5,7 +5,7 @@ namespace ZnLib\Web\Components\Widget\Base;
 use ZnCore\Base\Instance\Helpers\ClassHelper;
 
 use ZnCore\Base\Text\Helpers\TemplateHelper;
-use ZnLib\Web\Components\Widget\Widgets\Interfaces\WidgetInterface;
+use ZnLib\Web\Components\Widget\Interfaces\WidgetInterface;
 
 abstract class BaseWidget implements WidgetInterface
 {

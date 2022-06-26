@@ -3,7 +3,7 @@
 namespace ZnLib\Web\Components\Widget\Widgets\Format\Formatters;
 
 use ZnCore\Base\Arr\Helpers\ArrayHelper;
-use ZnLib\Web\Helpers\Html;
+use ZnLib\Web\Components\Html\Helpers\Html;
 use ZnCore\Domain\Entity\Helpers\EntityHelper;
 
 class LinkFormatter extends BaseFormatter implements FormatterInterface

@@ -3,7 +3,7 @@
 namespace ZnLib\Web\Components\Widget\Widgets\Collection;
 
 use Symfony\Component\HttpFoundation\Request;
-use ZnLib\Web\Helpers\Url;
+use ZnLib\Web\Components\Url\Helpers\Url;
 use ZnCore\Domain\Entity\Helpers\CollectionHelper;
 use ZnCore\Domain\Entity\Helpers\EntityHelper;
 use ZnLib\Web\Components\Widget\Base\BaseWidget2;

@@ -7,7 +7,7 @@ use ZnCore\Base\Instance\Helpers\ClassHelper;
 
 use ZnLib\Web\Components\View\Helpers\RenderHelper;
 use ZnLib\Web\Components\View\Libs\View;
-use ZnLib\Web\Components\Widget\Widgets\Interfaces\WidgetInterface2;
+use ZnLib\Web\Components\Widget\Interfaces\WidgetInterface2;
 
 abstract class BaseWidget2 implements WidgetInterface2
 {

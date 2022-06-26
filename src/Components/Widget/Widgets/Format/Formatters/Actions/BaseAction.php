@@ -2,8 +2,8 @@
 
 namespace ZnLib\Web\Components\Widget\Widgets\Format\Formatters\Actions;
 
-use ZnLib\Web\Helpers\Html;
-use ZnLib\Web\Helpers\Url;
+use ZnLib\Web\Components\Html\Helpers\Html;
+use ZnLib\Web\Components\Url\Helpers\Url;
 use ZnLib\Components\I18Next\Facades\I18Next;
 use ZnCore\Domain\Entity\Helpers\EntityHelper;
 use ZnCore\Domain\Entity\Interfaces\EntityIdInterface;

@@ -4,7 +4,7 @@ namespace ZnLib\Web\Components\Widget\Widgets;
 
 use Closure;
 use ZnCore\Base\Arr\Helpers\ArrayHelper;
-use ZnLib\Web\Helpers\Html;
+use ZnLib\Web\Components\Html\Helpers\Html;
 use ZnLib\Web\Components\Widget\Base\BaseWidget;
 
 class MenuWidget extends BaseWidget

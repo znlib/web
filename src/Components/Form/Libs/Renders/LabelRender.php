@@ -2,7 +2,7 @@
 
 namespace ZnLib\Web\Components\Form\Libs\Renders;
 
-use ZnLib\Web\Helpers\Html;
+use ZnLib\Web\Components\Html\Helpers\Html;
 
 class LabelRender extends BaseInputRender
 {

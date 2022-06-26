@@ -6,7 +6,7 @@
  */
 
 use ZnLib\Components\I18Next\Facades\I18Next;
-use ZnLib\Web\Helpers\Url;
+use ZnLib\Web\Components\Url\Helpers\Url;
 use ZnLib\Web\Components\View\Libs\View;
 
 ?>

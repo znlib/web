@@ -3,7 +3,7 @@
 namespace ZnLib\Web\Components\Form\Libs\Renders;
 
 use Symfony\Component\Form\ChoiceList\View\ChoiceView;
-use ZnLib\Web\Helpers\Html;
+use ZnLib\Web\Components\Html\Helpers\Html;
 
 class SelectRender extends BaseInputRender
 {

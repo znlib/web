@@ -3,7 +3,7 @@
 namespace ZnLib\Web\Components\Widget\Widgets\Collection\Helpers;
 
 use ZnCore\Base\Arr\Helpers\ArrayHelper;
-use ZnLib\Web\Helpers\Html;
+use ZnLib\Web\Components\Html\Helpers\Html;
 
 class CollectionWidgetHelper
 {

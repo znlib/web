@@ -2,7 +2,7 @@
 
 namespace ZnLib\Web\Components\Widget\Widgets\Format\Formatters;
 
-use ZnLib\Web\Helpers\Html;
+use ZnLib\Web\Components\Html\Helpers\Html;
 use ZnCore\Domain\Entity\Helpers\EntityHelper;
 use ZnLib\Web\Components\Widget\Widgets\Format\Entities\AttributeEntity;
 

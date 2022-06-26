@@ -16,7 +16,7 @@ use ZnCore\Contract\Common\Exceptions\InvalidConfigException;
 use ZnCore\Base\Arr\Helpers\ArrayHelper;
 use ZnCore\Base\DotEnv\Domain\Libs\DotEnv;
 use ZnCore\Domain\Entity\Helpers\EntityHelper;
-use ZnLib\Web\Symfony4\MicroApp\Interfaces\ControllerAccessInterface;
+use ZnLib\Web\Components\Controller\Interfaces\ControllerAccessInterface;
 use ZnLib\Web\Components\SignedCookie\Libs\CookieValue;
 use ZnUser\Rbac\Domain\Interfaces\Services\ManagerServiceInterface;
 

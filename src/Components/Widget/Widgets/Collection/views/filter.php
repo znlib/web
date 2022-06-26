@@ -9,7 +9,7 @@
 use Symfony\Component\PropertyAccess\PropertyAccess;
 use ZnCore\Base\Instance\Helpers\ClassHelper;
 use ZnCore\Base\Text\Helpers\Inflector;
-use ZnLib\Web\Helpers\Url;
+use ZnLib\Web\Components\Url\Helpers\Url;
 use ZnLib\Web\Components\View\Libs\View;
 use ZnLib\Web\Components\Widget\Widgets\Filter\FilterGenerator;
 use ZnLib\Web\Components\Widget\Widgets\Format\Entities\AttributeEntity;

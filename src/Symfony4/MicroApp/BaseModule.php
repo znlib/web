@@ -5,6 +5,9 @@ namespace ZnLib\Web\Symfony4\MicroApp;
 use Illuminate\Container\Container;
 use Symfony\Component\Routing\Loader\Configurator\RoutingConfigurator;
 use Symfony\Component\Routing\RouteCollection;
+use ZnCore\Base\Develop\Helpers\DeprecateHelper;
+
+DeprecateHelper::hardThrow();
 
 abstract class BaseModule
 {

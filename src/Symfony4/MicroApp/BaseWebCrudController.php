@@ -22,10 +22,10 @@ use ZnCore\Domain\Service\Interfaces\CrudServiceInterface;
 use ZnCore\Domain\Query\Entities\Query;
 use ZnLib\Web\Helpers\WebQueryHelper;
 use ZnLib\Web\Symfony4\MicroApp\Enums\CrudControllerActionEnum;
-use ZnLib\Web\Symfony4\MicroApp\Interfaces\BuildFormInterface;
-use ZnLib\Web\Symfony4\MicroApp\Libs\FormManager;
-use ZnLib\Web\Symfony4\MicroApp\Libs\FormRender;
-use ZnLib\Web\Symfony4\MicroApp\Traits\ControllerFormTrait;
+use ZnLib\Web\Components\Form\Interfaces\BuildFormInterface;
+use ZnLib\Web\Components\Form\Libs\FormManager;
+use ZnLib\Web\Components\Form\Libs\FormRender;
+use ZnLib\Web\Components\Form\Traits\ControllerFormTrait;
 use ZnLib\Web\Widgets\BreadcrumbWidget;
 use ZnUser\Rbac\Domain\Enums\Rbac\ExtraPermissionEnum;
 

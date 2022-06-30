@@ -30,7 +30,7 @@ class UserNavbarMenuWidget extends BaseWidget2
                 'loginUrl' => $this->loginUrl,
             ]);
         } else {
-            $assignmentCollection = $this->myAssignmentService->all();
+            $assignmentCollection = $this->myAssignmentService->findAll();
             $userMenuHtml = $this->userMenuHtml;
 
             if($assignmentCollection->first() instanceof AssignmentEntity) {

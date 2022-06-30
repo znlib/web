@@ -148,7 +148,7 @@ abstract class BaseWebCrudController extends BaseWebController
     {
         $query = $this->prepareQuery(CrudControllerActionEnum::VIEW, $request);
         $id = $request->query->get('id');
-        $entity = $this->getService()->oneById($id, $query);
+        $entity = $this->getService()->findOneById($id, $query);
         return $this->showView($entity);
     }
 
@@ -171,7 +171,7 @@ abstract class BaseWebCrudController extends BaseWebController
         /** @var BuildFormInterface $form */
 
         $query = $this->prepareQuery(CrudControllerActionEnum::UPDATE, $request);
-        $entity = $this->getService()->oneById($id, $query);
+        $entity = $this->getService()->findOneById($id, $query);
         $form = $this->createFormInstance($this->formClass, $entity);
 
         /*if (isset($this->formClass)) {

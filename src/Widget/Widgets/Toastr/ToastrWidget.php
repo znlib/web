@@ -51,7 +51,7 @@ class ToastrWidget extends BaseWidget2
     public function run(): string
     {
         $this->registerAssets();
-        $collection = $this->toastrService->all();
+        $collection = $this->toastrService->findAll();
         $this->generateHtml($collection);
         return '';
     }

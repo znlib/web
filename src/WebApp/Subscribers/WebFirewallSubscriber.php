@@ -83,7 +83,7 @@ class WebFirewallSubscriber implements EventSubscriberInterface
                 try {
                     $cookieValue = new CookieValue(DotEnv::get('CSRF_TOKEN_ID'));
                     $identityId = $cookieValue->decode($identityIdCookie);
-                    $identity = $this->identityService->oneById($identityId);
+                    $identity = $this->identityService->findOneById($identityId);
 
                     $token = new TestBrowserToken([], $identity);
 

@@ -9,7 +9,7 @@ use Symfony\Component\HttpKernel\Event\RequestEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\Security\Core\Authentication\Token\NullToken;
 use Symfony\Component\Security\Core\Security;
-use ZnBundle\User\Domain\Enums\WebCookieEnum;
+use ZnUser\Authentication\Domain\Enums\WebCookieEnum;
 use ZnUser\Authentication\Domain\Interfaces\Services\AuthServiceInterface;
 use ZnUser\Identity\Domain\Interfaces\Services\IdentityServiceInterface;
 use ZnCore\Contract\Common\Exceptions\InvalidConfigException;

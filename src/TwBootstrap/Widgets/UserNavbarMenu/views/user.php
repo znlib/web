@@ -23,7 +23,7 @@ use ZnLib\Web\View\Libs\View;
         <?= $userMenuHtml ?>
         <a class="dropdown-item" href="#" onclick="$('#logout-form').submit()">
             <i class="fas fa-sign-out-alt"></i>
-            <?= I18Next::t('user', 'auth.logout_title') ?>
+            <?= I18Next::t('authentication', 'auth.logout_title') ?>
         </a>
     </div>
 </li>

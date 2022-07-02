@@ -8,7 +8,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Exception\ResourceNotFoundException;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
-use ZnBundle\User\Symfony4\Web\Enums\WebUserEnum;
+use ZnUser\Authentication\Symfony4\Web\Enums\WebUserEnum;
 use ZnCore\Contract\Common\Exceptions\InvalidConfigException;
 use ZnCore\Domain\Entity\Exceptions\NotFoundException;
 use ZnCore\Base\Env\Helpers\EnvHelper;

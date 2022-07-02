@@ -14,6 +14,6 @@ use ZnLib\Web\View\Libs\View;
 <li class="nav-item">
     <a class="nav-link" href="<?= Url::to($loginUrl) ?>">
         <i class="fas fa-sign-in-alt"></i>
-        <?= I18Next::t('user', 'auth.title') ?>
+        <?= I18Next::t('authentication', 'auth.title') ?>
     </a>
 </li>

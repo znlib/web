@@ -11,7 +11,7 @@ use Symfony\Component\Security\Core\Authentication\Token\NullToken;
 use Symfony\Component\Security\Core\Security;
 use ZnBundle\User\Domain\Enums\WebCookieEnum;
 use ZnBundle\User\Domain\Interfaces\Services\AuthServiceInterface;
-use ZnBundle\User\Domain\Interfaces\Services\IdentityServiceInterface;
+use ZnUser\Identity\Domain\Interfaces\Services\IdentityServiceInterface;
 use ZnCore\Contract\Common\Exceptions\InvalidConfigException;
 use ZnCore\Base\Arr\Helpers\ArrayHelper;
 use ZnCore\Base\DotEnv\Domain\Libs\DotEnv;

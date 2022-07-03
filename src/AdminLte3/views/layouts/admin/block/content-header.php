@@ -6,7 +6,7 @@
  * @var string $content
  */
 
-use Illuminate\Container\Container;
+use ZnCore\Base\Container\Libs\Container;
 use ZnLib\Web\View\Libs\View;
 use ZnLib\Web\TwBootstrap\Widgets\Breadcrumb\BreadcrumbWidget;
 

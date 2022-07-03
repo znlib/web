@@ -7,7 +7,7 @@
  * @var FormatEncoder $formatter
  */
 
-use Illuminate\Support\Collection;
+use ZnCore\Domain\Collection\Libs\Collection;
 use ZnLib\Web\TwBootstrap\Widgets\Format\Entities\AttributeEntity;
 use ZnLib\Web\TwBootstrap\Widgets\Format\Libs\FormatEncoder;
 use ZnLib\Web\View\Libs\View;

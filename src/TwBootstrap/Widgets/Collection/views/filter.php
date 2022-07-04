@@ -6,7 +6,7 @@
  * @var object $filterModel
  */
 
-use Symfony\Component\PropertyAccess\PropertyAccess;
+use ZnCore\Domain\Entity\Factories\PropertyAccess;
 use ZnCore\Base\Instance\Helpers\ClassHelper;
 use ZnCore\Base\Text\Helpers\Inflector;
 use ZnLib\Components\Http\Helpers\UrlHelper;

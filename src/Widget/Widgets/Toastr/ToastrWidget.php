@@ -3,7 +3,7 @@
 namespace ZnLib\Web\Widget\Widgets\Toastr;
 
 use ZnCore\Domain\Collection\Libs\Collection;
-use Symfony\Component\PropertyAccess\PropertyAccess;
+use ZnCore\Domain\Entity\Factories\PropertyAccess;
 use ZnBundle\Notify\Domain\Entities\ToastrEntity;
 use ZnBundle\Notify\Domain\Interfaces\Services\ToastrServiceInterface;
 use ZnCore\Base\Instance\Helpers\ClassHelper;

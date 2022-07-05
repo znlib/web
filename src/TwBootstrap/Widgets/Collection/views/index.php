@@ -2,7 +2,7 @@
 
 /**
  * @var View $this
- * @var Collection $collection
+ * @var Enumerable $collection
  * @var DataProvider $dataProvider
  * @var AttributeEntity[] $attributes
  * @var string $tableClass
@@ -13,13 +13,13 @@
  * @var bool $showStatistic
  */
 
-use ZnCore\Domain\Collection\Libs\Collection;
-use ZnLib\Components\I18Next\Facades\I18Next;
+use ZnCore\Domain\Collection\Interfaces\Enumerable;
 use ZnCore\Domain\DataProvider\Libs\DataProvider;
-use ZnLib\Web\View\Libs\View;
+use ZnLib\Components\I18Next\Facades\I18Next;
 use ZnLib\Web\TwBootstrap\Widgets\Format\Entities\AttributeEntity;
 use ZnLib\Web\TwBootstrap\Widgets\Format\Libs\FormatEncoder;
 use ZnLib\Web\TwBootstrap\Widgets\Pagination\PaginationWidget;
+use ZnLib\Web\View\Libs\View;
 
 if (!isset($collection)) {
     $collection = $dataProvider->getCollection();

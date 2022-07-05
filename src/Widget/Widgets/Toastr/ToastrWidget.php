@@ -2,20 +2,15 @@
 
 namespace ZnLib\Web\Widget\Widgets\Toastr;
 
-use ZnCore\Domain\Collection\Interfaces\Enumerable;
-use ZnCore\Domain\Collection\Libs\Collection;
-use ZnCore\Domain\Entity\Factories\PropertyAccess;
 use ZnBundle\Notify\Domain\Entities\ToastrEntity;
 use ZnBundle\Notify\Domain\Interfaces\Services\ToastrServiceInterface;
-use ZnCore\Base\Instance\Helpers\ClassHelper;
-use ZnCore\Base\Arr\Helpers\ArrayHelper;
-use ZnCore\Domain\Entity\Helpers\EntityHelper;
+use ZnCore\Domain\Collection\Interfaces\Enumerable;
 use ZnLib\Web\View\Resources\Js;
 use ZnLib\Web\Widget\Base\BaseWidget2;
 
 class ToastrWidget extends BaseWidget2
 {
-    
+
     private $toastrService;
 
     public $closeButton = false;

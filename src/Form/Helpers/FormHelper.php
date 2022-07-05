@@ -2,6 +2,7 @@
 
 namespace ZnLib\Web\Form\Helpers;
 
+use ZnCore\Domain\Collection\Interfaces\Enumerable;
 use ZnCore\Domain\Collection\Libs\Collection;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormError;
@@ -46,7 +47,7 @@ class FormHelper
         return $form;
     }
 
-    public static function setErrorsToForm(Collection $collection, FormInterface $form)
+    public static function setErrorsToForm(Enumerable $collection, FormInterface $form)
     {
         foreach ($collection as $errorEntity) {
             /** @var ValidationErrorEntity $errorEntity */

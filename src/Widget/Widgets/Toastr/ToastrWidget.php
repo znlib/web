@@ -2,6 +2,7 @@
 
 namespace ZnLib\Web\Widget\Widgets\Toastr;
 
+use ZnCore\Domain\Collection\Interfaces\Enumerable;
 use ZnCore\Domain\Collection\Libs\Collection;
 use ZnCore\Domain\Entity\Factories\PropertyAccess;
 use ZnBundle\Notify\Domain\Entities\ToastrEntity;
@@ -62,7 +63,7 @@ class ToastrWidget extends BaseWidget2
         $this->js->registerVar('toastr.options', $this);
     }
 
-    private function generateHtml(Collection $collection)
+    private function generateHtml(Enumerable $collection)
     {
         if ($collection->isEmpty()) {
             return;

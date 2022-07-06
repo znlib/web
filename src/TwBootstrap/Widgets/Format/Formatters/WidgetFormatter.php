@@ -3,7 +3,7 @@
 namespace ZnLib\Web\TwBootstrap\Widgets\Format\Formatters;
 
 use ZnCore\Instance\Helpers\ClassHelper;
-use ZnCore\Base\Php\Helpers\PhpHelper;
+use ZnCore\Code\Helpers\PhpHelper;
 
 class WidgetFormatter extends BaseFormatter implements FormatterInterface
 {

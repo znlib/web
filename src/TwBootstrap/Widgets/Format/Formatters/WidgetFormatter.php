@@ -2,7 +2,7 @@
 
 namespace ZnLib\Web\TwBootstrap\Widgets\Format\Formatters;
 
-use ZnCore\Base\Instance\Helpers\ClassHelper;
+use ZnCore\Instance\Helpers\ClassHelper;
 use ZnCore\Base\Php\Helpers\PhpHelper;
 
 class WidgetFormatter extends BaseFormatter implements FormatterInterface

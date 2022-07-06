@@ -3,8 +3,8 @@
 namespace ZnLib\Web\TwBootstrap\Widgets\Format\Libs;
 
 use DateTime;
-use ZnCore\Base\Instance\Helpers\ClassHelper;
-use ZnCore\Base\Arr\Helpers\ArrayHelper;
+use ZnCore\Instance\Helpers\ClassHelper;
+use ZnCore\Arr\Helpers\ArrayHelper;
 use ZnLib\Web\TwBootstrap\Widgets\Format\Entities\AttributeEntity;
 use ZnLib\Web\TwBootstrap\Widgets\Format\Enums\TypeEnum;
 use ZnLib\Web\TwBootstrap\Widgets\Format\Formatters\ArrayFormatter;

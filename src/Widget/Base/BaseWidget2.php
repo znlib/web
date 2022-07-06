@@ -3,7 +3,7 @@
 namespace ZnLib\Web\Widget\Base;
 
 use ReflectionClass;
-use ZnCore\Base\Instance\Helpers\ClassHelper;
+use ZnCore\Instance\Helpers\ClassHelper;
 
 use ZnLib\Web\View\Helpers\RenderHelper;
 use ZnLib\Web\View\Libs\View;

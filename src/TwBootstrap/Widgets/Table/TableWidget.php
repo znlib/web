@@ -2,7 +2,7 @@
 
 namespace ZnLib\Web\TwBootstrap\Widgets\Table;
 
-use ZnCore\Base\Arr\Helpers\ArrayHelper;
+use ZnCore\Arr\Helpers\ArrayHelper;
 use ZnLib\Web\Widget\Base\BaseWidget2;
 use ZnLib\Web\TwBootstrap\Widgets\Table\Helpers\TableWidgetHelper;
 

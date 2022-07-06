@@ -2,7 +2,7 @@
 
 namespace ZnLib\Web\TwBootstrap\Widgets\Collection\Helpers;
 
-use ZnCore\Base\Arr\Helpers\ArrayHelper;
+use ZnCore\Arr\Helpers\ArrayHelper;
 use ZnLib\Web\Html\Helpers\Html;
 
 class CollectionWidgetHelper

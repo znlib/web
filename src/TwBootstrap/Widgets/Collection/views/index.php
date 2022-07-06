@@ -14,7 +14,7 @@
  */
 
 use ZnCore\Collection\Interfaces\Enumerable;
-use ZnCore\Domain\DataProvider\Libs\DataProvider;
+use ZnCore\DataProvider\Libs\DataProvider;
 use ZnLib\Components\I18Next\Facades\I18Next;
 use ZnLib\Web\TwBootstrap\Widgets\Format\Entities\AttributeEntity;
 use ZnLib\Web\TwBootstrap\Widgets\Format\Libs\FormatEncoder;

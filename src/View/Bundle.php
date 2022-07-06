@@ -2,7 +2,7 @@
 
 namespace ZnLib\Web\View;
 
-use ZnCore\Base\Bundle\Base\BaseBundle;
+use ZnCore\Bundle\Base\BaseBundle;
 
 class Bundle extends BaseBundle
 {

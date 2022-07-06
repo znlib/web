@@ -5,8 +5,8 @@ namespace ZnLib\Web\TwBootstrap\Widgets\Filter;
 use ZnLib\Web\TwBootstrap\Widgets\Filter\Widgets\Number\NumberFilterWidget;
 use ZnLib\Web\TwBootstrap\Widgets\Filter\Widgets\Select\SelectFilterWidget;
 use ZnLib\Web\TwBootstrap\Widgets\Filter\Widgets\Text\TextFilterWidget;
-use ZnCore\Base\Instance\Helpers\ClassHelper;
-use ZnCore\Base\Arr\Helpers\ArrayHelper;
+use ZnCore\Instance\Helpers\ClassHelper;
+use ZnCore\Arr\Helpers\ArrayHelper;
 
 class FilterGenerator
 {

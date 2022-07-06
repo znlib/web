@@ -2,7 +2,7 @@
 
 namespace ZnLib\Web\Html\Helpers;
 
-use ZnCore\Base\Arr\Helpers\ArrayHelper;
+use ZnCore\Arr\Helpers\ArrayHelper;
 use ZnLib\Web\Html\Helpers\Html;
 use ZnLib\Web\Html\Helpers\Url;
 

@@ -2,7 +2,7 @@
 
 namespace ZnLib\Web\Form\Libs\Renders;
 
-use ZnCore\Base\Arr\Helpers\ArrayHelper;
+use ZnCore\Arr\Helpers\ArrayHelper;
 use ZnLib\Web\Html\Helpers\Html;
 
 abstract class BaseInputRender extends BaseRender

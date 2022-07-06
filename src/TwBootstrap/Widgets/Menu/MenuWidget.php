@@ -3,7 +3,7 @@
 namespace ZnLib\Web\TwBootstrap\Widgets\Menu;
 
 use Closure;
-use ZnCore\Base\Arr\Helpers\ArrayHelper;
+use ZnCore\Arr\Helpers\ArrayHelper;
 use ZnLib\Web\Html\Helpers\Html;
 use ZnLib\Web\Widget\Base\BaseWidget;
 

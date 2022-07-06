@@ -20,7 +20,7 @@ use ZnLib\Web\TwBootstrap\Widgets\Format\Formatters\StringFormatter;
 use ZnLib\Web\TwBootstrap\Widgets\Format\Formatters\TimeFormatter;
 use ZnLib\Web\TwBootstrap\Widgets\Format\Formatters\UnknownTypeFormatter;
 use ZnLib\Web\TwBootstrap\Widgets\Format\Libs\FormatEncoder;
-use ZnCore\Base\Arr\Helpers\ArrayHelper;
+use ZnCore\Arr\Helpers\ArrayHelper;
 use ZnCore\Entity\Helpers\EntityHelper;
 use ZnLib\Web\Widget\Base\BaseWidget2;
 

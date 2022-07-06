@@ -4,7 +4,7 @@ namespace ZnLib\Web\TwBootstrap\Widgets\Format\Formatters;
 
 
 use ZnCore\Text\Helpers\TemplateHelper;
-use ZnCore\Base\Arr\Helpers\ArrayHelper;
+use ZnCore\Arr\Helpers\ArrayHelper;
 
 class ArrayFormatter extends BaseFormatter implements FormatterInterface
 {

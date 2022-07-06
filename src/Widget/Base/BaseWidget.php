@@ -2,7 +2,7 @@
 
 namespace ZnLib\Web\Widget\Base;
 
-use ZnCore\Base\Instance\Helpers\ClassHelper;
+use ZnCore\Instance\Helpers\ClassHelper;
 
 use ZnCore\Text\Helpers\TemplateHelper;
 use ZnLib\Web\Widget\Interfaces\WidgetInterface;

@@ -2,7 +2,7 @@
 
 namespace ZnLib\Web\WebApp\Libs\EnvDetector;
 
-use ZnCore\Base\Env\Interfaces\EnvDetectorInterface;
+use ZnCore\Env\Interfaces\EnvDetectorInterface;
 
 class WebEnvDetector implements EnvDetectorInterface
 {

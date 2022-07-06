@@ -13,7 +13,7 @@ use ZnUser\Authentication\Domain\Enums\WebCookieEnum;
 use ZnUser\Authentication\Domain\Interfaces\Services\AuthServiceInterface;
 use ZnUser\Identity\Domain\Interfaces\Services\IdentityServiceInterface;
 use ZnCore\Contract\Common\Exceptions\InvalidConfigException;
-use ZnCore\Base\Arr\Helpers\ArrayHelper;
+use ZnCore\Arr\Helpers\ArrayHelper;
 use ZnCore\DotEnv\Domain\Libs\DotEnv;
 use ZnCore\Entity\Helpers\EntityHelper;
 use ZnLib\Web\Controller\Interfaces\ControllerAccessInterface;

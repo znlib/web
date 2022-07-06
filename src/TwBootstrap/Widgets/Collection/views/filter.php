@@ -7,7 +7,7 @@
  */
 
 use ZnCore\Entity\Factories\PropertyAccess;
-use ZnCore\Base\Instance\Helpers\ClassHelper;
+use ZnCore\Instance\Helpers\ClassHelper;
 use ZnCore\Text\Helpers\Inflector;
 use ZnLib\Components\Http\Helpers\UrlHelper;
 use ZnLib\Web\TwBootstrap\Widgets\Filter\FilterGenerator;

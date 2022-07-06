@@ -2,7 +2,7 @@
 
 namespace ZnLib\Web\TwBootstrap\Widgets\TabContent;
 
-use ZnCore\Base\Text\Helpers\Inflector;
+use ZnCore\Text\Helpers\Inflector;
 use ZnLib\Web\Widget\Base\BaseWidget2;
 
 class TabContentWidget extends BaseWidget2

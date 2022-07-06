@@ -4,7 +4,7 @@ namespace ZnLib\Web\Widget\Widgets\Toastr;
 
 use ZnBundle\Notify\Domain\Entities\ToastrEntity;
 use ZnBundle\Notify\Domain\Interfaces\Services\ToastrServiceInterface;
-use ZnCore\Domain\Collection\Interfaces\Enumerable;
+use ZnCore\Collection\Interfaces\Enumerable;
 use ZnLib\Web\View\Resources\Js;
 use ZnLib\Web\Widget\Base\BaseWidget2;
 

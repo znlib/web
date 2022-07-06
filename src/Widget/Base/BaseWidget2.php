@@ -22,7 +22,7 @@ abstract class BaseWidget2 implements WidgetInterface2
     public function getView(): View
     {
         if($this->view == null) {
-            $this->view = \ZnCore\Base\Container\Helpers\ContainerHelper::getContainer()->get(View::class);
+            $this->view = \ZnCore\Container\Helpers\ContainerHelper::getContainer()->get(View::class);
             //$this->view = new View();
         }
         return $this->view;

@@ -3,7 +3,7 @@
 namespace ZnLib\Web\TwBootstrap\Widgets\Table\Helpers;
 
 use ZnCore\Base\Arr\Helpers\ArrayHelper;
-use ZnCore\Domain\Entity\Helpers\EntityHelper;
+use ZnCore\Entity\Helpers\EntityHelper;
 
 class TableWidgetHelper
 {

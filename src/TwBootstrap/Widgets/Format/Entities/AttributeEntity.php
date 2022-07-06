@@ -5,7 +5,7 @@ namespace ZnLib\Web\TwBootstrap\Widgets\Format\Entities;
 use Symfony\Component\PropertyAccess\Exception\UnexpectedTypeException;
 use ZnCore\Base\Php\Helpers\PhpHelper;
 use ZnCore\Base\Php\Helpers\TypeHelper;
-use ZnCore\Domain\Entity\Helpers\EntityHelper;
+use ZnCore\Entity\Helpers\EntityHelper;
 
 class AttributeEntity
 {

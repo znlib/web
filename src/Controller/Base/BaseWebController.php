@@ -9,10 +9,10 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use ZnBundle\Notify\Domain\Interfaces\Services\ToastrServiceInterface;
-use ZnCore\Base\Container\Helpers\ContainerHelper;
+use ZnCore\Container\Helpers\ContainerHelper;
 use ZnCore\Base\Helpers\LoadHelper;
-use ZnCore\Base\Text\Helpers\TemplateHelper;
-use ZnCore\Domain\Entity\Helpers\EntityHelper;
+use ZnCore\Text\Helpers\TemplateHelper;
+use ZnCore\Entity\Helpers\EntityHelper;
 use ZnLib\Components\Http\Enums\HttpStatusCodeEnum;
 use ZnLib\Components\I18Next\Facades\I18Next;
 use ZnLib\Rest\Web\Controller\BaseCrudWebController;
@@ -182,7 +182,7 @@ abstract class BaseWebController //implements ControllerLayoutInterface
     protected function getView(): View
     {
         if (empty($this->view)) {
-            $this->view = \ZnCore\Base\Container\Helpers\ContainerHelper::getContainer()->get(View::class);
+            $this->view = \ZnCore\Container\Helpers\ContainerHelper::getContainer()->get(View::class);
 //            $this->view = new View();
         }
         return $this->view;

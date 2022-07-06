@@ -25,7 +25,7 @@ use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\HttpKernel\TerminableInterface;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
-use ZnCore\Base\EventDispatcher\Traits\EventDispatcherTrait;
+use ZnCore\EventDispatcher\Traits\EventDispatcherTrait;
 
 abstract class BaseHttpKernel implements HttpKernelInterface, TerminableInterface
 {

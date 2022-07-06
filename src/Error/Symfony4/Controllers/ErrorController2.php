@@ -10,7 +10,7 @@ use Symfony\Component\Routing\Exception\ResourceNotFoundException;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use ZnUser\Authentication\Symfony4\Web\Enums\WebUserEnum;
 use ZnCore\Contract\Common\Exceptions\InvalidConfigException;
-use ZnCore\Domain\Entity\Exceptions\NotFoundException;
+use ZnCore\Entity\Exceptions\NotFoundException;
 use ZnCore\Base\Env\Helpers\EnvHelper;
 use ZnCore\Contract\User\Exceptions\ForbiddenException;
 use ZnCore\Contract\User\Exceptions\UnauthorizedException;

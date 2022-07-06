@@ -6,7 +6,7 @@ use Psr\Container\ContainerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Controller\ControllerResolverInterface;
 use Symfony\Component\Routing\Matcher\UrlMatcher;
-use ZnCore\Base\Container\Traits\ContainerAwareTrait;
+use ZnCore\Container\Traits\ContainerAwareTrait;
 
 class ControllerResolver implements ControllerResolverInterface
 {

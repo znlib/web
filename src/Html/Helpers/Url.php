@@ -128,7 +128,7 @@ class Url
 //            return static::toRoute($url, $scheme);
 //        }
 
-//        $url = \ZnCore\Base\FileSystem\Helpers\FileHelper::getAlias($url);
+//        $url = \ZnCore\FileSystem\Helpers\FileHelper::getAlias($url);
         /*if ($url === '') {
             $url = Yii::$app->getRequest()->getUrl();
         }*/
@@ -286,7 +286,7 @@ class Url
      */
     /*protected static function normalizeRoute($route)
     {
-        $route = \ZnCore\Base\FileSystem\Helpers\FileHelper::getAlias((string)$route);
+        $route = \ZnCore\FileSystem\Helpers\FileHelper::getAlias((string)$route);
         if (strncmp($route, '/', 1) === 0) {
             // absolute route
             return ltrim($route, '/');

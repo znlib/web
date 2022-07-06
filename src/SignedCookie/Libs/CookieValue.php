@@ -2,7 +2,7 @@
 
 namespace ZnLib\Web\SignedCookie\Libs;
 
-use ZnCore\Base\DotEnv\Domain\Libs\DotEnv;
+use ZnCore\DotEnv\Domain\Libs\DotEnv;
 use ZnCrypt\Base\Domain\Enums\HashAlgoEnum;
 
 class CookieValue

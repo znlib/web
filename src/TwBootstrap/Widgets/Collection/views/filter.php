@@ -6,9 +6,9 @@
  * @var object $filterModel
  */
 
-use ZnCore\Domain\Entity\Factories\PropertyAccess;
+use ZnCore\Entity\Factories\PropertyAccess;
 use ZnCore\Base\Instance\Helpers\ClassHelper;
-use ZnCore\Base\Text\Helpers\Inflector;
+use ZnCore\Text\Helpers\Inflector;
 use ZnLib\Components\Http\Helpers\UrlHelper;
 use ZnLib\Web\TwBootstrap\Widgets\Filter\FilterGenerator;
 use ZnLib\Web\TwBootstrap\Widgets\Format\Entities\AttributeEntity;

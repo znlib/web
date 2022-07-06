@@ -3,7 +3,7 @@
 namespace ZnLib\Web\TwBootstrap\Widgets\Format\Formatters;
 
 
-use ZnCore\Base\Text\Helpers\TemplateHelper;
+use ZnCore\Text\Helpers\TemplateHelper;
 use ZnCore\Base\Arr\Helpers\ArrayHelper;
 
 class ArrayFormatter extends BaseFormatter implements FormatterInterface

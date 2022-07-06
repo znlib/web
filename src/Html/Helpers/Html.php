@@ -9,10 +9,10 @@ namespace ZnLib\Web\Html\Helpers;
 
 use Symfony\Component\HttpFoundation\Request;
 use ZnCore\Base\Arr\Helpers\ArrayHelper;
-use ZnCore\Base\FileSystem\Helpers\FileHelper;
+use ZnCore\FileSystem\Helpers\FileHelper;
 use ZnCore\Contract\Common\Exceptions\InvalidArgumentException;
-use ZnCore\Base\FileSystem\Helpers\FileStorageHelper;
-use ZnCore\Base\FileSystem\Helpers\MimeTypeHelper;
+use ZnCore\FileSystem\Helpers\FileStorageHelper;
+use ZnCore\FileSystem\Helpers\MimeTypeHelper;
 use ZnCore\Base\Legacy\Yii\Base\Model;
 use ZnLib\Web\Html\Helpers\Url;
 

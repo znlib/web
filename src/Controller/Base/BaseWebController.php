@@ -14,7 +14,7 @@ use ZnCore\Base\Helpers\LoadHelper;
 use ZnCore\Text\Helpers\TemplateHelper;
 use ZnCore\Entity\Helpers\EntityHelper;
 use ZnLib\Components\Http\Enums\HttpStatusCodeEnum;
-use ZnLib\Components\I18Next\Facades\I18Next;
+use ZnLib\I18Next\Facades\I18Next;
 use ZnLib\Rest\Web\Controller\BaseCrudWebController;
 use ZnLib\Web\Controller\Traits\ControllerUrlGeneratorTrait;
 use ZnLib\Web\Form\Interfaces\BuildFormInterface;

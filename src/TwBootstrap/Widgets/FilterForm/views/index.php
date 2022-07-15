@@ -8,7 +8,7 @@
 
 use yii\helpers\Html;
 use ZnLib\I18Next\Facades\I18Next;
-use ZnCore\Entity\Helpers\EntityHelper;
+use ZnDomain\Entity\Helpers\EntityHelper;
 use ZnLib\Web\View\Libs\View;
 
 ?>

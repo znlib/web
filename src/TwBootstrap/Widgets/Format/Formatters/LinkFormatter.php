@@ -4,7 +4,7 @@ namespace ZnLib\Web\TwBootstrap\Widgets\Format\Formatters;
 
 use ZnCore\Arr\Helpers\ArrayHelper;
 use ZnLib\Web\Html\Helpers\Html;
-use ZnCore\Entity\Helpers\EntityHelper;
+use ZnDomain\Entity\Helpers\EntityHelper;
 
 class LinkFormatter extends BaseFormatter implements FormatterInterface
 {

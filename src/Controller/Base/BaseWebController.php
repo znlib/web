@@ -12,7 +12,7 @@ use ZnBundle\Notify\Domain\Interfaces\Services\ToastrServiceInterface;
 use ZnCore\Container\Helpers\ContainerHelper;
 use ZnCore\Base\Helpers\LoadHelper;
 use ZnCore\Text\Helpers\TemplateHelper;
-use ZnCore\Entity\Helpers\EntityHelper;
+use ZnDomain\Entity\Helpers\EntityHelper;
 use ZnLib\Components\Http\Enums\HttpStatusCodeEnum;
 use ZnLib\I18Next\Facades\I18Next;
 use ZnLib\Rest\Web\Controller\BaseCrudWebController;

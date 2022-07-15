@@ -15,7 +15,7 @@ use ZnUser\Identity\Domain\Interfaces\Services\IdentityServiceInterface;
 use ZnCore\Contract\Common\Exceptions\InvalidConfigException;
 use ZnCore\Arr\Helpers\ArrayHelper;
 use ZnCore\DotEnv\Domain\Libs\DotEnv;
-use ZnCore\Entity\Helpers\EntityHelper;
+use ZnDomain\Entity\Helpers\EntityHelper;
 use ZnLib\Web\Controller\Interfaces\ControllerAccessInterface;
 use ZnLib\Web\SignedCookie\Libs\CookieValue;
 use ZnUser\Rbac\Domain\Interfaces\Services\ManagerServiceInterface;

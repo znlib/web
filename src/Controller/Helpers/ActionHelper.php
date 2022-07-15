@@ -7,7 +7,7 @@ use ZnCore\Arr\Helpers\ArrayHelper;
 use ZnLib\Web\Html\Helpers\Html;
 use ZnLib\Web\Html\Helpers\Url;
 use ZnLib\I18Next\Facades\I18Next;
-use ZnCore\Entity\Interfaces\EntityIdInterface;
+use ZnDomain\Entity\Interfaces\EntityIdInterface;
 
 class ActionHelper
 {

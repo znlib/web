@@ -3,7 +3,7 @@
 namespace ZnLib\Web\TwBootstrap\Widgets\Detail;
 
 use DateTime;
-use ZnCore\Entity\Helpers\CollectionHelper;
+use ZnDomain\Entity\Helpers\CollectionHelper;
 use ZnLib\Web\TwBootstrap\Widgets\Format\Entities\AttributeEntity;
 use ZnLib\Web\TwBootstrap\Widgets\Format\Enums\TypeEnum;
 use ZnLib\Web\TwBootstrap\Widgets\Format\Formatters\ArrayFormatter;
@@ -21,7 +21,7 @@ use ZnLib\Web\TwBootstrap\Widgets\Format\Formatters\TimeFormatter;
 use ZnLib\Web\TwBootstrap\Widgets\Format\Formatters\UnknownTypeFormatter;
 use ZnLib\Web\TwBootstrap\Widgets\Format\Libs\FormatEncoder;
 use ZnCore\Arr\Helpers\ArrayHelper;
-use ZnCore\Entity\Helpers\EntityHelper;
+use ZnDomain\Entity\Helpers\EntityHelper;
 use ZnLib\Web\Widget\Base\BaseWidget2;
 
 class DetailWidget extends BaseWidget2

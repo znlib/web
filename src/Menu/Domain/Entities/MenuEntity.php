@@ -4,9 +4,9 @@ namespace ZnLib\Web\Menu\Domain\Entities;
 
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
-use ZnCore\Validation\Interfaces\ValidationByMetadataInterface;
-use ZnCore\Entity\Helpers\CollectionHelper;
-use ZnCore\Entity\Interfaces\EntityIdInterface;
+use ZnDomain\Validator\Interfaces\ValidationByMetadataInterface;
+use ZnDomain\Entity\Helpers\CollectionHelper;
+use ZnDomain\Entity\Interfaces\EntityIdInterface;
 
 class MenuEntity implements ValidationByMetadataInterface, EntityIdInterface
 {

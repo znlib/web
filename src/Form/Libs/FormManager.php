@@ -13,9 +13,9 @@ use Symfony\Component\Security\Csrf\CsrfToken;
 use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 use Symfony\Component\Validator\ConstraintViolation;
 use ZnCore\DotEnv\Domain\Libs\DotEnv;
-use ZnCore\Validation\Entities\ValidationErrorEntity;
-use ZnCore\Validation\Exceptions\UnprocessibleEntityException;
-use ZnCore\Validation\Helpers\ValidationHelper;
+use ZnDomain\Validator\Entities\ValidationErrorEntity;
+use ZnDomain\Validator\Exceptions\UnprocessibleEntityException;
+use ZnDomain\Validator\Helpers\ValidationHelper;
 use ZnLib\Web\Form\Interfaces\BuildFormInterface;
 use ZnLib\Web\Form\Traits\ControllerFormTrait;
 

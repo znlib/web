@@ -3,7 +3,7 @@
 namespace ZnLib\Web\TwBootstrap\Widgets\Format\Formatters;
 
 use ZnLib\Web\Html\Helpers\Html;
-use ZnCore\Entity\Helpers\EntityHelper;
+use ZnDomain\Entity\Helpers\EntityHelper;
 use ZnLib\Web\TwBootstrap\Widgets\Format\Entities\AttributeEntity;
 
 class ImageFormatter extends LinkFormatter implements FormatterInterface

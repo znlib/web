@@ -6,7 +6,7 @@
  * @var object $filterModel
  */
 
-use ZnDomain\Entity\Factories\PropertyAccess;
+use ZnCore\Code\Factories\PropertyAccess;
 use ZnCore\Instance\Helpers\ClassHelper;
 use ZnCore\Text\Helpers\Inflector;
 use ZnLib\Components\Http\Helpers\UrlHelper;

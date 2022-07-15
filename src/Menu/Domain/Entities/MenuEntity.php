@@ -5,7 +5,7 @@ namespace ZnLib\Web\Menu\Domain\Entities;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 use ZnDomain\Validator\Interfaces\ValidationByMetadataInterface;
-use ZnDomain\Entity\Helpers\CollectionHelper;
+use ZnCore\Collection\Helpers\CollectionHelper;
 use ZnDomain\Entity\Interfaces\EntityIdInterface;
 
 class MenuEntity implements ValidationByMetadataInterface, EntityIdInterface

@@ -3,7 +3,7 @@
 namespace ZnLib\Web\TwBootstrap\Widgets\Detail;
 
 use DateTime;
-use ZnDomain\Entity\Helpers\CollectionHelper;
+use ZnCore\Collection\Helpers\CollectionHelper;
 use ZnLib\Web\TwBootstrap\Widgets\Format\Entities\AttributeEntity;
 use ZnLib\Web\TwBootstrap\Widgets\Format\Enums\TypeEnum;
 use ZnLib\Web\TwBootstrap\Widgets\Format\Formatters\ArrayFormatter;

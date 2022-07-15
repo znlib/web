@@ -3,7 +3,7 @@
 namespace ZnLib\Web\TwBootstrap\Widgets\Collection;
 
 use Symfony\Component\HttpFoundation\Request;
-use ZnDomain\Entity\Helpers\CollectionHelper;
+use ZnCore\Collection\Helpers\CollectionHelper;
 use ZnLib\Components\Http\Helpers\UrlHelper;
 use ZnLib\Web\TwBootstrap\Widgets\Format\Entities\AttributeEntity;
 use ZnLib\Web\TwBootstrap\Widgets\Format\Libs\FormatEncoder;

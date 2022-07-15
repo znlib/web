@@ -2,9 +2,8 @@
 
 namespace ZnLib\Web\TwBootstrap\Widgets\Format\Formatters;
 
+use ZnCore\Code\Helpers\PropertyHelper;
 use ZnLib\Web\Html\Helpers\Html;
-use ZnDomain\Entity\Helpers\EntityHelper;
-use ZnLib\Web\TwBootstrap\Widgets\Format\Entities\AttributeEntity;
 
 class ImageFormatter extends LinkFormatter implements FormatterInterface
 {
@@ -15,11 +14,11 @@ class ImageFormatter extends LinkFormatter implements FormatterInterface
     public function render($value)
     {
         $entity = $this->attributeEntity->getEntity();
-        $url = EntityHelper::getValue($entity, $this->imageUrlAttribute);
+        $url = PropertyHelper::getValue($entity, $this->imageUrlAttribute);
         $html = Html::img($url, [
             'style' => 'max-width: ' . $this->maxSize . 'px; max-height: ' . $this->maxSize . 'px;',
         ]);
-        if($this->uri) {
+        if ($this->uri) {
             return parent::render($html);
         }
         return $html;

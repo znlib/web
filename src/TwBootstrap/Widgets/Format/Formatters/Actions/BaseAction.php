@@ -2,11 +2,11 @@
 
 namespace ZnLib\Web\TwBootstrap\Widgets\Format\Formatters\Actions;
 
+use ZnCore\Code\Helpers\PropertyHelper;
+use ZnDomain\Entity\Interfaces\EntityIdInterface;
+use ZnLib\I18Next\Facades\I18Next;
 use ZnLib\Web\Html\Helpers\Html;
 use ZnLib\Web\Html\Helpers\Url;
-use ZnLib\I18Next\Facades\I18Next;
-use ZnDomain\Entity\Helpers\EntityHelper;
-use ZnDomain\Entity\Interfaces\EntityIdInterface;
 
 class BaseAction
 {
@@ -43,7 +43,7 @@ class BaseAction
             $this->baseUrl . '/' . $this->urlAction,
         ];
         foreach ($this->linkParams as $queryName => $entityAttribute) {
-            $urlParams[$queryName] = EntityHelper::getValue($this->entity, $entityAttribute);
+            $urlParams[$queryName] = PropertyHelper::getValue($this->entity, $entityAttribute);
         }
         return $urlParams;
     }

@@ -6,12 +6,12 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Exception\RouteNotFoundException;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Yii;
-use ZnCore\Instance\Helpers\ClassHelper;
-use ZnCore\Text\Helpers\Inflector;
+use ZnCore\Code\Helpers\PropertyHelper;
+use ZnCore\Collection\Interfaces\Enumerable;
 use ZnCore\Contract\User\Exceptions\ForbiddenException;
 use ZnCore\Contract\User\Exceptions\UnauthorizedException;
-use ZnCore\Collection\Interfaces\Enumerable;
-use ZnDomain\Entity\Helpers\EntityHelper;
+use ZnCore\Instance\Helpers\ClassHelper;
+use ZnCore\Text\Helpers\Inflector;
 use ZnDomain\Query\Entities\Query;
 use ZnDomain\Service\Base\BaseCrudService;
 use ZnLib\I18Next\Exceptions\NotFoundBundleException;
@@ -88,7 +88,7 @@ class MenuService extends BaseCrudService implements MenuServiceInterface
             /** @var MenuInterface $widgetInstance */
             $widgetInstance = ClassHelper::createObject($menuEntity->getWidget());
             $item = $widgetInstance->menu();
-            EntityHelper::setAttributes($menuEntity, $item);
+            PropertyHelper::setAttributes($menuEntity, $item);
         }
 
         if ($menuEntity->getModule()) {

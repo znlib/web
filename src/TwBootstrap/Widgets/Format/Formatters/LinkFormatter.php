@@ -3,8 +3,8 @@
 namespace ZnLib\Web\TwBootstrap\Widgets\Format\Formatters;
 
 use ZnCore\Arr\Helpers\ArrayHelper;
+use ZnCore\Code\Helpers\PropertyHelper;
 use ZnLib\Web\Html\Helpers\Html;
-use ZnDomain\Entity\Helpers\EntityHelper;
 
 class LinkFormatter extends BaseFormatter implements FormatterInterface
 {
@@ -17,12 +17,12 @@ class LinkFormatter extends BaseFormatter implements FormatterInterface
     public function render($value)
     {
         $entity = $this->attributeEntity->getEntity();
-        if($this->attributeEntity->getAttributeName()) {
-            $title = EntityHelper::getValue($entity, $this->attributeEntity->getAttributeName());
+        if ($this->attributeEntity->getAttributeName()) {
+            $title = PropertyHelper::getValue($entity, $this->attributeEntity->getAttributeName());
         } else {
             $title = $value;
         }
-        $link = EntityHelper::getValue($entity, $this->linkAttribute);
+        $link = PropertyHelper::getValue($entity, $this->linkAttribute);
         $uri = ArrayHelper::toArray($this->uri);
         $uri[$this->linkParam] = $link;
         return Html::a($title, $uri);

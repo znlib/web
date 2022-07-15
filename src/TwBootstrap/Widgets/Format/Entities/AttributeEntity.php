@@ -3,9 +3,8 @@
 namespace ZnLib\Web\TwBootstrap\Widgets\Format\Entities;
 
 use Symfony\Component\PropertyAccess\Exception\UnexpectedTypeException;
-use ZnCore\Code\Helpers\PhpHelper;
+use ZnCore\Code\Helpers\PropertyHelper;
 use ZnCore\Code\Helpers\TypeHelper;
-use ZnDomain\Entity\Helpers\EntityHelper;
 
 class AttributeEntity
 {
@@ -115,7 +114,7 @@ class AttributeEntity
                 $value = '';
             } else {
                 try {
-                    $value = EntityHelper::getValue($this->entity, $this->attributeName);
+                    $value = PropertyHelper::getValue($this->entity, $this->attributeName);
                 } catch (UnexpectedTypeException $e) {
                     $value = null;
                 }

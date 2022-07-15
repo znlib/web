@@ -7,8 +7,8 @@
  */
 
 use yii\helpers\Html;
+use ZnCore\Code\Helpers\PropertyHelper;
 use ZnLib\I18Next\Facades\I18Next;
-use ZnDomain\Entity\Helpers\EntityHelper;
 use ZnLib\Web\View\Libs\View;
 
 ?>
@@ -19,7 +19,7 @@ use ZnLib\Web\View\Libs\View;
         $attribute['inputName'] = "filter[{$attribute['name']}]";
         $label = $attribute['label'];
         $type = $attribute['type'] ?? 'text';
-        $attribute['value'] = EntityHelper::getValue($model, $attribute['name']);
+        $attribute['value'] = PropertyHelper::getValue($model, $attribute['name']);
         ?>
         <div class="form-group col-lg-2 col-md-6">
             <?= Html::label('Title', $name, ['class' => 'sr-only']); ?>

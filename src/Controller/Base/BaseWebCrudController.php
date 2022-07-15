@@ -6,13 +6,14 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use ZnCore\Arr\Helpers\ArrayHelper;
-use ZnDomain\Validator\Exceptions\UnprocessibleEntityException;
-use ZnDomain\Validator\Helpers\ValidationHelper;
+use ZnCore\Code\Helpers\PropertyHelper;
 use ZnDomain\Entity\Helpers\EntityHelper;
 use ZnDomain\Entity\Interfaces\EntityIdInterface;
 use ZnDomain\Query\Entities\Query;
 use ZnDomain\Service\Base\BaseCrudService;
 use ZnDomain\Service\Interfaces\CrudServiceInterface;
+use ZnDomain\Validator\Exceptions\UnprocessibleEntityException;
+use ZnDomain\Validator\Helpers\ValidationHelper;
 use ZnLib\Web\Controller\Enums\CrudControllerActionEnum;
 use ZnLib\Web\Controller\Helpers\WebQueryHelper;
 use ZnLib\Web\Form\Interfaces\BuildFormInterface;
@@ -121,7 +122,7 @@ abstract class BaseWebCrudController extends BaseWebController
 
     protected function getTitleFromEntity(object $entity): string
     {
-        return EntityHelper::getAttribute($entity, $this->titleAttribute());
+        return PropertyHelper::getValue($entity, $this->titleAttribute());
     }
 
     public function index(Request $request): Response

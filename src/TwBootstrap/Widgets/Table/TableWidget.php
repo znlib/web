@@ -22,7 +22,7 @@ class TableWidget extends BaseWidget2
 
         if($this->header) {
             $keys = ArrayHelper::isIndexed($this->header) ? array_values($this->header) : array_keys($this->header);
-            $this->body = ArrayHelper::collectionExtractByKeys($this->body, $keys);
+            $this->body = ArrayHelper::extractItemsWithAttributes($this->body, $keys);
         }
 
         $body = TableWidgetHelper::prepareBody($this->body ?: []);
